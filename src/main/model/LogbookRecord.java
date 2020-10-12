@@ -49,7 +49,7 @@ public class LogbookRecord {
 
     //requires: hour > 0
     //modifies: this
-    //effect: return a list of entries with fligh time greater or equal to the given time
+    //effect: return a list of entries with flight time greater or equal to the given time
     public List<LogbookEntry> filterByFlightTime(double hour) {
         ArrayList<LogbookEntry> toKeep = new ArrayList<>();
 

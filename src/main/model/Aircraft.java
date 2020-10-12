@@ -4,15 +4,15 @@ package model;
 public class Aircraft {
 
     public String aircraftType;
-    public String callSign;
-    public String description;
+    public String aircraftRegistration;
+    public String aircraftDescription;
 
 
     //Represent and aircraft with the Type and Registration
-    public Aircraft(String type, String registration, String remark) {
-        this.aircraftType = type;
-        this.callSign = registration;
-        this.description = remark;
+    public Aircraft() {
+        this.aircraftType = "type";
+        this.aircraftRegistration = "registration";
+        this.aircraftDescription = "note";
     }
 
     //getter
@@ -23,14 +23,37 @@ public class Aircraft {
 
     //getter
     //effect: return legal registration callsign
-    //getter
-    //effect: return the date in string.
     public String getAircraftReg() {
-        return callSign;
+        return aircraftRegistration;
     }
 
-    public String editDescription(String update) {
-        return description = update;
+    //getter
+    //effect: return airplane description
+    public String getAircraftDescription() {
+        return aircraftDescription;
+    }
+
+    //requires: non-empty string
+    //modifies: this
+    //effects: sets airplane's type
+    public void setAircraftType(String type) {
+        this.aircraftType = type;
+    }
+
+
+    //requires: non-empty string
+    //modifies: this
+    //effects: sets airplane's name
+    public void setAircraftReg(String callSign) {
+        this.aircraftRegistration = callSign;
+    }
+
+
+    //requires: non-empty string
+    //modifies: this
+    //effects: sets airplane description
+    public void setAircraftDescription(String note) {
+        this.aircraftDescription = note;
     }
 
 

@@ -4,17 +4,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class LogbookRecordTest {
     private LogbookEntry entryOne;
     private LogbookEntry entryTwo;
     private LogbookEntry entryThree;
+    private LogbookEntry entryFour;
     private Aircraft aircraft;
     public String callSign;
     private LogbookRecord record;
 
     @BeforeEach
     public void setUp() {
-        aircraft = new Aircraft("C-172M", callSign, "Made by Cessna");
         entryOne = new LogbookEntry();
         entryOne.setEntryNumber(1);
         entryOne.setMonth("June");
@@ -48,6 +50,17 @@ class LogbookRecordTest {
         entryThree.setDayOrnight("Night");
         entryThree.setRemark("Solo");
 
+        entryFour = new LogbookEntry();
+        entryFour.setEntryNumber(3);
+        entryFour.setMonth("June");
+        entryFour.setDay(10);
+        entryFour.setAirplaneModel("C-172M");
+        entryFour.setCallSign("GXWS");
+        entryFour.setPic("JWei");
+        entryFour.setFLightTime(1.1);
+        entryFour.setDayOrnight("Night");
+        entryFour.setRemark("Solo");
+
         record = new LogbookRecord();
         record.addAnEntry(entryOne);
         record.addAnEntry(entryTwo);
@@ -56,9 +69,8 @@ class LogbookRecordTest {
 
     @Test
     public void testAddAnEntry() {
-        assertEquals("June 8", entryOne.getDate());
-        assertEquals("JWei", entryOne.getPic());
-        assertEquals(3, record.countEntries());
+        record.addAnEntry(entryThree);
+        assertEquals(4, record.countEntries());
 
 
     }
@@ -80,26 +92,30 @@ class LogbookRecordTest {
 
     @Test
     public void testFilterByFlighttimeWithReminder() {
-        record.filterByFlightTime(0.5);
-        assertEquals(2, record.countEntries());
+        List<LogbookEntry> result = record.filterByFlightTime(0.5);
+        assertEquals(2, result.size());
     }
 
     @Test
     public void testFilterByFlighttimeWithNoReminder() {
-        record.filterByFlightTime(2.5);
-        assertEquals(0, record.countEntries());
+        List<LogbookEntry> result = record.filterByFlightTime(2.5);
+        assertEquals(0, result.size());
     }
 
     @Test
     public void testFilterByFlighttimeRemoveNothing() {
-        record.filterByFlightTime(0.1);
-        assertEquals(3, record.countEntries());
+        assertEquals(3, record.filterByFlightTime(0.1).size());
     }
 
     @Test
     public void testFilterByDayOrNight() {
         assertEquals(1, (record.filterByDayOrNight("Day")).size());
         assertEquals(2, (record.filterByDayOrNight("Night")).size());
+    }
+
+    @Test
+    public void testDisplayAllEntries() {
+        assertTrue(record.displayAllEntry().contains(entryOne));
     }
 
 }

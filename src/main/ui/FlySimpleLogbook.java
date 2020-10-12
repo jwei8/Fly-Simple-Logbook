@@ -48,7 +48,6 @@ public class FlySimpleLogbook {
     //modifies: this
     //effect: initialize the logbook by creating some entries
     private void init() {
-        aircraftOne = new Aircraft("C-172M", "GXWS", "Made by Cessna");
         input = new Scanner(System.in);
         record = new LogbookRecord();
         createEntryOne();

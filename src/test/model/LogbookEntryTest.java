@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 
 class LogbookEntryTest {
     private LogbookEntry entry;
-    private Aircraft aircraft;
 
     @BeforeEach
     public void setUp() {
-        aircraft = new Aircraft("C-172M","C-GXWS", "Made by Cessna");
         entry = new LogbookEntry();
+        entry.setEntryNumber(1);
         entry.setMonth("June");
         entry.setDay(8);
         entry.setAirplaneModel("C-172M");
@@ -25,9 +24,14 @@ class LogbookEntryTest {
     @Test
 
     public void testLogbookEntry() {
+        assertEquals(1, entry.getEntryNumber());
         assertEquals("June 8", entry.getDate());
+        assertEquals("C-172M", entry.getAirplaneModel());
+        assertEquals("GXWS", entry.getAirplaneName());
         assertEquals("JWei", entry.getPic());
-        assertEquals("Day", entry.dayOrnight);
+        assertEquals(1.4, entry.getFlightTime());
+        assertEquals("Day", entry.getDayOrnight());
+        assertEquals("CheckRide", entry.getRemark());
     }
 
 }
