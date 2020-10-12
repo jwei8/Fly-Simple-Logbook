@@ -213,7 +213,7 @@ public class FlySimpleLogbook {
     //effect: filter the entries by Day
     private String entryFilteredByDay() {
         System.out.println("Showing logbook entries: ");
-        String entries = "Showing all flight conducted during the day" + "\nEnter r to choose a differnt filter item";
+        String entries = "Showing all flight conducted during the day";
 
 
         List<LogbookEntry> allEntry = record.filterByDayOrNight("Day");
@@ -236,7 +236,7 @@ public class FlySimpleLogbook {
     //effect: filter the entries by Night
     private String entryFilteredByNight() {
         System.out.println("Showing logbook entries: ");
-        String entries = "Showing all flights at night" + "\nEnter r to choose a differnt filter item";
+        String entries = "Showing all flights at night";
 
         List<LogbookEntry> allEntry = record.filterByDayOrNight("Night");
 
@@ -264,8 +264,7 @@ public class FlySimpleLogbook {
         List<LogbookEntry> allEntry = record.filterByFlightTime(searchByFlightTime);
 
         if (allEntry.isEmpty()) {
-            return "\nThere is no such entry that qualifies the minimum flight time. "
-                    + "\n Enter r to choose a different filter method";
+            return "\nThere is no such entry that qualifies the minimum flight time. ";
         }
 
         for (LogbookEntry e : allEntry) {
