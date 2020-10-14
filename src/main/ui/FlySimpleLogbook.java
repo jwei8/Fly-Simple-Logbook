@@ -68,7 +68,7 @@ public class FlySimpleLogbook {
 
     }
 
-    // EFFECTS: displays menu of options to user
+    //effect: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nWelcome to FLySimpleLogbook! Select from:");
         System.out.println("\ta -> Add a new entry");
@@ -78,15 +78,15 @@ public class FlySimpleLogbook {
         System.out.println("\tq -> quit");
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user command
+    //modifies: this
+    //effect: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
             addEntry();
         } else if (command.equals("v")) {
             viewLogbook();
         } else if (command.equals("s")) {
-            showAircraft();
+            processAircraftCommand();
         } else if (command.equals("f")) {
             processFilterCommand();
         } else {
@@ -94,6 +94,7 @@ public class FlySimpleLogbook {
         }
     }
 
+    //constructor
     private void createEntryOne() {
         entryOne = new LogbookEntry();
         entryOne.setEntryNumber(1);
@@ -107,6 +108,8 @@ public class FlySimpleLogbook {
         entryOne.setRemark("CheckRide");
     }
 
+
+    //constructor
     private void createEntryTwo() {
         entryTwo = new LogbookEntry();
         entryTwo.setEntryNumber(2);
@@ -120,6 +123,7 @@ public class FlySimpleLogbook {
         entryTwo.setRemark("Solo");
     }
 
+    //constructor
     private void createEntryThree() {
         entryThree = new LogbookEntry();
         entryThree.setEntryNumber(3);
@@ -133,6 +137,7 @@ public class FlySimpleLogbook {
         entryThree.setRemark("Solo");
     }
 
+    //constructor
     private void createAirplaneOne() {
         aircraftOne.setAircraftType("C-172M");
         aircraftOne.setAircraftReg("C-GXWS");
@@ -161,6 +166,7 @@ public class FlySimpleLogbook {
         System.out.println(newEntry.getFlightTime() + " " + " hour has been added successfully");
     }
 
+    //effect: display logbook entries on file
     private void viewLogbook() {
         System.out.println("showing all entries");
         System.out.println(loadLogbook());
@@ -190,7 +196,7 @@ public class FlySimpleLogbook {
         return entries;
     }
 
-
+    //effect: display filter menu options
     private void filterMenuOption() {
         System.out.println("\nSelect filter method:");
         System.out.println("\td -> Day only");
@@ -200,6 +206,7 @@ public class FlySimpleLogbook {
 
     }
 
+    //effect: process filter item command
     private void processFilterCommand() {
         boolean keepGoing = true;
         while (keepGoing) {
@@ -224,6 +231,7 @@ public class FlySimpleLogbook {
         }
     }
 
+    //effect: display aircraft menu options
     private void aircraftMenuOption() {
         System.out.println("\nSelect a option:");
         System.out.println("\tv -> View saved aircraft profiles");
@@ -233,8 +241,8 @@ public class FlySimpleLogbook {
 
     }
 
-
-    private void showAircraft() {
+    //effect:process command for modifying aircraft profiles
+    private void processAircraftCommand() {
         boolean keepGoing = true;
         while (keepGoing) {
             aircraftMenuOption();
@@ -285,6 +293,7 @@ public class FlySimpleLogbook {
 
 
     //reference: https://stackoverflow.com/questions/7528045/large-string-split-into-lines-with-maximum-length-in-java
+    //modifies: this
     //effect: add line breaks to long input descriptions.
     public String addLinebreaks(String input, int maxLineLength) {
         StringTokenizer tok = new StringTokenizer(input, " ");

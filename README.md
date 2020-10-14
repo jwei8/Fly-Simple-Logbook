@@ -7,8 +7,10 @@ A *bulleted* list:
 - What will it do?
 - Why is this project of interest to you?
 
-*FlySimpleLogbook* is an electronic Logbook designed for General Aviation pilots which help them to record their flight
-information for each flight.
+*FlySimpleLogbook* is an electronic Logbook designed for General Aviation pilots which help them to record the
+information for each flight. It's suitable for student pilots and licensed pilots to log their flying hours on a
+digital platform.
+
 The application will be able to record important flight information such as Date, Aircraft information, flight time
 during day and night and the route of the flight.
 <br>
@@ -33,7 +35,7 @@ A *bulleted* list:
 - As a user, I want to be able to add an entry to the logbook.
 - As a user, I want to be able to view all the entries in the logbook.
 - As a user, I want to be able to filter the entries by flights during the day or night.
-- As a user, I want to be able to create a new aircraft profile with description.
+- As a user, I want to be able to create a new aircraft profile.
 - As a user, I want to be able to view the aircraft profiles stored on file.
 - As a user, I want to be able to remove a specific aircraft profile on file.
 
