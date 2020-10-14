@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+//represents the main of the logbook app
 public class FlySimpleLogbook {
     private LogbookEntry entryOne;
     private LogbookEntry entryTwo;

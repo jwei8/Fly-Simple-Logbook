@@ -1,7 +1,7 @@
 package model;
 
 import java.util.*;
-
+//represents a list of logbook entries
 public class LogbookRecord {
 
     List<LogbookEntry> logBookEntries;

@@ -1,6 +1,6 @@
 package model;
 
-
+//represent one logbook entry with flight information
 public class LogbookEntry {
 
     public String month;
