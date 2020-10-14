@@ -30,9 +30,7 @@ However, it is a repetitive process to write down hours by hand each time after 
 introduces the possibility of making algebra mistakes. As a private pilot myself, I have been researching for a way to 
 digitalis my paper logbook using a simple and user-friendly program. Therefore, it inspired me to use this opportunity
 to create an electronic logbook to simplify the process of logging flying hours for pilots. Computers are good at executing
-the same commands repeatedly, which makes it a good tool for pilots to maintain their personal logbooks. The fundamentals of this 
-logbook program is transferable, and can be adapted easily to other professions, such as recording flying hours of an 
-aircraft for maintenance purpose, recording work experience for aircraft maintenance engineers, and so much more. 
+the same commands repeatedly, which makes it a good tool for pilots to maintain their personal logbooks.  
 <br>
 <br>
 ## User Stories
