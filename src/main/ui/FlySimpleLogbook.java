@@ -514,9 +514,9 @@ public class FlySimpleLogbook {
     //modifies: this
     //effect add notes to flight
     private void addDepartureAirport() {
-        System.out.print("\nEnter departure airport 4 letter identifier, ex CYNJ");
+        System.out.print("\nEnter departure airport 4 letter identifier, ex CYNJ \n");
         String dep = input.nextLine();
-        newEntry.setRemark(dep);
+        newEntry.setDepartureAirport(dep);
         System.out.println("Departed from: " + dep);
     }
 
@@ -524,13 +524,13 @@ public class FlySimpleLogbook {
     //modifies: this
     //effect add notes to flight
     private void addArrivalAirport() {
-        System.out.print("\nEnter arrival airport 4 letter identifier, ex CYNJ");
-        String arriv = input.nextLine();
-        newEntry.setRemark(arriv);
-        System.out.println("Arrived at: " + arriv);
+        System.out.print("\nEnter arrival airport 4 letter identifier, ex CYNJ \n");
+        String arrival = input.nextLine();
+        newEntry.setArrivalAirport(arrival);
+        System.out.println("Arrived at: " + arrival);
     }
 
-    //require: input for remark is non empty string
+    //require:
     //modifies: this
     //effect add notes to flight
     private void addRemark() {

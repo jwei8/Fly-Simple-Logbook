@@ -167,15 +167,15 @@ public class LogbookEntry {
     //requires: none empty string
     //modifies: this
     //effects: sets departure airport
-    public void setDepartureAirport(String airport) {
-        this.departureAirport = airport;
+    public void setDepartureAirport(String dep) {
+        this.departureAirport = dep;
     }
 
     //requires: none empty string
     //modifies: this
-    //effects: sets departure airport
-    public void setArrivalAirport(String airport) {
-        this.arrivalAirport = airport;
+    //effects: sets arrival airport
+    public void setArrivalAirport(String arrival) {
+        this.arrivalAirport = arrival;
     }
 
 }
