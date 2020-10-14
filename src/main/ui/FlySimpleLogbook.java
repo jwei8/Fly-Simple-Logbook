@@ -105,6 +105,8 @@ public class FlySimpleLogbook {
         entryOne.setPic("JWei");
         entryOne.setFLightTime(1.0);
         entryOne.setDayOrnight("Day");
+        entryOne.setDepartureAirport("CYNJ");
+        entryOne.setArrivalAirport("CYVR");
         entryOne.setRemark("CheckRide");
     }
 
@@ -120,6 +122,8 @@ public class FlySimpleLogbook {
         entryTwo.setPic("JWei");
         entryTwo.setFLightTime(0.5);
         entryTwo.setDayOrnight("Day");
+        entryTwo.setDepartureAirport("CYYJ");
+        entryTwo.setArrivalAirport("CYUL");
         entryTwo.setRemark("Solo");
     }
 
@@ -134,6 +138,8 @@ public class FlySimpleLogbook {
         entryThree.setPic("JWei");
         entryThree.setFLightTime(0.1);
         entryThree.setDayOrnight("Night");
+        entryThree.setDepartureAirport("CYYJ");
+        entryThree.setArrivalAirport("CYCW");
         entryThree.setRemark("Solo");
     }
 
@@ -161,6 +167,8 @@ public class FlySimpleLogbook {
         addPic();
         addFlightTime();
         addDayOrNight();
+        addDepartureAirport();
+        addArrivalAirport();
         addRemark();
         record.addAnEntry(newEntry);
         System.out.println(newEntry.getFlightTime() + " " + " hour has been added successfully");
@@ -190,7 +198,8 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + "    " + e.getRemark();
+                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
         return entries;
@@ -354,7 +363,8 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + "    " + e.getRemark();
+                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
         return entries;
@@ -376,7 +386,8 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + "    " + e.getRemark();
+                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
         return entries;
@@ -398,7 +409,8 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + "    " + e.getRemark();
+                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport()
+                    + "    " + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
         return entries;
@@ -496,6 +508,26 @@ public class FlySimpleLogbook {
             newEntry.setDayOrnight("Night");
             System.out.println("This flight was conducted during the hour of darkness");
         }
+    }
+
+    //require: input for departure airport is non empty string
+    //modifies: this
+    //effect add notes to flight
+    private void addDepartureAirport() {
+        System.out.print("\nEnter departure airport 4 letter identifier, ex CYNJ");
+        String dep = input.nextLine();
+        newEntry.setRemark(dep);
+        System.out.println("Departed from: " + dep);
+    }
+
+    //require: input for arrival airport is non empty string
+    //modifies: this
+    //effect add notes to flight
+    private void addArrivalAirport() {
+        System.out.print("\nEnter arrival airport 4 letter identifier, ex CYNJ");
+        String arriv = input.nextLine();
+        newEntry.setRemark(arriv);
+        System.out.println("Arrived at: " + arriv);
     }
 
     //require: input for remark is non empty string

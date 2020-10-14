@@ -13,6 +13,9 @@ public class LogbookEntry {
     public int entryNumber;
     public double flightTime;
     public String date;
+    public String departureAirport;
+    public String arrivalAirport;
+
 
 
 
@@ -30,6 +33,8 @@ public class LogbookEntry {
         this.pilotInCommand = "pic";
         this.flightTime = 0.0;
         this.dayOrnight = "dayOrNight";
+        this.departureAirport = "Airport";
+        this.arrivalAirport = "home";
         this.remark = "remark";
 
     }
@@ -79,9 +84,21 @@ public class LogbookEntry {
 
 
     //getter
-    //effect: return the date in string.
+    //effect: return the pilot name in string.
     public String getPic() {
         return pilotInCommand;
+    }
+
+    //getter
+    //effect: return the name of departure airport
+    public String getDepartureAirport() {
+        return departureAirport;
+    }
+
+    //getter
+    //effect: return the name of departure airport
+    public String getArrivalAirport() {
+        return arrivalAirport;
     }
 
     //requires: entry number > 0
@@ -135,16 +152,30 @@ public class LogbookEntry {
 
     //requires: non-empty string
     //modifies: this
-    //effects: sets pilot name
+    //effects: sets day or night
     public void setDayOrnight(String day) {
         this.dayOrnight = day;
     }
 
-    //requires:
+    //requires: none empty string
     //modifies: this
-    //effects: sets pilot name
+    //effects: sets note
     public void setRemark(String note) {
         this.remark = note;
+    }
+
+    //requires: none empty string
+    //modifies: this
+    //effects: sets departure airport
+    public void setDepartureAirport(String airport) {
+        this.departureAirport = airport;
+    }
+
+    //requires: none empty string
+    //modifies: this
+    //effects: sets departure airport
+    public void setArrivalAirport(String airport) {
+        this.arrivalAirport = airport;
     }
 
 }

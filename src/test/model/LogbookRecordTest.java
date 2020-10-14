@@ -26,6 +26,8 @@ class LogbookRecordTest {
         entryOne.setPic("JWei");
         entryOne.setFLightTime(1.0);
         entryOne.setDayOrnight("Day");
+        entryOne.setDepartureAirport("CYNJ");
+        entryOne.setArrivalAirport("CYVR");
         entryOne.setRemark("CheckRide");
 
         entryTwo = new LogbookEntry();
@@ -37,6 +39,8 @@ class LogbookRecordTest {
         entryTwo.setPic("JWei");
         entryTwo.setFLightTime(0.5);
         entryTwo.setDayOrnight("Night");
+        entryTwo.setDepartureAirport("CYNJ");
+        entryTwo.setArrivalAirport("CYVR");
         entryTwo.setRemark("Solo");
 
         entryThree = new LogbookEntry();
@@ -48,6 +52,8 @@ class LogbookRecordTest {
         entryThree.setPic("JWei");
         entryThree.setFLightTime(0.1);
         entryThree.setDayOrnight("Night");
+        entryThree.setDepartureAirport("CYYJ");
+        entryThree.setArrivalAirport("CYCW");
         entryThree.setRemark("Solo");
 
         entryFour = new LogbookEntry();
@@ -58,7 +64,8 @@ class LogbookRecordTest {
         entryFour.setCallSign("GXWS");
         entryFour.setPic("JWei");
         entryFour.setFLightTime(1.1);
-        entryFour.setDayOrnight("Night");
+        entryFour.setDepartureAirport("CYNJ");
+        entryFour.setArrivalAirport("CYXX");
         entryFour.setRemark("Solo");
 
         record = new LogbookRecord();

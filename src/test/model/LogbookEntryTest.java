@@ -18,6 +18,8 @@ class LogbookEntryTest {
         entry.setPic("JWei");
         entry.setFLightTime(1.4);
         entry.setDayOrnight("Day");
+        entry.setDepartureAirport("CYNJ");
+        entry.setArrivalAirport("CYVR");
         entry.setRemark("CheckRide");
     }
 
@@ -31,6 +33,8 @@ class LogbookEntryTest {
         assertEquals("JWei", entry.getPic());
         assertEquals(1.4, entry.getFlightTime());
         assertEquals("Day", entry.getDayOrnight());
+        assertEquals("CYNJ", entry.getDepartureAirport());
+        assertEquals("CYVR", entry.getArrivalAirport());
         assertEquals("CheckRide", entry.getRemark());
     }
 
