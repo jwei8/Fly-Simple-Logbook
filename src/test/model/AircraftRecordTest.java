@@ -29,8 +29,7 @@ public class AircraftRecordTest {
     @Test
     public void testRemoveAnAircraftByReg() {
         List<Aircraft> result = record.removeAnAircraftByReg("C-GXWS");
-        assertEquals(2, record.countNumberOfAircraft());
-        assertEquals(1,result.size());
+        assertEquals(1, record.countNumberOfAircraft());
     }
 
     @Test
