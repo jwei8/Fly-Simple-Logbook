@@ -1,6 +1,7 @@
 package model;
 
 //Represents an aircraft profile
+
 public class Aircraft {
 
     public String aircraftType;
