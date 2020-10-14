@@ -29,14 +29,15 @@ public class AircraftRecord {
     //modifies:this
     //effect: remove an entry by FlightNum and produce the new list
     public List<Aircraft> removeAnAircraftByReg(String name) {
-        ArrayList<Aircraft> toKeep = new ArrayList<>();
+        ArrayList<Aircraft> toRemove = new ArrayList<>();
 
         for (Aircraft plane : aircraftList) {
-            if (!plane.aircraftRegistration.equals(name)) {
-                toKeep.add(plane);
+            if (plane.aircraftRegistration.contains(name)) {
+                toRemove.add(plane);
             }
         }
-        return toKeep;
+        aircraftList.removeAll(toRemove);
+        return aircraftList;
     }
 
     //requires:

@@ -32,6 +32,15 @@ aircraft for maintenance purpose, recording work experience for aircraft mainten
 A *bulleted* list:
 - As a user, I want to be able to add an entry to the logbook.
 - As a user, I want to be able to view all the entries in the logbook.
-- As a user, I want to be able to edit a specific entry in the logbook.
 - As a user, I want to be able to filter the entries by flights during the day or night.
 - As a user, I want to be able to create a new aircraft profile with description.
+- As a user, I want to be able to view the aircraft profiles stored on file.
+- As a user, I want to be able to remove a specific aircraft profile on file.
+
+## User Stories
+Instruction for grader:
+<br>
+The ui contains 3 pre-recorded entries and 1 saved aircraft profile for demonstration purposes. All user stories above
+are working. You can choose to mark the first 4 stories. There is one method in LogbookRecord called 
+removeEntryByFlightNum is not ready to be implemented in the UI yet, because I am still deciding its use in the program.
+

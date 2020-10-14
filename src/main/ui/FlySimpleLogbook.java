@@ -1,20 +1,24 @@
 package ui;
 
 import model.Aircraft;
+import model.AircraftRecord;
 import model.LogbookEntry;
 import model.LogbookRecord;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class FlySimpleLogbook {
     private LogbookEntry entryOne;
     private LogbookEntry entryTwo;
     private LogbookEntry entryThree;
     private LogbookEntry newEntry;
+    private Aircraft newAirplane;
     private LogbookRecord record;
     private Scanner input;
     private Aircraft aircraftOne;
+    private AircraftRecord aircraftRecord;
     private double searchByFlightTime;
 
 
@@ -50,20 +54,26 @@ public class FlySimpleLogbook {
     private void init() {
         input = new Scanner(System.in);
         record = new LogbookRecord();
+        aircraftOne = new Aircraft();
+        aircraftRecord = new AircraftRecord();
         createEntryOne();
         createEntryTwo();
         createEntryThree();
         record.addAnEntry(entryOne);
         record.addAnEntry(entryTwo);
         record.addAnEntry(entryThree);
+        createAirplaneOne();
+        aircraftRecord.addAirplane(aircraftOne);
+
+
     }
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nWelcome to FLySimpleLogbook! Select from:");
         System.out.println("\ta -> Add a new entry");
-        System.out.println("\tv -> View Logbook wiith all existing entries");
-        System.out.println("\ts -> Show saved aircraft profiles on file");
+        System.out.println("\tv -> View Logbook with all existing entries");
+        System.out.println("\ts -> View the Fleet of aircraft");
         System.out.println("\tf -> Sort all flights by a specific filter item, such as DayOrNight or FlightTime");
         System.out.println("\tq -> quit");
     }
@@ -121,6 +131,16 @@ public class FlySimpleLogbook {
         entryThree.setFLightTime(0.1);
         entryThree.setDayOrnight("Night");
         entryThree.setRemark("Solo");
+    }
+
+    private void createAirplaneOne() {
+        aircraftOne.setAircraftType("C-172M");
+        aircraftOne.setAircraftReg("C-GXWS");
+        aircraftOne.setAircraftDescription("Golf X-Ray Whiskey Sierra is smooth and always happy to go flying. "
+                + "Equipped with a 150 HP Lycoming O-320 engine, "
+                + "advanced avionics as a Garmin G430 WAAS enabled, "
+                + "approved for precise GPS approaches, a wide VFR AvMap EKP V GPS, "
+                + "modern radios and a polished panel, XWS is ideal for IFR work or backcountry flying!");
     }
 
 
@@ -190,7 +210,7 @@ public class FlySimpleLogbook {
             } else if (command.equals("n")) {
                 System.out.println(entryFilteredByNight());
             } else if (command.equals("l")) {
-                System.out.println("\n Enter flight time:");
+                System.out.println("\n Enter flight time: ");
                 double time = input.nextDouble();
                 searchByFlightTime = time;
                 System.out.println(entryFilteredByFlightTime());
@@ -204,9 +224,109 @@ public class FlySimpleLogbook {
         }
     }
 
+    private void aircraftMenuOption() {
+        System.out.println("\nSelect a option:");
+        System.out.println("\tv -> View saved aircraft profiles");
+        System.out.println("\ta -> Add a new airplane");
+        System.out.println("\td -> Delete a saved airplane profile");
+        System.out.println("\tu -> Use u to return to the previous menu");
+
+    }
+
 
     private void showAircraft() {
+        boolean keepGoing = true;
+        while (keepGoing) {
+            aircraftMenuOption();
+            String command = input.next();
+            if (command.equals("v")) {
+                System.out.println(savedAircraft());
+            } else if (command.equals("a")) {
+                addAircraft();
+            } else if (command.equals("d")) {
+                removeAirplane();
+            } else if (command.equals("u")) {
+                if (command.equals("u")) {
+                    keepGoing = false;
+                }
+            } else {
+                System.out.println("Invalid entry, please try again");
+            }
+        }
+
     }
+
+
+
+
+    //modifies: this
+    //effect: filter the entries by Day
+    private String savedAircraft() {
+        System.out.println("Showing saved airplanes: ");
+        String entries = "Showing all aircraft on file";
+
+
+        List<Aircraft> allAircraft = aircraftRecord.displayAllAirplane();
+
+        if (allAircraft.isEmpty()) {
+            return "\nNo flight has been entered"
+                    + "\n Enter r to choose a different item";
+        }
+
+        for (Aircraft a : allAircraft) {
+            String entry = "\n" +  "Aircraft Type: " + a.getAircraftType()
+                         + "\n" + "Aircraft Registration: " + a.getAircraftReg()
+                         + "\n" + "Aircraft Description: " + "\n"
+                         + addLinebreaks(a.getAircraftDescription(),70);
+            entries = entries.concat("\n" + entry);
+        }
+        return entries;
+    }
+
+
+    //reference: https://stackoverflow.com/questions/7528045/large-string-split-into-lines-with-maximum-length-in-java
+    //effect: add line breaks to long input descriptions.
+    public String addLinebreaks(String input, int maxLineLength) {
+        StringTokenizer tok = new StringTokenizer(input, " ");
+        StringBuilder output = new StringBuilder(input.length());
+        int lineLen = 0;
+        while (tok.hasMoreTokens()) {
+            String word = tok.nextToken() + " ";
+
+            if (lineLen + word.length() > maxLineLength) {
+                output.append("\n");
+                lineLen = 0;
+            }
+            output.append(word);
+            lineLen += word.length();
+        }
+        return output.toString();
+    }
+
+    //modifies: this
+    //effect: construct a new entry and add it to the logbook
+    private void addAircraft() {
+
+        newAirplane = new Aircraft();
+        addAircraftType();
+        addAircraftRegistration();
+        addAircraftDescription();
+
+        aircraftRecord.addAirplane(newAirplane);
+        System.out.println("\n" + newAirplane.getAircraftReg() + " " + "has been added successfully");
+    }
+
+    private void removeAirplane() {
+        System.out.println("Enter the registration of the aircraft wish to delete: ");
+        String name = input.next();
+
+        aircraftRecord.removeAnAircraftByReg(name);
+
+        System.out.println("\n" + name + " has been removed");
+
+    }
+
+
 
     //modifies: this
     //effect: filter the entries by Day
@@ -275,7 +395,9 @@ public class FlySimpleLogbook {
         return entries;
     }
 
-
+    //require: input is positive int
+    //modifies: this
+    //effect add entry number to the new entry
     private void addEntryNumber() {
         System.out.println("\nEnter entry number");
         int entryNumber = input.nextInt();
@@ -283,21 +405,29 @@ public class FlySimpleLogbook {
         System.out.println("Entry Number is set to: " + entryNumber);
     }
 
+    //require: input for month is non empty String, int for month
+    //modifies: this
+    //effect add entry number
     private void addEntryDate() {
         System.out.println("\nEnter Month");
         String month = input.next();
         newEntry.setMonth(month);
-        System.out.println("Enter Day");
+        System.out.println("\nEnter Day");
         int day = input.nextInt();
 
-        while (day > 31 && day < 1) {
-            System.out.println("\nday has to be between 1 or 31");
+        while (day <=  1 || day > 31) {
+            System.out.println("Day must be in the range between 1 to 31");
             day = input.nextInt();
         }
+
+
         newEntry.setDay(day);
         System.out.println("Date of the flight: " + month + " " + day);
     }
 
+    //require: input for aircraft model is non-empty string
+    //modifies: this
+    //effect add aircraft model
     private void addAircraftModel() {
         System.out.println("\nEnter aircraft model");
         String make = input.next();
@@ -305,6 +435,9 @@ public class FlySimpleLogbook {
         System.out.println("Date of the flight: " + make);
     }
 
+    //require: input for aircraft callsign is non-empty string
+    //modifies: this
+    //effect add callsign
     private void addCallSign() {
         System.out.println("\nEnter the last four letters of the registration maker, ex:GABC");
         String callSign = input.next();
@@ -312,6 +445,9 @@ public class FlySimpleLogbook {
         System.out.println("Aircraft Name: " + callSign);
     }
 
+    //require: input for pilot name is non empty string
+    //modifies: this
+    //effect add pilot name
     private void addPic() {
         System.out.println("\nEnter Pilot name");
         String pic = input.next();
@@ -319,6 +455,9 @@ public class FlySimpleLogbook {
         System.out.println("Pilot in Command is: " + pic);
     }
 
+    //require: input for pilot name is a double
+    //modifies: this
+    //effect add flight time
     private void addFlightTime() {
         System.out.println("\nEnter the flight time, ex 1.0");
         double flightTime = input.nextDouble();
@@ -330,6 +469,9 @@ public class FlySimpleLogbook {
         System.out.println("Total flight time of this flight: " + flightTime);
     }
 
+    //require: non empty string
+    //modifies: this
+    //effect assign day or night flight
     private void addDayOrNight() {
         System.out.print("\nEnter d for day flight or n for night flight");
         String key = input.nextLine();
@@ -347,10 +489,46 @@ public class FlySimpleLogbook {
         }
     }
 
+    //require: input for remark is non empty string
+    //modifies: this
+    //effect add notes to flight
     private void addRemark() {
         System.out.print("\nRemark or notes for this flight");
         String note = input.nextLine();
         newEntry.setRemark(note);
         System.out.println("Note to this flight: " + note);
+    }
+
+    //require: input for aircraftType is non empty string
+    //modifies: this
+    //effect add aircraftType
+    private void addAircraftType() {
+        System.out.println("\nEnter aircraft type");
+        String type = input.next();
+        input.nextLine();
+        newAirplane.setAircraftType(type);
+        System.out.println("Airplane type/model: " + type);
+    }
+
+
+    //require: input for aircraftType is non empty string
+    //modifies: this
+    //effect add aircraftRegistration
+    private void addAircraftRegistration() {
+        System.out.println("\nEnter aircraft registration, ex C-GABC");
+        String reg = input.nextLine();
+        newAirplane.setAircraftReg(reg);
+        System.out.println("Airplane registration: " + reg);
+    }
+
+
+    //require: input for aircraftDescription is non empty string
+    //modifies: this
+    //effect add aircraft description
+    private void addAircraftDescription() {
+        System.out.println("\nEnter aircraft description");
+        String note = input.nextLine();
+        newAirplane.setAircraftDescription(note);
+        System.out.println("Airplane description: " + addLinebreaks(note,70));
     }
 }
