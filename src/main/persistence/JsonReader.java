@@ -88,7 +88,6 @@ public class JsonReader {
         LogbookEntry entry = new LogbookEntry();
         inputEntry(entryNumber, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
                 dayOrNight, departureAirport, arrivalAirport, remark, entry, log);
-
     }
 
     private void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
