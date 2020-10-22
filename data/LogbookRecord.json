@@ -1,0 +1,44 @@
+{
+    "entries": [
+        {
+            "aircraftName": "GXWS",
+            "airplaneModel": "C-172M",
+            "month": "June",
+            "dayOrNight": "Day",
+            "departureAirport": "CYNJ",
+            "pilotInCommand": "JWei",
+            "entryNumber": 1,
+            "remark": "CheckRide",
+            "flightTime": 1,
+            "day": 10,
+            "arrivalAirport": "CYVR"
+        },
+        {
+            "aircraftName": "GXWS",
+            "airplaneModel": "C-172M",
+            "month": "June",
+            "dayOrNight": "Day",
+            "departureAirport": "CYYJ",
+            "pilotInCommand": "JWei",
+            "entryNumber": 2,
+            "remark": "Solo",
+            "flightTime": 0.5,
+            "day": 11,
+            "arrivalAirport": "CYUL"
+        },
+        {
+            "aircraftName": "GXWS",
+            "airplaneModel": "C-172M",
+            "month": "June",
+            "dayOrNight": "Night",
+            "departureAirport": "CYYJ",
+            "pilotInCommand": "JWei",
+            "entryNumber": 3,
+            "remark": "Solo",
+            "flightTime": 0.1,
+            "day": 13,
+            "arrivalAirport": "CYCW"
+        }
+    ],
+    "name": "record"
+}

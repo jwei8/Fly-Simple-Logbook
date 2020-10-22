@@ -1,0 +1,31 @@
+{
+    "entries": [
+        {
+            "aircraftName": "GXWS",
+            "airplaneModel": "C-172M",
+            "month": "August",
+            "dayOrNight": "Day",
+            "departureAirport": "CYYJ",
+            "pilotInCommand": "Jwei",
+            "entryNumber": 1,
+            "remark": "good flight",
+            "flightTime": 1.8,
+            "day": 8,
+            "arrivalAirport": "CYNJ"
+        },
+        {
+            "aircraftName": "GXWS",
+            "airplaneModel": "C-172M",
+            "month": "September",
+            "dayOrNight": "Day",
+            "departureAirport": "CYNJ",
+            "pilotInCommand": "Jwei",
+            "entryNumber": 2,
+            "remark": "",
+            "flightTime": 1.2,
+            "day": 9,
+            "arrivalAirport": "CYVR"
+        }
+    ],
+    "name": "my logbook"
+}

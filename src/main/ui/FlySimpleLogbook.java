@@ -4,7 +4,11 @@ import model.Aircraft;
 import model.AircraftRecord;
 import model.LogbookEntry;
 import model.LogbookRecord;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -12,9 +16,10 @@ import java.util.StringTokenizer;
 //represents the main of the logbook app
 
 public class FlySimpleLogbook {
-    private LogbookEntry entryOne;
-    private LogbookEntry entryTwo;
-    private LogbookEntry entryThree;
+    private static final String JSON_STORE = "./data/logbookRecord.json";
+//    private LogbookEntry entryOne;
+//    private LogbookEntry entryTwo;
+//    private LogbookEntry entryThree;
     private LogbookEntry newEntry;
     private Aircraft newAirplane;
     private LogbookRecord record;
@@ -22,10 +27,12 @@ public class FlySimpleLogbook {
     private Aircraft aircraftOne;
     private AircraftRecord aircraftRecord;
     private double searchByFlightTime;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
     //effect: runs the FlySimpleLogbook application
-    public FlySimpleLogbook() {
+    public FlySimpleLogbook() throws FileNotFoundException {
         runLogBook();
     }
 
@@ -55,17 +62,19 @@ public class FlySimpleLogbook {
     //effect: initialize the logbook by creating some entries
     private void init() {
         input = new Scanner(System.in);
-        record = new LogbookRecord();
+        record = new LogbookRecord("record");
         aircraftOne = new Aircraft();
         aircraftRecord = new AircraftRecord();
-        createEntryOne();
-        createEntryTwo();
-        createEntryThree();
-        record.addAnEntry(entryOne);
-        record.addAnEntry(entryTwo);
-        record.addAnEntry(entryThree);
+//        createEntryOne();
+//        createEntryTwo();
+//        createEntryThree();
+//        record.addAnEntry(entryOne);
+//        record.addAnEntry(entryTwo);
+//        record.addAnEntry(entryThree);
         createAirplaneOne();
         aircraftRecord.addAirplane(aircraftOne);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
 
     }
@@ -74,8 +83,10 @@ public class FlySimpleLogbook {
     private void displayMenu() {
         System.out.println("\nWelcome to FLySimpleLogbook! Select from:");
         System.out.println("\ta -> Add a new entry");
+        System.out.println("\ts -> Save entries");
         System.out.println("\tv -> View Logbook with all existing entries");
-        System.out.println("\ts -> View the Fleet of aircraft");
+        System.out.println("\tl -> Load with all existing entries\"");
+        System.out.println("\te -> View the Fleet of aircraft");
         System.out.println("\tf -> Sort all flights by a specific filter item, such as DayOrNight or FlightTime");
         System.out.println("\tq -> quit");
     }
@@ -87,7 +98,11 @@ public class FlySimpleLogbook {
             addEntry();
         } else if (command.equals("v")) {
             viewLogbook();
+        } else if (command.equals("l")) {
+            loadLogbook();
         } else if (command.equals("s")) {
+            saveLogbook();
+        } else if (command.equals("e")) {
             processAircraftCommand();
         } else if (command.equals("f")) {
             processFilterCommand();
@@ -97,30 +112,30 @@ public class FlySimpleLogbook {
     }
 
     //constructor
-    private void createEntryOne() {
+  /*  private void createEntryOne() {
         entryOne = new LogbookEntry();
         entryOne.setEntryNumber(1);
         entryOne.setMonth("June");
         entryOne.setDay(10);
         entryOne.setAirplaneModel("C-172M");
-        entryOne.setCallSign("GXWS");
+        entryOne.setAirplaneName("GXWS");
         entryOne.setPic("JWei");
         entryOne.setFLightTime(1.0);
         entryOne.setDayOrnight("Day");
         entryOne.setDepartureAirport("CYNJ");
         entryOne.setArrivalAirport("CYVR");
         entryOne.setRemark("CheckRide");
-    }
+    }*/
 
 
-    //constructor
+  /*  //constructor
     private void createEntryTwo() {
         entryTwo = new LogbookEntry();
         entryTwo.setEntryNumber(2);
         entryTwo.setMonth("June");
         entryTwo.setDay(11);
         entryTwo.setAirplaneModel("C-172M");
-        entryTwo.setCallSign("GXWS");
+        entryTwo.setAirplaneName("GXWS");
         entryTwo.setPic("JWei");
         entryTwo.setFLightTime(0.5);
         entryTwo.setDayOrnight("Day");
@@ -136,14 +151,14 @@ public class FlySimpleLogbook {
         entryThree.setMonth("June");
         entryThree.setDay(13);
         entryThree.setAirplaneModel("C-172M");
-        entryThree.setCallSign("GXWS");
+        entryThree.setAirplaneName("GXWS");
         entryThree.setPic("JWei");
         entryThree.setFLightTime(0.1);
         entryThree.setDayOrnight("Night");
         entryThree.setDepartureAirport("CYYJ");
         entryThree.setArrivalAirport("CYCW");
         entryThree.setRemark("Solo");
-    }
+    }*/
 
     //constructor
     private void createAirplaneOne() {
@@ -179,14 +194,14 @@ public class FlySimpleLogbook {
     //effect: display logbook entries on file
     private void viewLogbook() {
         System.out.println("showing all entries");
-        System.out.println(loadLogbook());
+        System.out.println(printLogbook());
     }
 
 
     //getter
     //modifies: this
     //effect: displays all entries
-    private String loadLogbook() {
+    private String printLogbook() {
         System.out.println("Showing logbook entries: ");
         String entries = "display entries";
 
@@ -198,7 +213,7 @@ public class FlySimpleLogbook {
         }
 
         for (LogbookEntry e : allEntry) {
-            String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
+            String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
                     + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
@@ -363,7 +378,7 @@ public class FlySimpleLogbook {
         }
 
         for (LogbookEntry e : allEntry) {
-            String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
+            String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
                     + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
@@ -386,7 +401,7 @@ public class FlySimpleLogbook {
         }
 
         for (LogbookEntry e : allEntry) {
-            String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
+            String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
                     + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
@@ -409,7 +424,7 @@ public class FlySimpleLogbook {
         }
 
         for (LogbookEntry e : allEntry) {
-            String entry = e.getEntryNumber() + "    " + e.getDate() + "    " + e.getAirplaneModel()
+            String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
                     + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport()
                     + "    " + e.getArrivalAirport() + "    " + e.getRemark();
@@ -464,7 +479,7 @@ public class FlySimpleLogbook {
     private void addCallSign() {
         System.out.println("\nEnter the last four letters of the registration maker, ex:GABC");
         String callSign = input.next();
-        newEntry.setCallSign(callSign);
+        newEntry.setAirplaneName(callSign);
         System.out.println("Aircraft Name: " + callSign);
     }
 
@@ -573,5 +588,28 @@ public class FlySimpleLogbook {
         String note = input.nextLine();
         newAirplane.setAircraftDescription(note);
         System.out.println("Airplane description: " + addLinebreaks(note,70));
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveLogbook() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(record);
+            jsonWriter.close();
+            System.out.println("Saved " + record.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads logbook from file
+    private void loadLogbook() {
+        try {
+            record = jsonReader.read();
+            System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

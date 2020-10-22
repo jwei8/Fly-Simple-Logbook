@@ -22,7 +22,7 @@ class LogbookRecordTest {
         entryOne.setMonth("June");
         entryOne.setDay(8);
         entryOne.setAirplaneModel("C-172M");
-        entryOne.setCallSign("GXWS");
+        entryOne.setAirplaneName("GXWS");
         entryOne.setPic("JWei");
         entryOne.setFLightTime(1.0);
         entryOne.setDayOrnight("Day");
@@ -35,7 +35,7 @@ class LogbookRecordTest {
         entryTwo.setMonth("June");
         entryTwo.setDay(8);
         entryTwo.setAirplaneModel("C-172M");
-        entryTwo.setCallSign("GXWS");
+        entryTwo.setAirplaneName("GXWS");
         entryTwo.setPic("JWei");
         entryTwo.setFLightTime(0.5);
         entryTwo.setDayOrnight("Night");
@@ -48,7 +48,7 @@ class LogbookRecordTest {
         entryThree.setMonth("June");
         entryThree.setDay(10);
         entryThree.setAirplaneModel("C-172M");
-        entryThree.setCallSign("GXWS");
+        entryThree.setAirplaneName("GXWS");
         entryThree.setPic("JWei");
         entryThree.setFLightTime(0.1);
         entryThree.setDayOrnight("Night");
@@ -61,14 +61,14 @@ class LogbookRecordTest {
         entryFour.setMonth("June");
         entryFour.setDay(10);
         entryFour.setAirplaneModel("C-172M");
-        entryFour.setCallSign("GXWS");
+        entryFour.setAirplaneName("GXWS");
         entryFour.setPic("JWei");
         entryFour.setFLightTime(1.1);
         entryFour.setDepartureAirport("CYNJ");
         entryFour.setArrivalAirport("CYXX");
         entryFour.setRemark("Solo");
 
-        record = new LogbookRecord();
+        record = new LogbookRecord("record for display");
         record.addAnEntry(entryOne);
         record.addAnEntry(entryTwo);
         record.addAnEntry(entryThree);

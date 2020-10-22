@@ -1,18 +1,34 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writeable;
+
 import java.util.*;
 //represents a list of logbook entries
 
-public class LogbookRecord {
+public class LogbookRecord implements Writeable {
 
-    List<LogbookEntry> logBookEntries;
+    private List<LogbookEntry> logBookEntries;
+    private String name;
 
 
     //modifies this
     //construct a new empty list of LogBookEntry
 
-    public LogbookRecord() {
+    public LogbookRecord(String name) {
+        this.name = name;
         logBookEntries = new ArrayList<>();
+    }
+
+    //effect: return the name of LogbookRecord
+    public String getName() {
+        return name;
+    }
+
+    // EFFECTS: returns an unmodifiable list of entries in this logbookRecord
+    public List<LogbookEntry> getLogBookEntries() {
+        return Collections.unmodifiableList(logBookEntries);
     }
 
 
@@ -79,6 +95,25 @@ public class LogbookRecord {
 
     public List<LogbookEntry> displayAllEntry() {
         return logBookEntries;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("entries", entriesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns entries in this logbook record as a JSON array
+    private JSONArray entriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (LogbookEntry l : logBookEntries) {
+            jsonArray.put(l.toJson());
+        }
+
+        return jsonArray;
     }
 }
 

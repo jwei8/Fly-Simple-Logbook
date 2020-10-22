@@ -2,7 +2,10 @@ package model;
 
 //represent one logbook entry with flight information
 
-public class LogbookEntry {
+import org.json.JSONObject;
+import persistence.Writeable;
+
+public class LogbookEntry implements Writeable {
 
     public String month;
     public int day;
@@ -13,7 +16,6 @@ public class LogbookEntry {
     public String remark;
     public int entryNumber;
     public double flightTime;
-    public String date;
     public String departureAirport;
     public String arrivalAirport;
 
@@ -41,16 +43,19 @@ public class LogbookEntry {
     }
 
     //getter
-    //effect: return the date in string.
+    //effect: return the entry number in int
     public int getEntryNumber() {
         return entryNumber;
     }
 
     //getter
-    //effect: return the date in string.
-    public String getDate() {
-        date = month + " " + day;
-        return date;
+    //effect: return the date in string + int.
+    public String getMonth() {
+        return month;
+    }
+
+    public Integer getDay() {
+        return day;
     }
 
     //getter
@@ -133,7 +138,7 @@ public class LogbookEntry {
     //requires: non-empty string
     //modifies: this
     //effects: sets aircraft name
-    public void setCallSign(String name) {
+    public void setAirplaneName(String name) {
         this.airplaneName = name;
     }
 
@@ -179,4 +184,20 @@ public class LogbookEntry {
         this.arrivalAirport = arrival;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("entryNumber", entryNumber);
+        json.put("month", month);
+        json.put("day", day);
+        json.put("airplaneModel", airplaneModel);
+        json.put("aircraftName", airplaneName);
+        json.put("pilotInCommand", pilotInCommand);
+        json.put("flightTime", flightTime);
+        json.put("dayOrNight", dayOrnight);
+        json.put("departureAirport", departureAirport);
+        json.put("arrivalAirport", arrivalAirport);
+        json.put("remark", remark);
+        return json;
+    }
 }

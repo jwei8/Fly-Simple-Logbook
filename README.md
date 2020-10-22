@@ -41,6 +41,8 @@ A *bulleted* list:
 - As a user, I want to be able to create a new aircraft profile.
 - As a user, I want to be able to view the aircraft profiles stored on file.
 - As a user, I want to be able to remove a specific aircraft profile on file.
+- As a user, I want to be able to save my new entries to the logbook record.
+- As a user, I want to be able to load my saved entries when starting the application.
 
 ## User Stories
 Instruction for grader:

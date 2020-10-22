@@ -14,7 +14,7 @@ class LogbookEntryTest {
         entry.setMonth("June");
         entry.setDay(8);
         entry.setAirplaneModel("C-172M");
-        entry.setCallSign("GXWS");
+        entry.setAirplaneName("GXWS");
         entry.setPic("JWei");
         entry.setFLightTime(1.4);
         entry.setDayOrnight("Day");
@@ -27,7 +27,8 @@ class LogbookEntryTest {
 
     public void testLogbookEntry() {
         assertEquals(1, entry.getEntryNumber());
-        assertEquals("June 8", entry.getDate());
+        assertEquals("June", entry.getMonth());
+        assertEquals(8, entry.getDay());
         assertEquals("C-172M", entry.getAirplaneModel());
         assertEquals("GXWS", entry.getAirplaneName());
         assertEquals("JWei", entry.getPic());
