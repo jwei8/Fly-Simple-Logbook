@@ -15,6 +15,17 @@ import org.json.*;
 
 public class JsonReader {
     private String source;
+    private Integer entryNumber;
+    private String month;
+    private Integer day;
+    private String airplaneModel;
+    private String aircraftName;
+    private String pilotInCommand;
+    private Double flightTime;
+    private String dayOrNight;
+    private String departureAirport;
+    private String arrivalAirport;
+    private String remark;
 
 
     // EFFECTS: constructs reader to read from source file
@@ -73,7 +84,18 @@ public class JsonReader {
         String departureAirport = jsonObject.getString("departureAirport");
         String arrivalAirport = jsonObject.getString("arrivalAirport");
         String remark = jsonObject.getString("remark");
+
         LogbookEntry entry = new LogbookEntry();
+        inputEntry(entryNumber, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
+                dayOrNight, departureAirport, arrivalAirport, remark, entry, log);
+
+    }
+
+    private void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
+                            String aircraftName, String pilotInCommand, Double flightTime,
+                            String dayOrNight, String departureAirport, String arrivalAirport,
+                            String remark, LogbookEntry entry, LogbookRecord log) {
+
         entry.setEntryNumber(entryNumber);
         entry.setMonth(month);
         entry.setDay(day);
