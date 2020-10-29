@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import java.io.*;
 
 //represents a writer that writes JSON representation of logbookRecord to file
+//code adapted and re-modeled based on the JsonSerializationDemo
+
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

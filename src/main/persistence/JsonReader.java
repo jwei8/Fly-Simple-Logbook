@@ -1,5 +1,7 @@
 package persistence;
 
+// Represents a reader that reads workroom from JSON data stored in file
+// code adapted and re modeled based on the JsonSerializationDemo
 import model.LogbookEntry;
 import model.LogbookRecord;
 
@@ -73,9 +75,9 @@ public class JsonReader {
     // MODIFIES: log
     // EFFECTS: parses thingy from JSON object and adds it to logbookRecord
     private void addEntry(LogbookRecord log, JSONObject jsonObject) {
-        Integer entryNumber = jsonObject.getInt("entryNumber");
+        int entryNumber = jsonObject.getInt("entryNumber");
         String month = jsonObject.getString("month");
-        Integer day = jsonObject.getInt("day");
+        int day = jsonObject.getInt("day");
         String airplaneModel = jsonObject.getString("airplaneModel");
         String aircraftName = jsonObject.getString("aircraftName");
         String pilotInCommand = jsonObject.getString("pilotInCommand");

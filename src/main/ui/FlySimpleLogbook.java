@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 public class FlySimpleLogbook {
     private static final String JSON_STORE = "./data/logbookRecord.json";
-//    private LogbookEntry entryOne;
+    //    private LogbookEntry entryOne;
 //    private LogbookEntry entryTwo;
 //    private LogbookEntry entryThree;
     private LogbookEntry newEntry;
@@ -291,8 +291,6 @@ public class FlySimpleLogbook {
     }
 
 
-
-
     //modifies: this
     //effect: filter the entries by Day
     private String savedAircraft() {
@@ -308,10 +306,10 @@ public class FlySimpleLogbook {
         }
 
         for (Aircraft a : allAircraft) {
-            String entry = "\n" +  "Aircraft Type: " + a.getAircraftType()
-                         + "\n" + "Aircraft Registration: " + a.getAircraftReg()
-                         + "\n" + "Aircraft Description: " + "\n"
-                         + addLinebreaks(a.getAircraftDescription(),70);
+            String entry = "\n" + "Aircraft Type: " + a.getAircraftType()
+                    + "\n" + "Aircraft Registration: " + a.getAircraftReg()
+                    + "\n" + "Aircraft Description: " + "\n"
+                    + addLinebreaks(a.getAircraftDescription(), 70);
             entries = entries.concat("\n" + entry);
         }
         return entries;
@@ -351,6 +349,9 @@ public class FlySimpleLogbook {
         System.out.println("\n" + newAirplane.getAircraftReg() + " " + "has been added successfully");
     }
 
+
+    //modifies:this
+    //effect: remove an aircraft by name
     private void removeAirplane() {
         System.out.println("Enter the registration of the aircraft wish to delete: ");
         String name = input.next();
@@ -360,7 +361,6 @@ public class FlySimpleLogbook {
         System.out.println("\n" + name + " has been removed");
 
     }
-
 
 
     //modifies: this
@@ -448,20 +448,29 @@ public class FlySimpleLogbook {
     //effect add entry number
     private void addEntryDate() {
         System.out.println("\nEnter Month");
-        String month = input.next();
+        String month = input.nextLine();
+        while (!month.equals("January") & !month.equals("February") & !month.equals("March")
+                & !month.equals("April") & !month.equals("May") & !month.equals("June") & !month.equals("July")
+                & !month.equals("August") & !month.equals("September") & !month.equals("October")
+                & !month.equals("November") & !month.equals("December")) {
+            System.out.println(addLinebreaks("Please enter a valid month, such as: January, February,"
+                    + " March, April, May, June, July, August, September, October, November, December",70));
+            month = input.nextLine();
+        }
+
         newEntry.setMonth(month);
         System.out.println("\nEnter Day");
         int day = input.nextInt();
 
-        while (day <=  1 || day > 31) {
+        while (day < 1 || day > 31) {
             System.out.println("Day must be in the range between 1 to 31");
             day = input.nextInt();
         }
 
-
         newEntry.setDay(day);
         System.out.println("Date of the flight: " + month + " " + day);
     }
+
 
     //require: input for aircraft model is non-empty string
     //modifies: this
@@ -551,7 +560,7 @@ public class FlySimpleLogbook {
     //modifies: this
     //effect add notes to flight
     private void addRemark() {
-        System.out.print("\nRemark or notes for this flight");
+        System.out.print("\nRemark or notes for this flight\n");
         String note = input.nextLine();
         newEntry.setRemark(note);
         System.out.println("Note to this flight: " + note);
@@ -587,7 +596,7 @@ public class FlySimpleLogbook {
         System.out.println("\nEnter aircraft description");
         String note = input.nextLine();
         newAirplane.setAircraftDescription(note);
-        System.out.println("Airplane description: " + addLinebreaks(note,70));
+        System.out.println("Airplane description: " + addLinebreaks(note, 70));
     }
 
     // EFFECTS: saves the workroom to file
