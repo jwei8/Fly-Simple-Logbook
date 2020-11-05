@@ -1,7 +1,6 @@
 package persistence;
 
 import exceptions.InvalidInputException;
-import exceptions.InvalidMonthException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ public class JsonReaderTest extends JsonTest{
         try {
             LogbookRecord log = reader.read();
             fail("IOException expected");
-        } catch (IOException | InvalidInputException e) {
+        } catch (IOException e) {
             // pass
         }
     }
@@ -32,7 +31,7 @@ public class JsonReaderTest extends JsonTest{
             LogbookRecord log = reader.read();
             assertEquals("my logbook", log.getName());
             assertEquals(0, log.countEntries());
-        } catch (IOException | InvalidInputException e) {
+        } catch (IOException e) {
             fail("Couldn't read from file");
         }
     }
@@ -51,7 +50,7 @@ public class JsonReaderTest extends JsonTest{
             checkEntry(2, "September", 9, "C-172N", "GXPH",
                     "Wkim", 1.2, "night", "CYNJ", "CYVR",
                     " ", entries.get(1));
-        } catch (IOException | InvalidInputException e) {
+        } catch (IOException e) {
             fail("Couldn't read from file");
         }
     }

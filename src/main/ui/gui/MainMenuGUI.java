@@ -1,17 +1,13 @@
 package ui.gui;
 
 import exceptions.InvalidInputException;
-import exceptions.InvalidMonthException;
 import model.LogbookRecord;
 import persistence.JsonReader;
-import ui.FlySimpleLogbook;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainMenuGUI extends JFrame {
@@ -29,6 +25,7 @@ public class MainMenuGUI extends JFrame {
     private JButton quitLogbook;
     private JPanel addPanel;
     private JsonReader jsonReader;
+    private LogbookRecord record;
 
 
     public MainMenuGUI() {
@@ -40,6 +37,7 @@ public class MainMenuGUI extends JFrame {
         add(optionPanel);
         setUpListener();
     }
+
 
     private void setUpMenuPanel() {
         optionPanel = new JPanel();
@@ -55,7 +53,7 @@ public class MainMenuGUI extends JFrame {
     private void setUpButtons() {
         addEntry = new JButton("Add an Entry");
         saveEntry = new JButton("Save entry");
-        printEntry = new JButton("Print all logbook entries");
+        printEntry = new JButton("View all logbook entries");
         loadEntry = new JButton("Load entries from file");
         filterEntry = new JButton("Filter entries");
         quitLogbook = new JButton("Quit logbook");
@@ -105,6 +103,8 @@ public class MainMenuGUI extends JFrame {
                 openAddEntry();
             } else if (e.getSource() == loadEntry) {
                 loadLogbookEntries();
+            } else if (e.getSource() == quitLogbook) {
+                dispose();
             }
         }
 
@@ -112,9 +112,9 @@ public class MainMenuGUI extends JFrame {
             jsonReader = new JsonReader(JSON_STORE);
 
             try {
-                LogbookRecord record = jsonReader.read();
+                record = jsonReader.read();
                 System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
-            } catch (IOException | InvalidInputException e) {
+            } catch (IOException e) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
             }
         }

@@ -2,9 +2,6 @@ package model;
 
 //represent one logbook entry with flight information
 
-import exceptions.InvalidDayException;
-import exceptions.InvalidEntryNumberException;
-import exceptions.InvalidMonthException;
 import org.json.JSONObject;
 import persistence.Writeable;
 

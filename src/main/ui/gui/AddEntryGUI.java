@@ -1,10 +1,11 @@
 package ui.gui;
 
-import exceptions.InvalidDayException;
+import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
-import exceptions.InvalidMonthException;
+import exceptions.InvalidDateException;
 import model.LogbookEntry;
 import model.LogbookRecord;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class AddEntryGUI extends JFrame {
     private JFrame addFrame;
@@ -47,14 +49,14 @@ public class AddEntryGUI extends JFrame {
     JTextField arrivalText;
     JTextField noteText;
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/logbookRecord.json";
-
 
 
     public AddEntryGUI() {
         super("Create a new log entry");
         setLayout(new GridBagLayout());
-        setSize(frameWidth,frameHeight);
+        setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUpAddPanel();
         add(addPanel);
@@ -112,7 +114,7 @@ public class AddEntryGUI extends JFrame {
     private void displayLabels() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        gc.insets = new Insets(5,8,8,8);
+        gc.insets = new Insets(5, 8, 8, 8);
         gc.anchor = GridBagConstraints.LINE_END;
 
         gc.gridx = 0;
@@ -132,6 +134,17 @@ public class AddEntryGUI extends JFrame {
         gc.gridx = 0;
         gc.gridy = 4;
         add(airplaneName, gc);
+
+        displayFlightInfoLabels();
+
+    }
+
+    //MODIFIES: this
+    //EFFECT: render flight information labels for the text fields
+    private void displayFlightInfoLabels() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = new Insets(5, 8, 8, 8);
+        gc.anchor = GridBagConstraints.LINE_END;
         gc.gridx = 0;
         gc.gridy = 5;
         add(pic, gc);
@@ -155,7 +168,7 @@ public class AddEntryGUI extends JFrame {
     private void displayTextFields() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
-        gc.insets = new Insets(5,5,5,5);
+        gc.insets = new Insets(5, 5, 5, 5);
         gc.gridx = 1;
         gc.gridy = 0;
         add(entryNumberText, gc);
@@ -165,6 +178,24 @@ public class AddEntryGUI extends JFrame {
         gc.gridx = 1;
         gc.gridy = 2;
         add(dayText, gc);
+
+        displayAirplaneInfoFields();
+
+        gc.gridx = 1;
+        gc.gridy = 6;
+        add(flightTimeText, gc);
+        gc.gridx = 1;
+        gc.gridy = 7;
+        add(dayOrnightText, gc);
+        displayTextFieldsForRoute();
+    }
+
+    //MODIFIES: this
+    //EFFECT: render the text fields to take aircraft info
+    private void displayAirplaneInfoFields() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = new Insets(5, 5, 5, 5);
         gc.gridx = 1;
         gc.gridy = 3;
         add(airplaneModelText, gc);
@@ -174,12 +205,12 @@ public class AddEntryGUI extends JFrame {
         gc.gridx = 1;
         gc.gridy = 5;
         add(picText, gc);
-        gc.gridx = 1;
-        gc.gridy = 6;
-        add(flightTimeText, gc);
-        gc.gridx = 1;
-        gc.gridy = 7;
-        add(dayOrnightText, gc);
+    }
+
+    private void displayTextFieldsForRoute() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = new Insets(5, 5, 5, 5);
         gc.gridx = 1;
         gc.gridy = 8;
         add(departureText, gc);
@@ -192,16 +223,13 @@ public class AddEntryGUI extends JFrame {
         gc.gridx = 1;
         gc.gridy = 11;
         add(confirmAdd, gc);
-        gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridx = 1;
         gc.gridy = 12;
-        gc.fill = GridBagConstraints.HORIZONTAL;
         add(addEntry, gc);
         gc.gridx = 1;
         gc.gridy = 13;
         add(returnToMain, gc);
         gc.fill = GridBagConstraints.HORIZONTAL;
-
     }
 
     private void setUpListener() {
@@ -213,10 +241,15 @@ public class AddEntryGUI extends JFrame {
         entryNumberText.addActionListener(listener);
     }
 
+    //Represent a class for ActionListener
+
     private class ActionHandle implements ActionListener {
 
+        //Require: Action Event
+        //EFFECT: respond to different Jbutton pressed
         @Override
         public void actionPerformed(ActionEvent e) {
+            loadLogbookEntries();
             if (e.getSource() == addEntry) {
                 openAddEntry();
             } else if (e.getSource() == returnToMain) {
@@ -228,41 +261,69 @@ public class AddEntryGUI extends JFrame {
 
         private void saveLogbook() {
             jsonWriter = new JsonWriter(JSON_STORE);
-
             try {
                 jsonWriter.open();
                 jsonWriter.write(record);
                 jsonWriter.close();
                 System.out.println("Saved " + record.getName() + " to " + JSON_STORE);
-            } catch (FileNotFoundException | InvalidMonthException e) {
+            } catch (FileNotFoundException e) {
                 System.out.println("Unable to write to file: " + JSON_STORE);
             }
         }
 
+        //MODIFIES: this
+        //EFFECT: input information required for a new entry
         private void recordInputs() {
             entry = new LogbookEntry();
-            record = new LogbookRecord("record");
-
             try {
                 entry.setEntryNumber(checkEntryNumber(Integer.valueOf(entryNumberText.getText())));
+            } catch (InvalidInputException e) {
+                JOptionPane.showMessageDialog(null, "You must enter a valid Entry Number ( > 0) ",
+                        "Ooops", JOptionPane.ERROR_MESSAGE);
+            }
+            try {
                 entry.setMonth(checkMonth(monthText.getText()));
                 entry.setDay(checkDay(Integer.valueOf(dayText.getText())));
                 entry.setAirplaneModel(airplaneModelText.getText());
                 entry.setAirplaneName(airplaneNameText.getText());
                 entry.setPic(picText.getText());
-                entry.setFLightTime(Integer.valueOf(flightTimeText.getText()));
-                entry.setDayOrnight(dayOrnightText.getText());
+                entry.setFLightTime(Double.valueOf(flightTimeText.getText()));
+            } catch (InvalidInputException e) {
+                JOptionPane.showMessageDialog(null, "You must enter a valid date (ex:January 1)",
+                        "Ooops", JOptionPane.ERROR_MESSAGE);
+            }
+            inputForRouteInfo();
+        }
+
+
+        //MODIFIES: this
+        //EFFECT: input information for route and type of flight
+        private void inputForRouteInfo() {
+            try {
+                entry.setDayOrnight(checkDayOrNight(dayOrnightText.getText()));
                 entry.setDepartureAirport(departureText.getText());
                 entry.setArrivalAirport(arrivalText.getText());
                 entry.setRemark(noteText.getText());
                 record.addAnEntry(entry);
                 saveLogbook();
-            } catch (InvalidInputException e) {
-                JOptionPane.showConfirmDialog(null, "You must enter a valid Date and/or entry "
-                                + "number.",
-                        "Ooops", JOptionPane.DEFAULT_OPTION);
+            } catch (InvalidDayOrNightException e) {
+                JOptionPane.showMessageDialog(null, "You need to specify day or night flight",
+                        "Ooops", JOptionPane.ERROR_MESSAGE);
+
             }
         }
+
+        private void loadLogbookEntries() {
+            jsonReader = new JsonReader(JSON_STORE);
+
+            try {
+                record = jsonReader.read();
+                System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
+            } catch (IOException e) {
+                System.out.println("Unable to read from file: " + JSON_STORE);
+            }
+        }
+
 
         private void displayMainMenu() {
             MainMenuGUI main = new MainMenuGUI();
@@ -282,7 +343,7 @@ public class AddEntryGUI extends JFrame {
                     & !month.equals("August") & !month.equals("September") & !month.equals("October")
                     & !month.equals("November") & !month.equals("December")) {
 
-                throw new InvalidMonthException();
+                throw new InvalidDateException();
             }
             return month;
         }
@@ -290,7 +351,7 @@ public class AddEntryGUI extends JFrame {
         private int checkDay(int day) throws InvalidInputException {
             if (day < 1 || day > 31) {
 
-                throw new InvalidDayException();
+                throw new InvalidDateException();
             }
             return day;
         }
@@ -298,12 +359,20 @@ public class AddEntryGUI extends JFrame {
         private int checkEntryNumber(int num) throws InvalidInputException {
             if (num < 0) {
 
-                throw new InvalidDayException();
+                throw new InvalidInputException();
             }
             return num;
         }
 
-
+        private String checkDayOrNight(String dayOrNight) throws InvalidDayOrNightException {
+            if (dayOrNight.equals("D") | dayOrNight.equals("d") | dayOrNight.equals("day") | dayOrNight.equals("Day")) {
+                return "Day";
+            } else if (dayOrNight.equals("Night") | dayOrNight.equals("N") | dayOrNight.equals("night")
+                    | dayOrNight.equals("n")) {
+                return "Night";
+            }
+            throw new InvalidDayOrNightException();
+        }
 
 
     }

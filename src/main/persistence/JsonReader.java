@@ -2,9 +2,6 @@ package persistence;
 
 // Represents a reader that reads workroom from JSON data stored in file
 // code adapted and re modeled based on the JsonSerializationDemo
-import exceptions.InvalidEntryNumberException;
-import exceptions.InvalidInputException;
-import exceptions.InvalidMonthException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 
@@ -40,7 +37,7 @@ public class JsonReader {
 
     // EFFECTS: reads logbookrecord from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public LogbookRecord read() throws IOException, InvalidInputException {
+    public LogbookRecord read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseLogbookRecord(jsonObject);
@@ -57,8 +54,8 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
-    private LogbookRecord parseLogbookRecord(JSONObject jsonObject) throws InvalidInputException {
+    // EFFECTS: parses logbook record from JSON object and returns it
+    private LogbookRecord parseLogbookRecord(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         LogbookRecord log = new LogbookRecord(name);
         addEntries(log, jsonObject);
@@ -66,8 +63,8 @@ public class JsonReader {
     }
 
     // MODIFIES: log
-    // EFFECTS: parses thingies from JSON object and adds them to logbook record
-    private void addEntries(LogbookRecord log, JSONObject jsonObject) throws InvalidInputException {
+    // EFFECTS: parses logbook record  from JSON object and adds them to logbook record
+    private void addEntries(LogbookRecord log, JSONObject jsonObject)  {
         JSONArray jsonArray = jsonObject.getJSONArray("entries");
         for (Object json : jsonArray) {
             JSONObject nextEntry = (JSONObject) json;
@@ -76,8 +73,8 @@ public class JsonReader {
     }
 
     // MODIFIES: log
-    // EFFECTS: parses thingy from JSON object and adds it to logbookRecord
-    private void addEntry(LogbookRecord log, JSONObject jsonObject) throws InvalidInputException {
+    // EFFECTS: parses log entries from JSON object and adds it to logbookRecord
+    private void addEntry(LogbookRecord log, JSONObject jsonObject) {
         int entryNumber = jsonObject.getInt("entryNumber");
         String month = jsonObject.getString("month");
         int day = jsonObject.getInt("day");
@@ -98,7 +95,7 @@ public class JsonReader {
     private void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
                             String aircraftName, String pilotInCommand, Double flightTime,
                             String dayOrNight, String departureAirport, String arrivalAirport,
-                            String remark, LogbookEntry entry, LogbookRecord log) throws InvalidInputException {
+                            String remark, LogbookEntry entry, LogbookRecord log) {
 
         entry.setEntryNumber(entryNumber);
         entry.setMonth(month);
