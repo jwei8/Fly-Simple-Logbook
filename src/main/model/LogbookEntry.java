@@ -2,6 +2,9 @@ package model;
 
 //represent one logbook entry with flight information
 
+import exceptions.InvalidDayException;
+import exceptions.InvalidEntryNumberException;
+import exceptions.InvalidMonthException;
 import org.json.JSONObject;
 import persistence.Writeable;
 
@@ -18,10 +21,6 @@ public class LogbookEntry implements Writeable {
     public double flightTime;
     public String departureAirport;
     public String arrivalAirport;
-
-
-
-
 
 
     //modifies this
@@ -114,7 +113,7 @@ public class LogbookEntry implements Writeable {
         this.entryNumber = num;
     }
 
-    //requires: non-empty string
+    //requires: valid string for month
     //modifies: this
     //effects: sets entry month
     public void setMonth(String month) {

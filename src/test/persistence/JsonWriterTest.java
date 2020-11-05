@@ -1,5 +1,7 @@
 package persistence;
 
+import exceptions.InvalidInputException;
+import exceptions.InvalidMonthException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ public class JsonWriterTest extends JsonTest {
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
-        } catch (IOException e) {
+        } catch (IOException | InvalidMonthException e) {
             // pass
         }
     }
@@ -37,7 +39,7 @@ public class JsonWriterTest extends JsonTest {
             log = reader.read();
             assertEquals("my logbook", log.getName());
             assertEquals(0, log.countEntries());
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }
     }
@@ -91,7 +93,7 @@ public class JsonWriterTest extends JsonTest {
                     "Jwei", 1.2, "Day", "CYNJ", "CYVR",
                     "", entries.get(1));
 
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }
     }

@@ -1,5 +1,8 @@
 package ui;
 
+import exceptions.InvalidEntryNumberException;
+import exceptions.InvalidInputException;
+import exceptions.InvalidMonthException;
 import model.Aircraft;
 import model.AircraftRecord;
 import model.LogbookEntry;
@@ -446,7 +449,7 @@ public class FlySimpleLogbook {
     //require: input for month is non empty String, int for month
     //modifies: this
     //effect add entry number
-    private void addEntryDate() {
+    public void addEntryDate() {
         System.out.println("\nEnter Month");
         String month = input.nextLine();
         while (!month.equals("January") & !month.equals("February") & !month.equals("March")
@@ -606,7 +609,7 @@ public class FlySimpleLogbook {
             jsonWriter.write(record);
             jsonWriter.close();
             System.out.println("Saved " + record.getName() + " to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | InvalidMonthException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
@@ -617,7 +620,7 @@ public class FlySimpleLogbook {
         try {
             record = jsonReader.read();
             System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }

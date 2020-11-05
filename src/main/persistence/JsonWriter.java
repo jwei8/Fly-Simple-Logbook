@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.InvalidMonthException;
 import model.LogbookRecord;
 import org.json.JSONObject;
 
@@ -21,7 +22,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
     // be opened for writing
-    public void open() throws FileNotFoundException {
+    public void open() throws FileNotFoundException, InvalidMonthException {
         writer = new PrintWriter(new File(destination));
     }
 

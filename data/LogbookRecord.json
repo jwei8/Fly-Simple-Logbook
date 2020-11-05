@@ -1,57 +1,16 @@
 {
-    "entries": [
-        {
-            "aircraftName": "CYVR",
-            "airplaneModel": "C-172M",
-            "month": "July",
-            "dayOrNight": "Day",
-            "departureAirport": "GXPH",
-            "pilotInCommand": "Jwei",
-            "entryNumber": 1,
-            "remark": "",
-            "flightTime": 1,
-            "day": 4,
-            "arrivalAirport": "CYYJ"
-        },
-        {
-            "aircraftName": "GXPH",
-            "airplaneModel": "C-172N",
-            "month": "September",
-            "dayOrNight": "night",
-            "departureAirport": "CYNJ",
-            "pilotInCommand": "Wkim",
-            "entryNumber": 2,
-            "remark": " ",
-            "flightTime": 1.2,
-            "day": 9,
-            "arrivalAirport": "CYVR"
-        },
-        {
-            "aircraftName": "GXWS",
-            "airplaneModel": "C-172N",
-            "month": "October",
-            "dayOrNight": "night",
-            "departureAirport": "CYXX",
-            "pilotInCommand": "Wkim",
-            "entryNumber": 3,
-            "remark": "cross country",
-            "flightTime": 1.2,
-            "day": 9,
-            "arrivalAirport": "CZAM"
-        },
-        {
-            "aircraftName": "GABC",
-            "airplaneModel": "C-170A",
-            "month": "October",
-            "dayOrNight": "Night",
-            "departureAirport": "CYXX",
-            "pilotInCommand": "Jwei",
-            "entryNumber": 4,
-            "remark": "nothing",
-            "flightTime": 1,
-            "day": 29,
-            "arrivalAirport": "CYYJ"
-        }
-    ],
+    "entries": [{
+        "aircraftName": "Jaso",
+        "airplaneModel": "C-172M",
+        "month": "January",
+        "dayOrNight": "d",
+        "departureAirport": "d",
+        "pilotInCommand": "aa",
+        "entryNumber": 1,
+        "remark": "",
+        "flightTime": 1,
+        "day": 20,
+        "arrivalAirport": "d"
+    }],
     "name": "record"
 }

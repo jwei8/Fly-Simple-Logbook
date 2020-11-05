@@ -1,6 +1,9 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import exceptions.InvalidEntryNumberException;
+import exceptions.InvalidMonthException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,18 +12,18 @@ class LogbookEntryTest {
 
     @BeforeEach
     public void setUp() {
-        entry = new LogbookEntry();
-        entry.setEntryNumber(1);
-        entry.setMonth("June");
-        entry.setDay(8);
-        entry.setAirplaneModel("C-172M");
-        entry.setAirplaneName("GXWS");
-        entry.setPic("JWei");
-        entry.setFLightTime(1.4);
-        entry.setDayOrnight("Day");
-        entry.setDepartureAirport("CYNJ");
-        entry.setArrivalAirport("CYVR");
-        entry.setRemark("CheckRide");
+            entry = new LogbookEntry();
+            entry.setEntryNumber(1);
+            entry.setMonth("June");
+            entry.setDay(8);
+            entry.setAirplaneModel("C-172M");
+            entry.setAirplaneName("GXWS");
+            entry.setPic("JWei");
+            entry.setFLightTime(1.4);
+            entry.setDayOrnight("Day");
+            entry.setDepartureAirport("CYNJ");
+            entry.setArrivalAirport("CYVR");
+            entry.setRemark("CheckRide");
     }
 
     @Test

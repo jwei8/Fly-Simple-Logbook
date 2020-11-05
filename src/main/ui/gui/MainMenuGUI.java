@@ -1,10 +1,22 @@
 package ui.gui;
 
+import exceptions.InvalidInputException;
+import exceptions.InvalidMonthException;
+import model.LogbookRecord;
+import persistence.JsonReader;
+import ui.FlySimpleLogbook;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MainMenuGUI extends JFrame {
+    private static final String JSON_STORE = "./data/logbookRecord.json";
+
     private JFrame mainFrame;
     private int frameWidth = 400;
     private int frameHeight = 800;
@@ -16,15 +28,17 @@ public class MainMenuGUI extends JFrame {
     private JButton filterEntry;
     private JButton quitLogbook;
     private JPanel addPanel;
+    private JsonReader jsonReader;
 
 
     public MainMenuGUI() {
         super("SimpleFly");
         setLayout(new GridBagLayout());
-        setSize(frameWidth,frameHeight);
+        setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUpMenuPanel();
         add(optionPanel);
+        setUpListener();
     }
 
     private void setUpMenuPanel() {
@@ -71,6 +85,45 @@ public class MainMenuGUI extends JFrame {
         gc.gridx = 0;
         gc.gridy = 5;
         add(quitLogbook, gc);
+    }
+
+    private void setUpListener() {
+        ActionHandle listener = new ActionHandle();
+
+        addEntry.addActionListener(listener);
+        printEntry.addActionListener(listener);
+        saveEntry.addActionListener(listener);
+        loadEntry.addActionListener(listener);
+        quitLogbook.addActionListener(listener);
+    }
+
+    protected class ActionHandle implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == addEntry) {
+                openAddEntry();
+            } else if (e.getSource() == loadEntry) {
+                loadLogbookEntries();
+            }
+        }
+
+        private void loadLogbookEntries() {
+            jsonReader = new JsonReader(JSON_STORE);
+
+            try {
+                LogbookRecord record = jsonReader.read();
+                System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
+            } catch (IOException | InvalidInputException e) {
+                System.out.println("Unable to read from file: " + JSON_STORE);
+            }
+        }
+
+        private void openAddEntry() {
+            AddEntryGUI addEntryGUI = new AddEntryGUI();
+            addEntryGUI.setVisible(true);
+            dispose();
+        }
     }
 
 }

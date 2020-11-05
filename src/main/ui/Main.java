@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         MainMenuGUI loginScreen = new MainMenuGUI();
         loginScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginScreen.setVisible(true);
