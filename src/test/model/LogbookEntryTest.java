@@ -2,6 +2,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import exceptions.InvalidDayOrNightException;
+import exceptions.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,28 @@ class LogbookEntryTest {
         assertEquals("CYNJ", entry.getDepartureAirport());
         assertEquals("CYVR", entry.getArrivalAirport());
         assertEquals("CheckRide", entry.getRemark());
+    }
+
+    @Test
+    public void testThrowInvalidInputException() {
+
+        try {
+            entry.throwExceptionInvalidInput();
+            fail("InvalidInpuException should be thrown");
+        } catch (InvalidInputException e) {
+            //expected
+        }
+    }
+
+    @Test
+    public void testThrowInvalidDayOrNightException() {
+
+        try {
+            entry.throwExceptionDayOrNight();
+            fail("InvalidDayOrNightException should be thrown");
+        } catch (InvalidDayOrNightException e) {
+            //expected
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package ui.gui;
 
 import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
-import exceptions.InvalidDateException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 import persistence.JsonReader;
@@ -343,7 +342,7 @@ public class AddEntryGUI extends JFrame {
                     & !month.equals("August") & !month.equals("September") & !month.equals("October")
                     & !month.equals("November") & !month.equals("December")) {
 
-                throw new InvalidDateException();
+                throw new InvalidInputException();
             }
             return month;
         }
@@ -351,7 +350,7 @@ public class AddEntryGUI extends JFrame {
         private int checkDay(int day) throws InvalidInputException {
             if (day < 1 || day > 31) {
 
-                throw new InvalidDateException();
+                throw new InvalidInputException();
             }
             return day;
         }

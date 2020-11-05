@@ -2,6 +2,8 @@ package model;
 
 //represent one logbook entry with flight information
 
+import exceptions.InvalidDayOrNightException;
+import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writeable;
 
@@ -178,6 +180,17 @@ public class LogbookEntry implements Writeable {
     //effects: sets arrival airport
     public void setArrivalAirport(String arrival) {
         this.arrivalAirport = arrival;
+    }
+
+
+    //effect: throw InvalidInputException
+    public void throwExceptionInvalidInput() throws InvalidInputException {
+        throw new InvalidInputException();
+    }
+
+
+    public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
+        throw new InvalidDayOrNightException();
     }
 
     @Override
