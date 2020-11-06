@@ -43,9 +43,9 @@ class LogbookEntryTest {
     }
 
     @Test
-    public void testThrowInvalidInputException() {
-
+    public void testThrowInvalidInputExceptionDayTooSmall() {
         try {
+            entry.setDay(0);
             entry.throwExceptionInvalidInput();
             fail("InvalidInpuException should be thrown");
         } catch (InvalidInputException e) {
@@ -54,14 +54,80 @@ class LogbookEntryTest {
     }
 
     @Test
-    public void testThrowInvalidDayOrNightException() {
+    public void testThrowInvalidInputExceptionDayTooBig() {
+        try {
+            entry.setDay(32);
+            entry.throwExceptionInvalidInput();
+            fail("InvalidInpuException should be thrown");
+        } catch (InvalidInputException e) {
+            //expected
+        }
+    }
+
+    @Test
+    public void testThrowInvalidInputExceptionDay() {
+        try {
+            entry.setDay(15);
+            entry.throwExceptionInvalidInput();
+        } catch (InvalidInputException e) {
+            fail("InvalidInpuException should not be thrown");
+        }
+    }
+
+    @Test
+    public void testThrowInvalidEntryNumberNoException() {
+        try {
+            entry.setEntryNumber(13);
+            entry.throwExceptionInvalidInput();
+        } catch (InvalidInputException e) {
+            fail("InvalidInpuException should not be thrown");
+        }
+    }
+
+    @Test
+    public void testThrowInvalidInputExceptionEntryNumber() {
+        try {
+            entry.setEntryNumber(-20);
+            entry.throwExceptionInvalidInput();
+            fail("InvalidInpuException should be thrown");
+        } catch (InvalidInputException e) {
+            //expected
+        }
+    }
+
+    @Test
+    public void testThrowInvalidDayOrNightExceptionNotDay() {
 
         try {
+            entry.setDayOrnight("neither");
             entry.throwExceptionDayOrNight();
             fail("InvalidDayOrNightException should be thrown");
         } catch (InvalidDayOrNightException e) {
             //expected
         }
     }
+
+    @Test
+    public void testThrowInvalidDayOrNightExceptionNight() {
+        try {
+            entry.setDayOrnight("night");
+            entry.throwExceptionDayOrNight();
+        } catch (InvalidDayOrNightException e) {
+            fail("InvalidDayOrNightException should not be thrown");
+
+        }
+    }
+
+    @Test
+    public void testThrowInvalidDayOrNightExceptionNotNight() {
+
+        try {
+            entry.setDayOrnight("day");
+            entry.throwExceptionDayOrNight();
+        } catch (InvalidDayOrNightException e) {
+            fail("InvalidDayOrNightException should not be thrown");
+        }
+    }
+
 
 }

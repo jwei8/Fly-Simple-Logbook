@@ -185,12 +185,20 @@ public class LogbookEntry implements Writeable {
 
     //effect: throw InvalidInputException
     public void throwExceptionInvalidInput() throws InvalidInputException {
-        throw new InvalidInputException();
+        if (entryNumber < 0) {
+            throw new InvalidInputException();
+        } else if  (!(day < 32) || !(day > 0)) {
+            throw new InvalidInputException();
+        }
     }
 
 
     public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
-        throw new InvalidDayOrNightException();
+        if (!dayOrnight.equals("night")) {
+            if (!dayOrnight.equals("day")) {
+                throw new InvalidDayOrNightException();
+            }
+        }
     }
 
     @Override

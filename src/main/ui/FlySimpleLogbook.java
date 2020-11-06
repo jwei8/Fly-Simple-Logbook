@@ -17,8 +17,7 @@ import java.util.StringTokenizer;
 //represents the main of the logbook app
 
 public class FlySimpleLogbook {
-    private static final String JSON_STORE = "./data/logbookRecord.json";
-    //    private LogbookEntry entryOne;
+    private static final String JSON_STORE = "./data/logbookRecord.json";//    private LogbookEntry entryOne;
 //    private LogbookEntry entryTwo;
 //    private LogbookEntry entryThree;
     private LogbookEntry newEntry;
