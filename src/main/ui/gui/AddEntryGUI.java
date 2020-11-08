@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//Represents the add entry Jframe
 public class AddEntryGUI extends JFrame {
     private JFrame addFrame;
     private int frameWidth = 400;
@@ -51,9 +52,10 @@ public class AddEntryGUI extends JFrame {
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/logbookRecord.json";
 
-
+    //constructor for add entry JFrame
     public AddEntryGUI() {
         super("Create a new log entry");
+        addFrame = new JFrame();
         setLayout(new GridBagLayout());
         setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +64,7 @@ public class AddEntryGUI extends JFrame {
         setUpListener();
     }
 
-
+    //constructor for add entry JPanel
     private void setUpAddPanel() {
         addPanel = new JPanel();
         addPanel.setLayout(new GridBagLayout());
@@ -76,12 +78,16 @@ public class AddEntryGUI extends JFrame {
         displayTextFields();
     }
 
+    //MODIFIES: this
+    //EFFECT: Create Jbutton for different operations
     private void setUpButtons() {
         addEntry = new JButton("Add an Entry");
         confirmAdd = new JButton("Confirm add this entry");
         returnToMain = new JButton("Return to main menu");
     }
 
+    //MODIFIES: this
+    //EFFECT: create Labels for the text fields to take user input
     private void setUpFieldLabels() {
         entryNumber = new JLabel("Enter entry number: ");
         month = new JLabel("Enter month: ");
@@ -96,6 +102,9 @@ public class AddEntryGUI extends JFrame {
         note = new JLabel("Remark: ");
     }
 
+
+    //Constructor
+    //EFFECT: create new JTextFields to take user input
     private void setUpFields() {
         entryNumberText = new JTextField(10);
         monthText = new JTextField(10);
@@ -110,6 +119,9 @@ public class AddEntryGUI extends JFrame {
         noteText = new JTextField(10);
     }
 
+
+    //MODIFIES: this
+    //EFFECT: create layout for the JLabels
     private void displayLabels() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -164,6 +176,9 @@ public class AddEntryGUI extends JFrame {
         add(note, gc);
     }
 
+
+    //MODIFIES: this
+    //EFFECT: render textFields for flight information
     private void displayTextFields() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
@@ -206,6 +221,8 @@ public class AddEntryGUI extends JFrame {
         add(picText, gc);
     }
 
+    //MODIFIES: this
+    //EFFECT: render textFields for flight route information
     private void displayTextFieldsForRoute() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
@@ -231,6 +248,9 @@ public class AddEntryGUI extends JFrame {
         gc.fill = GridBagConstraints.HORIZONTAL;
     }
 
+
+    //MODIFIES: this
+    //EFFECT: create actionListeners for JButtons
     private void setUpListener() {
         ActionHandle listener = new ActionHandle();
 
@@ -241,7 +261,6 @@ public class AddEntryGUI extends JFrame {
     }
 
     //Represent a class for ActionListener
-
     private class ActionHandle implements ActionListener {
 
         //Require: Action Event
@@ -258,6 +277,8 @@ public class AddEntryGUI extends JFrame {
             }
         }
 
+        //MODIFIES: this
+        //EFFECT: write the Json file to save new entries
         private void saveLogbook() {
             jsonWriter = new JsonWriter(JSON_STORE);
             try {
@@ -312,6 +333,7 @@ public class AddEntryGUI extends JFrame {
             }
         }
 
+        //EFFECT: read the Json file to load existing entries
         private void loadLogbookEntries() {
             jsonReader = new JsonReader(JSON_STORE);
 
@@ -323,19 +345,23 @@ public class AddEntryGUI extends JFrame {
             }
         }
 
-
+        //EFFECT: create the mainMenu Frame
         private void displayMainMenu() {
             MainMenuGUI main = new MainMenuGUI();
             main.setVisible(true);
             dispose();
         }
 
+        //EFFECT: create a new add entry frame
         private void openAddEntry() {
             AddEntryGUI addEntryGUI = new AddEntryGUI();
             addEntryGUI.setVisible(true);
             dispose();
         }
 
+        //REQUIRE: string
+        //MODIFIES:this
+        //EFFECT: check if the string is a valid month, if it's not throw InvalidInputException
         private String checkMonth(String month) throws InvalidInputException {
             if (!month.equals("January") & !month.equals("February") & !month.equals("March")
                     & !month.equals("April") & !month.equals("May") & !month.equals("June") & !month.equals("July")
@@ -347,6 +373,9 @@ public class AddEntryGUI extends JFrame {
             return month;
         }
 
+        //REQUIRE: int
+        //MODIFIES:this
+        //EFFECT: check if the int is a valid day, if it's not throw InvalidInputException
         private int checkDay(int day) throws InvalidInputException {
             if (day < 1 || day > 31) {
 
@@ -355,6 +384,9 @@ public class AddEntryGUI extends JFrame {
             return day;
         }
 
+        //REQUIRE: int
+        //MODIFIES:this
+        //EFFECT: check if the int is a valid entry number, if it's not throw InvalidInputException
         private int checkEntryNumber(int num) throws InvalidInputException {
             if (num < 0) {
 
@@ -363,6 +395,9 @@ public class AddEntryGUI extends JFrame {
             return num;
         }
 
+        //REQUIRE: string
+        //MODIFIES:this
+        //EFFECT: check if the string is a valid day or night selection, if it's not throw InvalidInputException
         private String checkDayOrNight(String dayOrNight) throws InvalidDayOrNightException {
             if (dayOrNight.equals("D") | dayOrNight.equals("d") | dayOrNight.equals("day") | dayOrNight.equals("Day")) {
                 return "Day";

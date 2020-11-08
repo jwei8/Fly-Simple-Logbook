@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+//represents the MainMenu Jframe
 public class MainMenuGUI extends JFrame {
     private static final String JSON_STORE = "./data/logbookRecord.json";
 
@@ -23,13 +24,13 @@ public class MainMenuGUI extends JFrame {
     private JButton loadEntry;
     private JButton filterEntry;
     private JButton quitLogbook;
-    private JPanel addPanel;
     private JsonReader jsonReader;
     private LogbookRecord record;
 
-
+    //Constructor for JFrame
     public MainMenuGUI() {
         super("SimpleFly");
+        mainFrame = new JFrame();
         setLayout(new GridBagLayout());
         setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +39,7 @@ public class MainMenuGUI extends JFrame {
         setUpListener();
     }
 
-
+    //Constructor for JPanel
     private void setUpMenuPanel() {
         optionPanel = new JPanel();
         optionPanel.setLayout(new GridBagLayout());
@@ -49,7 +50,8 @@ public class MainMenuGUI extends JFrame {
         displayButtons();
     }
 
-
+    //MODIFIES: This
+    //EFFECT: setup Jbuttons for ediffernt operations the program can do
     private void setUpButtons() {
         addEntry = new JButton("Add an Entry");
         saveEntry = new JButton("Save entry");
@@ -59,6 +61,8 @@ public class MainMenuGUI extends JFrame {
         quitLogbook = new JButton("Quit logbook");
     }
 
+    //MODIFIES: this
+    //EFFECT: create a buttons for the list of operations we can perform
     private void displayButtons() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -85,6 +89,9 @@ public class MainMenuGUI extends JFrame {
         add(quitLogbook, gc);
     }
 
+    //MODIFIES: this
+    //EFFECT: setup action listener for each Jbutton
+
     private void setUpListener() {
         ActionHandle listener = new ActionHandle();
 
@@ -94,20 +101,28 @@ public class MainMenuGUI extends JFrame {
         loadEntry.addActionListener(listener);
         quitLogbook.addActionListener(listener);
     }
+    //represents an ActionListener class
 
     protected class ActionHandle implements ActionListener {
 
+        //REQUIRES: ActionEvent
+        //MODIFIES: This
+        //EFFECT: respond to the user's selection and create the next frame
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addEntry) {
                 openAddEntry();
             } else if (e.getSource() == loadEntry) {
                 loadLogbookEntries();
+                JOptionPane.showMessageDialog(mainFrame.getComponent(0), "Entries are loaded successfully");
             } else if (e.getSource() == quitLogbook) {
                 dispose();
+            } else if (e.getSource() == printEntry) {
+                viewEntry();
             }
         }
 
+        //EFFECT: load the Json file to retrieve existing entries
         private void loadLogbookEntries() {
             jsonReader = new JsonReader(JSON_STORE);
 
@@ -119,10 +134,17 @@ public class MainMenuGUI extends JFrame {
             }
         }
 
+        //EFFECT: load a new JFrame to perform add entry
         private void openAddEntry() {
             AddEntryGUI addEntryGUI = new AddEntryGUI();
             addEntryGUI.setVisible(true);
             dispose();
+        }
+
+        //EFFECT: load a new Jframe to display all entry
+        private void viewEntry() {
+            new ViewEntryGUI();
+
         }
     }
 

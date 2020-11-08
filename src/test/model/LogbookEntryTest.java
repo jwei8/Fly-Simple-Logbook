@@ -58,7 +58,7 @@ class LogbookEntryTest {
         try {
             entry.setDay(32);
             entry.throwExceptionInvalidInput();
-            fail("InvalidInpuException should be thrown");
+            fail("InvalidInputException should be thrown");
         } catch (InvalidInputException e) {
             //expected
         }
@@ -70,7 +70,7 @@ class LogbookEntryTest {
             entry.setDay(15);
             entry.throwExceptionInvalidInput();
         } catch (InvalidInputException e) {
-            fail("InvalidInpuException should not be thrown");
+            fail("InvalidInputException should not be thrown");
         }
     }
 
@@ -80,7 +80,7 @@ class LogbookEntryTest {
             entry.setEntryNumber(13);
             entry.throwExceptionInvalidInput();
         } catch (InvalidInputException e) {
-            fail("InvalidInpuException should not be thrown");
+            fail("InvalidInputException should not be thrown");
         }
     }
 
@@ -89,7 +89,7 @@ class LogbookEntryTest {
         try {
             entry.setEntryNumber(-20);
             entry.throwExceptionInvalidInput();
-            fail("InvalidInpuException should be thrown");
+            fail("InvalidInputException should be thrown");
         } catch (InvalidInputException e) {
             //expected
         }

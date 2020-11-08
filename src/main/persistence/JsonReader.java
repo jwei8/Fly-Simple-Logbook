@@ -33,6 +33,7 @@ public class JsonReader {
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
+
     }
 
     // EFFECTS: reads logbookrecord from file and returns it;
@@ -44,7 +45,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads source file as string and returns it
-    private String readFile(String source) throws IOException {
+    public String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
@@ -55,7 +56,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses logbook record from JSON object and returns it
-    private LogbookRecord parseLogbookRecord(JSONObject jsonObject) {
+    public LogbookRecord parseLogbookRecord(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         LogbookRecord log = new LogbookRecord(name);
         addEntries(log, jsonObject);
@@ -64,7 +65,7 @@ public class JsonReader {
 
     // MODIFIES: log
     // EFFECTS: parses logbook record  from JSON object and adds them to logbook record
-    private void addEntries(LogbookRecord log, JSONObject jsonObject)  {
+    public void addEntries(LogbookRecord log, JSONObject jsonObject)  {
         JSONArray jsonArray = jsonObject.getJSONArray("entries");
         for (Object json : jsonArray) {
             JSONObject nextEntry = (JSONObject) json;
@@ -74,7 +75,7 @@ public class JsonReader {
 
     // MODIFIES: log
     // EFFECTS: parses log entries from JSON object and adds it to logbookRecord
-    private void addEntry(LogbookRecord log, JSONObject jsonObject) {
+    public void addEntry(LogbookRecord log, JSONObject jsonObject) {
         int entryNumber = jsonObject.getInt("entryNumber");
         String month = jsonObject.getString("month");
         int day = jsonObject.getInt("day");
@@ -91,8 +92,9 @@ public class JsonReader {
         inputEntry(entryNumber, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
                 dayOrNight, departureAirport, arrivalAirport, remark, entry, log);
     }
-
-    private void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
+    // MODIFIES: log
+    // EFFECTS: set the user input for the entry in the logbookRecord
+    public void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
                             String aircraftName, String pilotInCommand, Double flightTime,
                             String dayOrNight, String departureAirport, String arrivalAirport,
                             String remark, LogbookEntry entry, LogbookRecord log) {

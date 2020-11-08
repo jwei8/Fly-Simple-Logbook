@@ -193,6 +193,7 @@ public class LogbookEntry implements Writeable {
     }
 
 
+    //effect: throw InvalidDayOrNightException
     public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
         if (!dayOrnight.equals("night")) {
             if (!dayOrnight.equals("day")) {

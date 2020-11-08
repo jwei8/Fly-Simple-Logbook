@@ -13,7 +13,6 @@ public class LogbookRecord implements Writeable {
     private String name;
 
 
-
     //modifies this
     //construct a new empty list of LogBookEntry
 
