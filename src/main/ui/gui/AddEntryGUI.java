@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 //Represents the add entry Jframe
 public class AddEntryGUI extends JFrame {
@@ -181,11 +182,13 @@ public class AddEntryGUI extends JFrame {
     //EFFECT: render textFields for flight information
     private void displayTextFields() {
         GridBagConstraints gc = new GridBagConstraints();
+        loadLogbookEntries();
+        List<LogbookEntry> allEntry = record.displayAllEntry();
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = new Insets(5, 5, 5, 5);
         gc.gridx = 1;
         gc.gridy = 0;
-        add(entryNumberText, gc);
+        add(new JLabel(Integer.toString(allEntry.size() + 1)), gc);
         gc.gridx = 1;
         gc.gridy = 1;
         add(monthText, gc);
@@ -260,8 +263,20 @@ public class AddEntryGUI extends JFrame {
         entryNumberText.addActionListener(listener);
     }
 
+    //EFFECT: read the Json file to load existing entries
+    private void loadLogbookEntries() {
+        jsonReader = new JsonReader(JSON_STORE);
+
+        try {
+            record = jsonReader.read();
+            System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
     //Represent a class for ActionListener
-    private class ActionHandle implements ActionListener {
+    public class ActionHandle implements ActionListener {
 
         //Require: Action Event
         //EFFECT: respond to different Jbutton pressed
@@ -295,12 +310,10 @@ public class AddEntryGUI extends JFrame {
         //EFFECT: input information required for a new entry
         private void recordInputs() {
             entry = new LogbookEntry();
-            try {
-                entry.setEntryNumber(checkEntryNumber(Integer.valueOf(entryNumberText.getText())));
-            } catch (InvalidInputException e) {
-                JOptionPane.showMessageDialog(null, "You must enter a valid Entry Number ( > 0) ",
-                        "Ooops", JOptionPane.ERROR_MESSAGE);
-            }
+            // entry.setEntryNumber(checkEntryNumber(Integer.valueOf(entryNumberText.getText())));
+            List<LogbookEntry> allEntry = record.displayAllEntry();
+
+            entry.setEntryNumber(allEntry.size() + 1);
             try {
                 entry.setMonth(checkMonth(monthText.getText()));
                 entry.setDay(checkDay(Integer.valueOf(dayText.getText())));
@@ -333,17 +346,7 @@ public class AddEntryGUI extends JFrame {
             }
         }
 
-        //EFFECT: read the Json file to load existing entries
-        private void loadLogbookEntries() {
-            jsonReader = new JsonReader(JSON_STORE);
 
-            try {
-                record = jsonReader.read();
-                System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
-            } catch (IOException e) {
-                System.out.println("Unable to read from file: " + JSON_STORE);
-            }
-        }
 
         //EFFECT: create the mainMenu Frame
         private void displayMainMenu() {

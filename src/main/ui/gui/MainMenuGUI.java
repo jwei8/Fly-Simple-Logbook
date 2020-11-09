@@ -1,14 +1,18 @@
 package ui.gui;
 
-import exceptions.InvalidInputException;
 import model.LogbookRecord;
 import persistence.JsonReader;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+
 
 //represents the MainMenu Jframe
 public class MainMenuGUI extends JFrame {
@@ -112,6 +116,7 @@ public class MainMenuGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addEntry) {
                 openAddEntry();
+
             } else if (e.getSource() == loadEntry) {
                 loadLogbookEntries();
                 JOptionPane.showMessageDialog(mainFrame.getComponent(0), "Entries are loaded successfully");
