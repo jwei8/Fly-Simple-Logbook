@@ -80,59 +80,11 @@ public class ViewEntryGUI {
         createColumnName();
         displayEntry.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        gc.weightx = 5;
-        gc.weighty = 2;
-        gc.gridx = 0;
-        gc.gridy = 0;
-        displayEntry.add(entryNumTitle, gc);
-//        gc.gridx = 2;
-//        gc.gridy = 0;
-//        displayEntry.add(month, gc);
-//
-//        gc.gridx = 4;
-//        gc.gridy = 0;
-//        displayEntry.add(day, gc);
-//
-//        gc.gridx = 6;
-//        gc.gridy = 0;
-//        displayEntry.add(airplaneModel, gc);
-//
-//        gc.gridx = 8;
-//        gc.gridy = 0;
-//        displayEntry.add(airplaneName, gc);
+        entryNumberTitle(gc);
+
         titleForFlightInforPartOne();
 
         titleForFlightInfoPartTwo();
-
-//        gc.gridx = 10;
-//        gc.gridy = 0;
-//        displayEntry.add(pic, gc);
-//
-//        gc.gridx = 12;
-//        gc.gridy = 0;
-//        displayEntry.add(flightTime, gc);
-//
-//        gc.gridx = 14;
-//        gc.gridy = 0;
-//        displayEntry.add(dayOrnight, gc);
-//
-//        gc.gridx = 16;
-//        gc.gridy = 0;
-//        displayEntry.add(departure, gc);
-//
-//        gc.gridx = 18;
-//        gc.gridy = 0;
-//        displayEntry.add(arrival, gc);
-//
-//        gc.gridx = 20;
-//        gc.gridy = 0;
-//        gc.weightx = 10;
-//        displayEntry.add(note, gc);
-//
-//        gc.insets = new Insets(5, 10, 5, 10);
-//        viewEntry.add(displayEntry, BorderLayout.NORTH);
-
-        entryLabels();
 
         for (LogbookEntry e : allEntry) {
             JLabel entryNum = new JLabel(Integer.toString(e.getEntryNumber()));
@@ -146,66 +98,89 @@ public class ViewEntryGUI {
             JLabel departure = new JLabel(e.getDepartureAirport());
             JLabel arrival = new JLabel(e.getArrivalAirport());
             JLabel note = new JLabel(e.getRemark());
-            entryLabels();
             int valueOfy = allEntry.indexOf(e) + 1;
-            gc.gridx = 0;
-            gc.gridy = valueOfy;
-            displayEntry.add(entryNum, gc);
-            gc.gridx = 2;
-            gc.gridy = valueOfy;
-            displayEntry.add(month, gc);
-            gc.gridx = 4;
-            gc.gridy = valueOfy;
-            displayEntry.add(day, gc);
-            gc.gridx = 6;
-            gc.gridy = valueOfy;
-            displayEntry.add(airplaneModel, gc);
-            gc.gridx = 8;
-            gc.gridy = valueOfy;
-            displayEntry.add(airplaneName, gc);
-            gc.gridx = 10;
-            gc.gridy = valueOfy;
-            displayEntry.add(pic, gc);
-            gc.gridx = 12;
-            gc.gridy = valueOfy;
-            displayEntry.add(flightTime, gc);
-            gc.gridx = 14;
-            gc.gridy = valueOfy;
-            displayEntry.add(dayOrNight, gc);
-            gc.gridx = 16;
-            gc.gridy = valueOfy;
-            displayEntry.add(departure, gc);
-            gc.gridx = 18;
-            gc.gridy = valueOfy;
-            displayEntry.add(arrival, gc);
-            gc.gridx = 20;
-            gc.gridy = valueOfy;
-            gc.weightx = 5;
-            displayEntry.add(note, gc);
+            entryInformation(gc, entryNum, month, day, airplaneModel, airplaneName, pic,
+                    flightTime, dayOrNight, departure, arrival, note, valueOfy);
         }
     }
 
-    private void entryLabels() {
-
+    //REQUIRES: GridBagConstraints
+    //MODIFIES: this
+    //EFFECT: construct a title for entry number column
+    private void entryNumberTitle(GridBagConstraints gc) {
+        gc.weightx = 5;
+        gc.weighty = 2;
+        gc.gridx = 0;
+        gc.gridy = 0;
+        displayEntry.add(entryNumTitle, gc);
     }
+
+    private void entryInformation(GridBagConstraints gc, JLabel entryNum, JLabel month, JLabel day,
+                                  JLabel airplaneModel, JLabel airplaneName, JLabel pic, JLabel flightTime,
+                                  JLabel dayOrNight, JLabel departure, JLabel arrival, JLabel note, int valueOfy) {
+        gc.gridx = 0;
+        gc.gridy = valueOfy;
+        displayEntry.add(entryNum, gc);
+        entryDate(gc, month, day, valueOfy, 2, 4);
+        entryAircraftInfo(gc, airplaneModel, airplaneName, valueOfy, 6, 8);
+        gc.gridx = 10;
+        gc.gridy = valueOfy;
+        displayEntry.add(pic, gc);
+        gc.gridx = 12;
+        gc.gridy = valueOfy;
+        displayEntry.add(flightTime, gc);
+        gc.gridx = 14;
+        gc.gridy = valueOfy;
+        displayEntry.add(dayOrNight, gc);
+        entryRouteInfo(gc, departure, arrival, valueOfy, 16, 18);
+        gc.gridx = 20;
+        gc.gridy = valueOfy;
+        gc.weightx = 5;
+        displayEntry.add(note, gc);
+    }
+
+    //REQUIRES: GridBagConstraints, JLabel departure, JLabel arrival, int
+    //MODIFIES: this
+    //EFFECT: position the departure and arrival airport information on the grid
+    private void entryRouteInfo(GridBagConstraints gc, JLabel departure, JLabel arrival, int valueOfy, int i, int i2) {
+        gc.gridx = i;
+        gc.gridy = valueOfy;
+        displayEntry.add(departure, gc);
+        gc.gridx = i2;
+        gc.gridy = valueOfy;
+        displayEntry.add(arrival, gc);
+    }
+
+    //REQUIRES: GridBagConstraints, JLabel airplaneModel, JLabel airplaneName, int
+    //MODIFIES: this
+    //EFFECT: position aircraft model and name on the grid
+    private void entryAircraftInfo(GridBagConstraints gc, JLabel airplaneModel, JLabel airplaneName,
+                                   int valueOfy, int i, int i2) {
+        gc.gridx = i;
+        gc.gridy = valueOfy;
+        displayEntry.add(airplaneModel, gc);
+        gc.gridx = i2;
+        gc.gridy = valueOfy;
+        displayEntry.add(airplaneName, gc);
+    }
+
+    //REQUIRES: GridBagConstraints, JLabel month, JLabel day, int
+    //MODIFIES: this
+    //EFFECT: position the date information on the grid.
+    private void entryDate(GridBagConstraints gc, JLabel month, JLabel day, int valueOfy, int i, int i2) {
+        gc.gridx = i;
+        gc.gridy = valueOfy;
+        displayEntry.add(month, gc);
+        gc.gridx = i2;
+        gc.gridy = valueOfy;
+        displayEntry.add(day, gc);
+    }
+
 
     private void titleForFlightInforPartOne() {
         GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 2;
-        gc.gridy = 0;
-        displayEntry.add(monthTitle, gc);
-
-        gc.gridx = 4;
-        gc.gridy = 0;
-        displayEntry.add(dayTitle, gc);
-
-        gc.gridx = 6;
-        gc.gridy = 0;
-        displayEntry.add(airplaneModelTitle, gc);
-
-        gc.gridx = 8;
-        gc.gridy = 0;
-        displayEntry.add(airplaneNameTitle, gc);
+        entryDate(gc, monthTitle, dayTitle, 0, 2, 4);
+        entryAircraftInfo(gc, airplaneModelTitle, airplaneNameTitle, 0, 6, 8);
     }
 
     private void titleForFlightInfoPartTwo() {
@@ -223,13 +198,7 @@ public class ViewEntryGUI {
         gc.gridy = 0;
         displayEntry.add(dayOrnightTitle, gc);
 
-        gc.gridx = 16;
-        gc.gridy = 0;
-        displayEntry.add(departureTitle, gc);
-
-        gc.gridx = 18;
-        gc.gridy = 0;
-        displayEntry.add(arrivalTitle, gc);
+        entryRouteInfo(gc, departureTitle, arrivalTitle, 0, 16, 18);
 
         gc.gridx = 20;
         gc.gridy = 0;
