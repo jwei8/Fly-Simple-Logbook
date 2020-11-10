@@ -6,13 +6,14 @@ import model.LogbookEntry;
 import model.LogbookRecord;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 //Represents the add entry Jframe
@@ -122,7 +123,7 @@ public class AddEntryGUI extends JFrame {
 
 
     //MODIFIES: this
-    //EFFECT: create layout for the JLabels
+    //EFFECT: create layout for labels of entry number, date, airplane information
     private void displayLabels() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -152,7 +153,7 @@ public class AddEntryGUI extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECT: render flight information labels for the text fields
+    //EFFECT: create layout for labels of pilot name, flight time, flight type, route info and remark
     private void displayFlightInfoLabels() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 8, 8, 8);
@@ -179,7 +180,7 @@ public class AddEntryGUI extends JFrame {
 
 
     //MODIFIES: this
-    //EFFECT: render textFields for flight information
+    //EFFECT: create layout for text fields of date, flight time, flight type, route
     private void displayTextFields() {
         GridBagConstraints gc = new GridBagConstraints();
         loadLogbookEntries();
@@ -225,7 +226,7 @@ public class AddEntryGUI extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECT: render textFields for flight route information
+    //EFFECT: render textFields for flight route information, and construct option buttons
     private void displayTextFieldsForRoute() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
@@ -284,13 +285,18 @@ public class AddEntryGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             loadLogbookEntries();
             if (e.getSource() == addEntry) {
+                playMusic("./data/clickButton.wav");
                 openAddEntry();
+
             } else if (e.getSource() == returnToMain) {
+                playMusic("./data/clickButton.wav");
                 displayMainMenu();
             } else if (e.getSource() == confirmAdd) {
+                playMusic("./data/clickButton.wav");
                 recordInputs();
             }
         }
+
 
         //MODIFIES: this
         //EFFECT: write the Json file to save new entries
@@ -307,10 +313,9 @@ public class AddEntryGUI extends JFrame {
         }
 
         //MODIFIES: this
-        //EFFECT: input information required for a new entry
+        //EFFECT: input information required for a new entry, invalidEntryException is thrown for invalid entry.
         private void recordInputs() {
             entry = new LogbookEntry();
-            // entry.setEntryNumber(checkEntryNumber(Integer.valueOf(entryNumberText.getText())));
             List<LogbookEntry> allEntry = record.displayAllEntry();
 
             entry.setEntryNumber(allEntry.size() + 1);
@@ -347,11 +352,9 @@ public class AddEntryGUI extends JFrame {
         }
 
 
-
         //EFFECT: create the mainMenu Frame
         private void displayMainMenu() {
-            MainMenuGUI main = new MainMenuGUI();
-            main.setVisible(true);
+            new MainMenuGUI();
             dispose();
         }
 
@@ -414,5 +417,20 @@ public class AddEntryGUI extends JFrame {
 
     }
 
+    //REQUIRE: String
+    //MODIFIES: this
+    //EFFECT: create sound effect for the button clicked
+    public static void playMusic(String filePath) {
+        InputStream music;
 
+        try {
+            music = new FileInputStream(new File(filePath));
+            AudioStream audio = new AudioStream(music);
+            AudioPlayer.player.start(audio);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error");
+
+        }
+    }
 }
+

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
+
+//Represent a view entry frame
 public class ViewEntryGUI {
     private JFrame viewEntry;
     private JPanel displayEntry;
@@ -31,18 +33,8 @@ public class ViewEntryGUI {
     private JLabel noteTitle;
     private JScrollPane panel;
 
-    JLabel month;
-    JLabel day;
-    JLabel airplaneModel;
-    JLabel airplaneName;
-    JLabel pic;
-    JLabel flightTime;
-    JLabel dayOrNight;
-    JLabel departure;
-    JLabel arrival;
-    JLabel note;
-
-
+    //constructor
+    //EFFECT: construct the panel to display on this frame
     public ViewEntryGUI() {
         viewEntry = new JFrame("Log entries on file");
         displayEntry = new JPanel();
@@ -53,14 +45,10 @@ public class ViewEntryGUI {
         record = new LogbookRecord("record");
         jsonReader = new JsonReader(JSON_STORE);
         loadLogbook();
-        printLogbook();
-        viewLogbook();
         printEntry();
         panel = new JScrollPane(displayEntry);
         viewEntry.add(panel);
         viewEntry.setVisible(true);
-
-        //viewEntry.pack();
     }
 
 
@@ -74,7 +62,8 @@ public class ViewEntryGUI {
         }
     }
 
-
+    //MODIFIES: this
+    //EFFECT: convert the Json file into List<LogbookEntry> and print it in a table form
     private void printEntry() {
         List<LogbookEntry> allEntry = record.displayAllEntry();
         createColumnName();
@@ -115,6 +104,10 @@ public class ViewEntryGUI {
         displayEntry.add(entryNumTitle, gc);
     }
 
+    //REQUIRES: GridbagConstrains, JLabel entryNum, month, day airplaneModel, airplaneName, pic, flightTime, dayOrNight
+    //          departure, arrival, note int valueOfy;
+    //MODIFIES: this
+    //EFFECT: position the entry items at the correct x and y coordinates
     private void entryInformation(GridBagConstraints gc, JLabel entryNum, JLabel month, JLabel day,
                                   JLabel airplaneModel, JLabel airplaneName, JLabel pic, JLabel flightTime,
                                   JLabel dayOrNight, JLabel departure, JLabel arrival, JLabel note, int valueOfy) {
@@ -166,7 +159,7 @@ public class ViewEntryGUI {
 
     //REQUIRES: GridBagConstraints, JLabel month, JLabel day, int
     //MODIFIES: this
-    //EFFECT: position the date information on the grid.
+    //EFFECT: position the date information on the grid
     private void entryDate(GridBagConstraints gc, JLabel month, JLabel day, int valueOfy, int i, int i2) {
         gc.gridx = i;
         gc.gridy = valueOfy;
@@ -176,13 +169,21 @@ public class ViewEntryGUI {
         displayEntry.add(day, gc);
     }
 
-
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECT: construct and position the first section of the entry title column, include date, entry number, airplane
+    //        information
     private void titleForFlightInforPartOne() {
         GridBagConstraints gc = new GridBagConstraints();
         entryDate(gc, monthTitle, dayTitle, 0, 2, 4);
         entryAircraftInfo(gc, airplaneModelTitle, airplaneNameTitle, 0, 6, 8);
     }
 
+
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECT: construct and position the second section of the entry title column, include pilot name, flight time,
+    //        type and route information
     private void titleForFlightInfoPartTwo() {
         GridBagConstraints gc = new GridBagConstraints();
 
@@ -210,6 +211,9 @@ public class ViewEntryGUI {
 
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECT: construct the JLabels for the column title
     private void createColumnName() {
         entryNumTitle = new JLabel("Entry Number");
         monthTitle = new JLabel("Month");
@@ -223,35 +227,4 @@ public class ViewEntryGUI {
         arrivalTitle = new JLabel("Destination airport");
         noteTitle = new JLabel("Remark");
     }
-
-    private void viewLogbook() {
-        System.out.println("showing all entries");
-        System.out.println(printLogbook());
-    }
-
-    //getter
-    //modifies: this
-    //effect: displays all entries
-
-    private String printLogbook() {
-        System.out.println("Showing logbook entries: ");
-        String entries = "display entries";
-
-        List<LogbookEntry> allEntry = record.displayAllEntry();
-
-        if (allEntry.isEmpty()) {
-            return "No flight has been entered";
-        }
-
-        for (LogbookEntry e : allEntry) {
-            String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
-                    + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
-                    + e.getArrivalAirport() + "    " + e.getRemark();
-            entries = entries.concat("\n" + entry);
-        }
-        return entries;
-    }
-
-
 }

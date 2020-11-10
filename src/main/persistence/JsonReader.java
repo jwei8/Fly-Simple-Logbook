@@ -6,13 +6,21 @@ import model.LogbookEntry;
 import model.LogbookRecord;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.json.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import javax.sound.sampled.AudioSystem;
+import javax.swing.*;
 
 
 public class JsonReader {
@@ -92,6 +100,7 @@ public class JsonReader {
         inputEntry(entryNumber, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
                 dayOrNight, departureAirport, arrivalAirport, remark, entry, log);
     }
+
     // MODIFIES: log
     // EFFECTS: set the user input for the entry in the logbookRecord
     public void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
