@@ -21,8 +21,6 @@ import java.io.InputStream;
 
 //represents the MainMenu Jframe
 public class MainMenuGUI {
-    private static final String JSON_STORE = "./data/logbookRecord.json";
-
     private JFrame mainFrame;
     private int frameWidth = 500;
     private int frameHeight = 800;
@@ -31,10 +29,9 @@ public class MainMenuGUI {
     private JButton printEntry;
     private JButton loadEntry;
     private JButton quitLogbook;
+    private JButton viewFleet;
     private JLabel planePicture;
     private JLabel title;
-    private JsonReader jsonReader;
-    private LogbookRecord record;
     private JScrollPane panel;
 
     //Constructor for JFrame
@@ -45,6 +42,8 @@ public class MainMenuGUI {
 
         optionPanel = new JPanel();
         optionPanel.setLayout(new GridBagLayout());
+        optionPanel.setBackground(Color.darkGray);
+
         setUpButtons();
         displayButtons();
 
@@ -57,71 +56,82 @@ public class MainMenuGUI {
     }
 
     //MODIFIES: This
-    //EFFECT: setup JButtons for different operations the program can do
+    //EFFECT: setup JButtons for different operations, title and a welcome picture
     private void setUpButtons() {
-        addEntry = new JButton("Add an Entry");
+        addEntry = new JButton("Add an entry");
+        addEntry.setBackground(Color.white);
         addEntry.setPreferredSize(new Dimension(200, 40));
 
-        printEntry = new JButton("View all logbook entries");
+        printEntry = new JButton("View all logbook entry");
         printEntry.setPreferredSize(new Dimension(200, 40));
+        printEntry.setBackground(Color.white);
+
 
         loadEntry = new JButton("Load entries from file");
         loadEntry.setPreferredSize(new Dimension(200, 40));
+        loadEntry.setBackground(Color.white);
+
+        viewFleet = new JButton("View aircraft picture");
+        viewFleet.setPreferredSize(new Dimension(200, 40));
+        viewFleet.setBackground(Color.white);
 
         quitLogbook = new JButton("Quit logbook");
         quitLogbook.setPreferredSize(new Dimension(200, 40));
+        quitLogbook.setBackground(Color.white);
 
-        planePicture = new JLabel();
-        title = new JLabel("    Welcome to Fly Simple Logbook!");
+        title = new JLabel("<html><font color='white'> Welcome to Fly Simple Logbook!</font></html> ");
         title.setPreferredSize(new Dimension(200, 40));
 
+        planePicture = new JLabel();
         planePicture.setIcon(new ImageIcon("./data/mainMenuPic.png"));
     }
 
     //MODIFIES: this
     //EFFECT: create a buttons for the list of operations we can perform
+    //reference: https://www.youtube.com/watch?v=g2vDARb7gx8&t=230s
     private void displayButtons() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 8, 8, 8);
         gc.gridx = 0;
         gc.gridy = 0;
         gc.fill = GridBagConstraints.CENTER;
-
         optionPanel.add(addEntry, gc);
+
         gc.gridx = 0;
         gc.gridy = 2;
         optionPanel.add(printEntry, gc);
+
         gc.gridx = 0;
         gc.gridy = 3;
-        optionPanel.add(loadEntry, gc);
+        optionPanel.add(viewFleet, gc);
 
+        gc.gridx = 0;
+        gc.gridy = 4;
+        optionPanel.add(quitLogbook, gc);
 
         gc.gridx = 0;
         gc.gridy = 5;
-        optionPanel.add(quitLogbook, gc);
+        optionPanel.add(planePicture, gc);
+
         gc.gridx = 0;
         gc.gridy = 6;
-
         optionPanel.add(title, gc);
-        gc.gridx = 0;
-        gc.gridy = 7;
-        optionPanel.add(planePicture, gc);
     }
 
     //MODIFIES: this
     //EFFECT: setup action listener for each Jbutton
-
     private void setUpListener() {
         ActionHandle listener = new ActionHandle();
 
         addEntry.addActionListener(listener);
         printEntry.addActionListener(listener);
-        loadEntry.addActionListener(listener);
+        viewFleet.addActionListener(listener);
         quitLogbook.addActionListener(listener);
     }
 
     //represents an ActionListener class
-    protected class ActionHandle implements ActionListener {
+    //reference: https://stackoverflow.com/questions/6344269/jframe-actionlistener
+    private class ActionHandle implements ActionListener {
 
         //REQUIRES: ActionEvent
         //MODIFIES: This
@@ -132,10 +142,10 @@ public class MainMenuGUI {
                 openAddEntry();
                 playMusic("./data/clickButton.wav");
 
-            } else if (e.getSource() == loadEntry) {
+            } else if (e.getSource() == viewFleet) {
                 playMusic("./data/clickButton.wav");
-                loadLogbookEntries();
-                JOptionPane.showMessageDialog(mainFrame.getComponent(0), "Entries are loaded successfully");
+                new FleetGUI();
+                mainFrame.dispose();
 
             } else if (e.getSource() == quitLogbook) {
                 mainFrame.dispose();
@@ -145,18 +155,6 @@ public class MainMenuGUI {
                 viewEntry();
                 playMusic("./data/viewEntry.wav");
 
-            }
-        }
-
-        //EFFECT: load the Json file to retrieve existing entries
-        private void loadLogbookEntries() {
-            jsonReader = new JsonReader(JSON_STORE);
-
-            try {
-                record = jsonReader.read();
-                System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
-            } catch (IOException e) {
-                System.out.println("Unable to read from file: " + JSON_STORE);
             }
         }
 
@@ -178,6 +176,7 @@ public class MainMenuGUI {
     //REQUIRE: String
     //MODIFIES: this
     //EFFECT: create sound effect for the button clicked
+    //reference: https://www.youtube.com/watch?v=3q4f6I5zi2w
     public static void playMusic(String filePath) {
         InputStream music;
 

@@ -45,9 +45,3 @@ A *bulleted* list:
 - As a user, I want to be able to load my saved entries when starting the application.
 
 ## User Stories
-Instruction for grader:
-<br>
-The ui contains 3 pre-recorded entries and 1 saved aircraft profile for demonstration purposes. All user stories above
-are working. You can choose to mark the first 4 stories. There is one method in LogbookRecord called 
-removeEntryByFlightNum is not ready to be implemented in the UI yet, because I am still deciding its use in the program.
-

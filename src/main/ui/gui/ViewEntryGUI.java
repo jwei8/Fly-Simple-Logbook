@@ -36,12 +36,14 @@ public class ViewEntryGUI {
     //constructor
     //EFFECT: construct the panel to display on this frame
     public ViewEntryGUI() {
+
+
         viewEntry = new JFrame("Log entries on file");
+
         displayEntry = new JPanel();
         viewEntry.setLayout(new BorderLayout());
         viewEntry.setSize(frameWidth, frameHeight);
         viewEntry.setLocationRelativeTo(null);
-        displayEntry.setBackground(Color.LIGHT_GRAY);
         record = new LogbookRecord("record");
         jsonReader = new JsonReader(JSON_STORE);
         loadLogbook();

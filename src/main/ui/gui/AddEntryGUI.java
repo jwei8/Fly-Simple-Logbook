@@ -83,7 +83,7 @@ public class AddEntryGUI extends JFrame {
     //MODIFIES: this
     //EFFECT: Create Jbutton for different operations
     private void setUpButtons() {
-        addEntry = new JButton("Add an Entry");
+        addEntry = new JButton("Add another entry");
         confirmAdd = new JButton("Confirm add this entry");
         returnToMain = new JButton("Return to main menu");
     }
@@ -161,18 +161,23 @@ public class AddEntryGUI extends JFrame {
         gc.gridx = 0;
         gc.gridy = 5;
         add(pic, gc);
+
         gc.gridx = 0;
         gc.gridy = 6;
         add(flightTime, gc);
+
         gc.gridx = 0;
         gc.gridy = 7;
         add(dayOrnight, gc);
+
         gc.gridx = 0;
         gc.gridy = 8;
         add(departure, gc);
+
         gc.gridx = 0;
         gc.gridy = 9;
         add(arrival, gc);
+
         gc.gridx = 0;
         gc.gridy = 10;
         add(note, gc);
@@ -227,25 +232,32 @@ public class AddEntryGUI extends JFrame {
 
     //MODIFIES: this
     //EFFECT: render textFields for flight route information, and construct option buttons
+    //reference: https://www.youtube.com/watch?v=g2vDARb7gx8&t=230s
     private void displayTextFieldsForRoute() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = new Insets(5, 5, 5, 5);
+
         gc.gridx = 1;
         gc.gridy = 8;
         add(departureText, gc);
+
         gc.gridx = 1;
         gc.gridy = 9;
         add(arrivalText, gc);
+
         gc.gridx = 1;
         gc.gridy = 10;
         add(noteText, gc);
+
         gc.gridx = 1;
         gc.gridy = 11;
         add(confirmAdd, gc);
+
         gc.gridx = 1;
         gc.gridy = 12;
         add(addEntry, gc);
+
         gc.gridx = 1;
         gc.gridy = 13;
         add(returnToMain, gc);
@@ -420,6 +432,7 @@ public class AddEntryGUI extends JFrame {
     //REQUIRE: String
     //MODIFIES: this
     //EFFECT: create sound effect for the button clicked
+    //reference: https://www.youtube.com/watch?v=3q4f6I5zi2w
     public static void playMusic(String filePath) {
         InputStream music;
 
