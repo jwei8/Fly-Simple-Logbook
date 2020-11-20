@@ -191,24 +191,15 @@ public class LogbookEntry implements Writeable {
     }
 
 
-    //effect: throw InvalidInputException
-    public void throwExceptionInvalidInput() throws InvalidInputException {
-        if (entryNumber < 0) {
-            throw new InvalidInputException();
-        } else if (!(day < 32) || !(day > 0)) {
-            throw new InvalidInputException();
-        }
-    }
-
 
     //effect: throw InvalidDayOrNightException
-    public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
-        if (!dayOrnight.equals("night")) {
-            if (!dayOrnight.equals("day")) {
-                throw new InvalidDayOrNightException();
-            }
-        }
-    }
+//    public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
+//        if (!dayOrnight.equals("night")) {
+//            if (!dayOrnight.equals("day")) {
+//                throw new InvalidDayOrNightException();
+//            }
+//        }
+//    }
 
     @Override
     public JSONObject toJson() {
