@@ -16,9 +16,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.List;
 
-//Represents the add entry Jframe
+//Represents the add entry Panel
 public class AddEntryGUI extends JFrame {
-    private JFrame addFrame;
     private int frameWidth = 400;
     private int frameHeight = 800;
     private JPanel addPanel;
@@ -32,7 +31,7 @@ public class AddEntryGUI extends JFrame {
     private JLabel airplaneName;
     private JLabel pic;
     private JLabel flightTime;
-    private JLabel dayOrnight;
+    private JLabel dayOrNight;
     private JLabel departure;
     private JLabel arrival;
     private JLabel note;
@@ -57,7 +56,6 @@ public class AddEntryGUI extends JFrame {
     //constructor for add entry JFrame
     public AddEntryGUI() {
         super("Create a new log entry");
-        addFrame = new JFrame();
         setLayout(new GridBagLayout());
         setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +96,7 @@ public class AddEntryGUI extends JFrame {
         airplaneName = new JLabel("Name for the airplane: ");
         pic = new JLabel("Name of the Pilot: ");
         flightTime = new JLabel("Flight time: ");
-        dayOrnight = new JLabel("D for day and N for night: ");
+        dayOrNight = new JLabel("D for day and N for night: ");
         departure = new JLabel("Departure airport:");
         arrival = new JLabel("Destination airport: ");
         note = new JLabel("Remark: ");
@@ -168,7 +166,7 @@ public class AddEntryGUI extends JFrame {
 
         gc.gridx = 0;
         gc.gridy = 7;
-        add(dayOrnight, gc);
+        add(dayOrNight, gc);
 
         gc.gridx = 0;
         gc.gridy = 8;
