@@ -1,5 +1,6 @@
 package ui.gui;
 
+import exceptions.InvalidInputException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 import persistence.JsonReader;
@@ -19,7 +20,6 @@ public class ViewEntryGUI {
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/logbookRecord.json";
     private LogbookRecord record;
-    private List<LogbookEntry> log;
     private JLabel entryNumTitle;
     private JLabel monthTitle;
     private JLabel dayTitle;
@@ -59,7 +59,7 @@ public class ViewEntryGUI {
         try {
             record = jsonReader.read();
             System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
@@ -85,7 +85,7 @@ public class ViewEntryGUI {
             JLabel airplaneName = new JLabel(e.getAirplaneName());
             JLabel pic = new JLabel(e.getPic());
             JLabel flightTime = new JLabel(Double.toString(e.getFlightTime()));
-            JLabel dayOrNight = new JLabel(e.getDayOrnight());
+            JLabel dayOrNight = new JLabel(e.getDayOrNight());
             JLabel departure = new JLabel(e.getDepartureAirport());
             JLabel arrival = new JLabel(e.getArrivalAirport());
             JLabel note = new JLabel(e.getRemark());

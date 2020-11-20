@@ -103,19 +103,6 @@
             "flightTime": 0.5,
             "day": 12,
             "arrivalAirport": "CZBB"
-        },
-        {
-            "aircraftName": "",
-            "airplaneModel": "",
-            "month": "",
-            "dayOrNight": "dayOrNight",
-            "departureAirport": "",
-            "pilotInCommand": "pic",
-            "entryNumber": 9,
-            "remark": "",
-            "flightTime": 0,
-            "day": 1,
-            "arrivalAirport": ""
         }
     ],
     "name": "record"

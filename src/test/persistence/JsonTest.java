@@ -16,7 +16,7 @@ public class JsonTest {
         assertEquals(aircraftName, entry.getAirplaneName());
         assertEquals(pilotInCommand, entry.getPic());
         assertEquals(flightTime, entry.getFlightTime());
-        assertEquals(dayOrNight, entry.getDayOrnight());
+        assertEquals(dayOrNight, entry.getDayOrNight());
         assertEquals(departureAirport, entry.getDepartureAirport());
         assertEquals(arrivalAirport, entry.getArrivalAirport());
         assertEquals(remark, entry.getRemark());

@@ -26,7 +26,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyLogbookRecord() {
+    void testWriterEmptyLogbookRecord() throws InvalidInputException {
         try {
             LogbookRecord log = new LogbookRecord("my logbook");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyLogbookRecord.json");

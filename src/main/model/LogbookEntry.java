@@ -2,7 +2,6 @@ package model;
 
 //represent one logbook entry with flight information
 
-import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writeable;
@@ -14,7 +13,7 @@ public class LogbookEntry implements Writeable {
     public String pilotInCommand;
     public String airplaneModel;
     public String airplaneName;
-    public String dayOrnight;
+    public String dayOrNight;
     public String remark;
     public int entryNumber;
     public double flightTime;
@@ -33,7 +32,7 @@ public class LogbookEntry implements Writeable {
         this.airplaneName = "";
         this.pilotInCommand = "pic";
         this.flightTime = 0.0;
-        this.dayOrnight = "dayOrNight";
+        this.dayOrNight = "dayOrNight";
         this.departureAirport = "Airport";
         this.arrivalAirport = "home";
         this.remark = "remark";
@@ -76,8 +75,8 @@ public class LogbookEntry implements Writeable {
 
     //getter
     //effect: return day or night flight
-    public String getDayOrnight() {
-        return dayOrnight;
+    public String getDayOrNight() {
+        return dayOrNight;
     }
 
     //getter
@@ -160,7 +159,7 @@ public class LogbookEntry implements Writeable {
     //modifies: this
     //effects: sets day or night
     public void setDayOrNight(String day) {
-        this.dayOrnight = day;
+        this.dayOrNight = day;
     }
 
     //requires: none empty string
@@ -211,7 +210,7 @@ public class LogbookEntry implements Writeable {
         json.put("aircraftName", airplaneName);
         json.put("pilotInCommand", pilotInCommand);
         json.put("flightTime", flightTime);
-        json.put("dayOrNight", dayOrnight);
+        json.put("dayOrNight", dayOrNight);
         json.put("departureAirport", departureAirport);
         json.put("arrivalAirport", arrivalAirport);
         json.put("remark", remark);

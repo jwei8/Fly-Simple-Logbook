@@ -1,6 +1,7 @@
 package ui.gui;
 
 
+import exceptions.InvalidInputException;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -143,7 +144,11 @@ public class MainMenuGUI {
         @Override 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addEntry) {
-                openAddEntry();
+                try {
+                    openAddEntry();
+                } catch (InvalidInputException invalidInputException) {
+                    invalidInputException.printStackTrace();
+                }
                 playMusic("./data/clickButton.wav");
 
             } else if (e.getSource() == viewFleet) {
@@ -163,7 +168,7 @@ public class MainMenuGUI {
         }
 
         //EFFECT: load a new JFrame to perform add entry
-        private void openAddEntry() {
+        private void openAddEntry() throws InvalidInputException {
             AddEntryGUI addEntryGUI = new AddEntryGUI();
             addEntryGUI.setVisible(true);
             mainFrame.dispose();

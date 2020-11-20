@@ -85,7 +85,7 @@ public class LogbookRecord implements Writeable {
         ArrayList<LogbookEntry> toKeep = new ArrayList<>();
 
         for (LogbookEntry entry : logBookEntries) {
-            if (entry.dayOrnight.equals(dayOrnight)) {
+            if (entry.dayOrNight.equals(dayOrnight)) {
                 toKeep.add(entry);
             }
         }

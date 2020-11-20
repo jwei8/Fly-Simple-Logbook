@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonReaderTest extends JsonTest{
 
     @Test
-    void testReaderNonExistentFile() {
+    void testReaderNonExistentFile() throws InvalidInputException {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
             LogbookRecord log = reader.read();
@@ -25,7 +25,7 @@ public class JsonReaderTest extends JsonTest{
     }
 
     @Test
-    void testReaderEmptyLogbookRecord() {
+    void testReaderEmptyLogbookRecord() throws InvalidInputException {
         JsonReader reader = new JsonReader("./data/testReaderEmptyLogbookRecord.json");
         try {
             LogbookRecord log = reader.read();
@@ -37,7 +37,7 @@ public class JsonReaderTest extends JsonTest{
     }
 
     @Test
-    void testReaderGeneralLogbookRecord() {
+    void testReaderGeneralLogbookRecord() throws InvalidInputException {
         JsonReader reader = new JsonReader("./data/testReaderGeneralLogbookRecord.json");
         try {
             LogbookRecord log = reader.read();

@@ -54,7 +54,7 @@ public class AddEntryGUI extends JFrame {
     private static final String JSON_STORE = "./data/logbookRecord.json";
 
     //constructor for add entry JFrame
-    public AddEntryGUI() {
+    public AddEntryGUI() throws InvalidInputException {
         super("Create a new log entry");
         setLayout(new GridBagLayout());
         setSize(frameWidth, frameHeight);
@@ -65,7 +65,7 @@ public class AddEntryGUI extends JFrame {
     }
 
     //constructor for add entry JPanel
-    private void setUpAddPanel() {
+    private void setUpAddPanel() throws InvalidInputException {
         addPanel = new JPanel();
         addPanel.setLayout(new GridBagLayout());
         Dimension size = getPreferredSize();
@@ -184,7 +184,7 @@ public class AddEntryGUI extends JFrame {
 
     //MODIFIES: this
     //EFFECT: create layout for text fields of date, flight time, flight type, route
-    private void displayTextFields() {
+    private void displayTextFields() throws InvalidInputException {
         GridBagConstraints gc = new GridBagConstraints();
         loadLogbookEntries();
         List<LogbookEntry> allEntry = record.displayAllEntry();
@@ -275,7 +275,7 @@ public class AddEntryGUI extends JFrame {
     }
 
     //EFFECT: read the Json file to load existing entries
-    private void loadLogbookEntries() {
+    private void loadLogbookEntries() throws InvalidInputException {
         jsonReader = new JsonReader(JSON_STORE);
 
         try {
@@ -293,10 +293,18 @@ public class AddEntryGUI extends JFrame {
         //EFFECT: respond to different Jbutton pressed
         @Override
         public void actionPerformed(ActionEvent e) {
-            loadLogbookEntries();
+            try {
+                loadLogbookEntries();
+            } catch (InvalidInputException invalidInputException) {
+                invalidInputException.printStackTrace();
+            }
             if (e.getSource() == addEntry) {
                 playMusic("./data/clickButton.wav");
-                openAddEntry();
+                try {
+                    openAddEntry();
+                } catch (InvalidInputException invalidInputException) {
+                    invalidInputException.printStackTrace();
+                }
 
             } else if (e.getSource() == returnToMain) {
                 playMusic("./data/clickButton.wav");
@@ -374,7 +382,7 @@ public class AddEntryGUI extends JFrame {
         }
 
         //EFFECT: create a new add entry frame
-        private void openAddEntry() {
+        private void openAddEntry() throws InvalidInputException {
             AddEntryGUI addEntryGUI = new AddEntryGUI();
             addEntryGUI.setVisible(true);
             dispose();

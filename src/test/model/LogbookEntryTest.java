@@ -2,7 +2,6 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +40,7 @@ class LogbookEntryTest {
         assertEquals("GXWS", entry.getAirplaneName());
         assertEquals("JWei", entry.getPic());
         assertEquals(1.4, entry.getFlightTime());
-        assertEquals("Day", entry.getDayOrnight());
+        assertEquals("Day", entry.getDayOrNight());
         assertEquals("CYNJ", entry.getDepartureAirport());
         assertEquals("CYVR", entry.getArrivalAirport());
         assertEquals("CheckRide", entry.getRemark());

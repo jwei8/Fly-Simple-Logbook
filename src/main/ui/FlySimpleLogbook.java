@@ -32,13 +32,13 @@ public class FlySimpleLogbook {
 
 
     //effect: runs the FlySimpleLogbook application
-    public FlySimpleLogbook() throws FileNotFoundException {
+    public FlySimpleLogbook() throws FileNotFoundException, InvalidInputException {
         runLogBook();
     }
 
     //modifies: this
     //effect: processes user input
-    private void runLogBook() {
+    private void runLogBook() throws InvalidInputException {
         boolean resume = true;
         String command = null;
 
@@ -93,7 +93,7 @@ public class FlySimpleLogbook {
 
     //modifies: this
     //effect: processes user command
-    private void processCommand(String command) {
+    private void processCommand(String command) throws InvalidInputException {
         if (command.equals("a")) {
             addEntry();
         } else if (command.equals("v")) {
@@ -215,7 +215,7 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + "    " + e.getDayOrNight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
@@ -380,7 +380,7 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + "    " + e.getDayOrNight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
@@ -403,7 +403,7 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport() + "    "
+                    + "    " + e.getDayOrNight() + "    " + e.getDepartureAirport() + "    "
                     + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
@@ -426,7 +426,7 @@ public class FlySimpleLogbook {
         for (LogbookEntry e : allEntry) {
             String entry = e.getEntryNumber() + "    " + e.getMonth() + " " + e.getDay() + "    " + e.getAirplaneModel()
                     + "     " + e.getAirplaneName() + "    " + e.getPic() + "    " + e.getFlightTime()
-                    + "    " + e.getDayOrnight() + "    " + e.getDepartureAirport()
+                    + "    " + e.getDayOrNight() + "    " + e.getDepartureAirport()
                     + "    " + e.getArrivalAirport() + "    " + e.getRemark();
             entries = entries.concat("\n" + entry);
         }
@@ -625,7 +625,7 @@ public class FlySimpleLogbook {
 
     // MODIFIES: this
     // EFFECTS: loads logbook from file
-    private void loadLogbook() {
+    private void loadLogbook() throws InvalidInputException {
         try {
             record = jsonReader.read();
             System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
