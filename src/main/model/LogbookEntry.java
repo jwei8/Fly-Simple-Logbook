@@ -114,10 +114,7 @@ public class LogbookEntry implements Writeable {
     //requires: valid string for month
     //modifies: this
     //effects: sets entry month
-    public void setMonth(String month) throws InvalidInputException {
-        if (month.equals("")) {
-            throw new InvalidInputException();
-        }
+    public void setMonth(String month) {
         this.month = month;
     }
 

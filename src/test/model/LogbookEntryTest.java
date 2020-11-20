@@ -111,16 +111,5 @@ class LogbookEntryTest {
     }
 
 
-    @Test
-    public void testNoInputException() {
-        try {
-            entry.setMonth("");
-            fail("InvalidInputException should not be thrown");
-        } catch (InvalidInputException e) {
-            //expected;
-        }
-    }
-
-
 
 }
