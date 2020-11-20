@@ -27,15 +27,15 @@ public class LogbookEntry implements Writeable {
     public LogbookEntry() {
         this.entryNumber = 0;
         this.month = "";
-        this.day = 1;
+        this.day = 0;
         this.airplaneModel = "";
         this.airplaneName = "";
-        this.pilotInCommand = "pic";
+        this.pilotInCommand = "";
         this.flightTime = 0.0;
-        this.dayOrNight = "dayOrNight";
-        this.departureAirport = "Airport";
-        this.arrivalAirport = "home";
-        this.remark = "remark";
+        this.dayOrNight = "";
+        this.departureAirport = "";
+        this.arrivalAirport = "";
+        this.remark = "no remark entered";
 
     }
 
@@ -114,7 +114,10 @@ public class LogbookEntry implements Writeable {
     //requires: valid string for month
     //modifies: this
     //effects: sets entry month
-    public void setMonth(String month) {
+    public void setMonth(String month) throws InvalidInputException {
+        if (month.equals("")) {
+            throw new InvalidInputException();
+        }
         this.month = month;
     }
 

@@ -31,7 +31,6 @@ class LogbookEntryTest {
 
 
     @Test
-
     public void testLogbookEntry() {
         assertEquals(1, entry.getEntryNumber());
         assertEquals("June", entry.getMonth());
@@ -108,6 +107,17 @@ class LogbookEntryTest {
             } catch (InvalidInputException a) {
                 //expected
             }
+        }
+    }
+
+
+    @Test
+    public void testNoInputException() {
+        try {
+            entry.setMonth("");
+            fail("InvalidInputException should not be thrown");
+        } catch (InvalidInputException e) {
+            //expected;
         }
     }
 

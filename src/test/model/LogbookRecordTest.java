@@ -16,7 +16,7 @@ class LogbookRecordTest {
     private LogbookRecord record;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws InvalidInputException {
         entryOne = new LogbookEntry();
         entryOne.setEntryNumber(1);
         entryOne.setMonth("June");
