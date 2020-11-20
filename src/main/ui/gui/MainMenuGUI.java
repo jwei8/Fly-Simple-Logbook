@@ -1,13 +1,10 @@
 package ui.gui;
 
-import model.LogbookRecord;
-import persistence.JsonReader;
+
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +12,6 @@ import java.awt.event.ActionListener;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -32,6 +28,7 @@ public class MainMenuGUI {
     private JButton viewFleet;
     private JLabel planePicture;
     private JLabel title;
+    private JLabel planeBackground;
     private JScrollPane panel;
 
     //Constructor for JFrame
@@ -54,6 +51,13 @@ public class MainMenuGUI {
         mainFrame.setVisible(true);
         setUpListener();
     }
+
+//    private void backgroundImage() {
+//        ImageIcon plane = new ImageIcon("./data/background.png");
+//        planeBackground = new JLabel(plane);
+//        planeBackground.setSize(500,800);
+//        mainFrame.add(planeBackground);
+//    }
 
     //MODIFIES: This
     //EFFECT: setup JButtons for different operations, title and a welcome picture
@@ -136,7 +140,7 @@ public class MainMenuGUI {
         //REQUIRES: ActionEvent
         //MODIFIES: This
         //EFFECT: respond to the user's selection and create the next frame
-        @Override
+        @Override 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == addEntry) {
                 openAddEntry();

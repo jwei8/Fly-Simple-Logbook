@@ -1,7 +1,7 @@
 {
     "entries": [
         {
-            "aircraftName": "GBPT",
+            "aircraftName": "FVYG",
             "airplaneModel": "C172N",
             "month": "June",
             "dayOrNight": "Night",
@@ -14,7 +14,7 @@
             "arrivalAirport": "CYNJ"
         },
         {
-            "aircraftName": "GQSS",
+            "aircraftName": "GQGR",
             "airplaneModel": "C172",
             "month": "June",
             "dayOrNight": "Day",
@@ -29,7 +29,7 @@
         {
             "aircraftName": "GXWS",
             "airplaneModel": "C172M",
-            "month": "November",
+            "month": "July",
             "dayOrNight": "Day",
             "departureAirport": "CYYJ",
             "pilotInCommand": "Jwei",
@@ -53,7 +53,7 @@
             "arrivalAirport": "CYNJ"
         },
         {
-            "aircraftName": "GXPH",
+            "aircraftName": "FVYG",
             "airplaneModel": "C-172N",
             "month": "September",
             "dayOrNight": "Night",
@@ -79,7 +79,7 @@
             "arrivalAirport": "CYCW"
         },
         {
-            "aircraftName": "GRRR",
+            "aircraftName": "GXWS",
             "airplaneModel": "P42",
             "month": "November",
             "dayOrNight": "Day",
@@ -92,7 +92,7 @@
             "arrivalAirport": "CYNJ"
         },
         {
-            "aircraftName": "GVRW",
+            "aircraftName": "GQGR",
             "airplaneModel": "CJ-6",
             "month": "November",
             "dayOrNight": "Night",
