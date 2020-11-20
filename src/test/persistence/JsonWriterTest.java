@@ -51,12 +51,16 @@ public class JsonWriterTest extends JsonTest {
 
             entryOne.setEntryNumber(1);
             entryOne.setMonth("August");
-            entryOne.setDay(8);
+            try {
+                entryOne.setDay(8);
+            } catch (InvalidInputException e) {
+                e.printStackTrace();
+            }
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
             entryOne.setPic("Jwei");
             entryOne.setFLightTime(1.8);
-            entryOne.setDayOrnight("Day");
+            entryOne.setDayOrNight("Day");
             entryOne.setDepartureAirport("CYYJ");
             entryOne.setArrivalAirport("CYNJ");
             entryOne.setRemark("good flight");
@@ -68,7 +72,7 @@ public class JsonWriterTest extends JsonTest {
             entryTwo.setAirplaneName("GXWS");
             entryTwo.setPic("Jwei");
             entryTwo.setFLightTime(1.2);
-            entryTwo.setDayOrnight("Day");
+            entryTwo.setDayOrNight("Day");
             entryTwo.setDepartureAirport("CYNJ");
             entryTwo.setArrivalAirport("CYVR");
             entryTwo.setRemark("");
@@ -94,6 +98,8 @@ public class JsonWriterTest extends JsonTest {
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
         }
     }
 }

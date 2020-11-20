@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import exceptions.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,15 +17,16 @@ class LogbookRecordTest {
 
     @BeforeEach
     public void setUp() {
-            entryOne = new LogbookEntry();
-            entryOne.setEntryNumber(1);
-            entryOne.setMonth("June");
+        entryOne = new LogbookEntry();
+        entryOne.setEntryNumber(1);
+        entryOne.setMonth("June");
+        try {
             entryOne.setDay(8);
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
             entryOne.setPic("JWei");
             entryOne.setFLightTime(1.0);
-            entryOne.setDayOrnight("Day");
+            entryOne.setDayOrNight("Day");
             entryOne.setDepartureAirport("CYNJ");
             entryOne.setArrivalAirport("CYVR");
             entryOne.setRemark("CheckRide");
@@ -32,12 +34,14 @@ class LogbookRecordTest {
             entryTwo = new LogbookEntry();
             entryTwo.setEntryNumber(2);
             entryTwo.setMonth("June");
+
             entryTwo.setDay(8);
+
             entryTwo.setAirplaneModel("C-172M");
             entryTwo.setAirplaneName("GXWS");
             entryTwo.setPic("JWei");
             entryTwo.setFLightTime(0.5);
-            entryTwo.setDayOrnight("Night");
+            entryTwo.setDayOrNight("Night");
             entryTwo.setDepartureAirport("CYNJ");
             entryTwo.setArrivalAirport("CYVR");
             entryTwo.setRemark("Solo");
@@ -45,12 +49,14 @@ class LogbookRecordTest {
             entryThree = new LogbookEntry();
             entryThree.setEntryNumber(3);
             entryThree.setMonth("June");
+
             entryThree.setDay(10);
+
             entryThree.setAirplaneModel("C-172M");
             entryThree.setAirplaneName("GXWS");
             entryThree.setPic("JWei");
             entryThree.setFLightTime(0.1);
-            entryThree.setDayOrnight("Night");
+            entryThree.setDayOrNight("Night");
             entryThree.setDepartureAirport("CYYJ");
             entryThree.setArrivalAirport("CYCW");
             entryThree.setRemark("Solo");
@@ -71,6 +77,9 @@ class LogbookRecordTest {
             record.addAnEntry(entryOne);
             record.addAnEntry(entryTwo);
             record.addAnEntry(entryThree);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
 
     }
 

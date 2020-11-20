@@ -348,16 +348,21 @@ public class AddEntryGUI extends JFrame {
         //EFFECT: input information for route and type of flight
         private void inputForRouteInfo() {
             try {
-                entry.setDayOrnight(checkDayOrNight(dayOrnightText.getText()));
-                entry.setDepartureAirport(departureText.getText());
-                entry.setArrivalAirport(arrivalText.getText());
-                entry.setRemark(noteText.getText());
-                record.addAnEntry(entry);
-                saveLogbook();
+                entry.setDayOrNight(checkDayOrNight(dayOrnightText.getText()));
             } catch (InvalidDayOrNightException e) {
                 JOptionPane.showMessageDialog(null, "You need to specify day or night flight",
                         "Ooops", JOptionPane.ERROR_MESSAGE);
+                try {
+                    entry.setDepartureAirport(departureText.getText());
+                    entry.setArrivalAirport(arrivalText.getText());
+                    entry.setRemark(noteText.getText());
+                    record.addAnEntry(entry);
+                    saveLogbook();
+                } catch (InvalidInputException a) {
+                    JOptionPane.showMessageDialog(null, "You need to enter 4 digit airport code",
+                            "Ooops", JOptionPane.ERROR_MESSAGE);
 
+                }
             }
         }
 

@@ -41,7 +41,6 @@ public class LogbookRecord implements Writeable {
     }
 
 
-    //requires:
     //modifies:this
     //effect: remove an entry by FlightNum and produce the new list
     public List<LogbookEntry> removeAnEntryByFlightNum(int num) {

@@ -119,10 +119,12 @@ public class LogbookEntry implements Writeable {
         this.month = month;
     }
 
-    //requires: day > 0
     //modifies: this
     //effects: sets entry date
-    public void setDay(int day) {
+    public void setDay(int day) throws InvalidInputException {
+        if (!(day < 32) || !(day > 0)) {
+            throw new InvalidInputException();
+        }
         this.day = day;
     }
 
@@ -157,7 +159,7 @@ public class LogbookEntry implements Writeable {
     //requires: non-empty string
     //modifies: this
     //effects: sets day or night
-    public void setDayOrnight(String day) {
+    public void setDayOrNight(String day) {
         this.dayOrnight = day;
     }
 
@@ -171,14 +173,20 @@ public class LogbookEntry implements Writeable {
     //requires: none empty string
     //modifies: this
     //effects: sets departure airport
-    public void setDepartureAirport(String dep) {
+    public void setDepartureAirport(String dep) throws InvalidInputException {
+        if (dep.length() > 4) {
+            throw new InvalidInputException();
+        }
         this.departureAirport = dep;
     }
 
     //requires: none empty string
     //modifies: this
     //effects: sets arrival airport
-    public void setArrivalAirport(String arrival) {
+    public void setArrivalAirport(String arrival) throws InvalidInputException {
+        if (arrival.length() > 4) {
+            throw new InvalidInputException();
+        }
         this.arrivalAirport = arrival;
     }
 
@@ -187,7 +195,7 @@ public class LogbookEntry implements Writeable {
     public void throwExceptionInvalidInput() throws InvalidInputException {
         if (entryNumber < 0) {
             throw new InvalidInputException();
-        } else if  (!(day < 32) || !(day > 0)) {
+        } else if (!(day < 32) || !(day > 0)) {
             throw new InvalidInputException();
         }
     }

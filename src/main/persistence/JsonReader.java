@@ -2,25 +2,19 @@ package persistence;
 
 // Represents a reader that reads workroom from JSON data stored in file
 // code adapted and re modeled based on the JsonSerializationDemo
+
+import exceptions.InvalidInputException;
 import model.LogbookEntry;
 import model.LogbookRecord;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.json.*;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-
-import javax.sound.sampled.AudioSystem;
-import javax.swing.*;
 
 
 public class JsonReader {
@@ -73,7 +67,7 @@ public class JsonReader {
 
     // MODIFIES: log
     // EFFECTS: parses logbook record  from JSON object and adds them to logbook record
-    public void addEntries(LogbookRecord log, JSONObject jsonObject)  {
+    public void addEntries(LogbookRecord log, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("entries");
         for (Object json : jsonArray) {
             JSONObject nextEntry = (JSONObject) json;
@@ -104,21 +98,25 @@ public class JsonReader {
     // MODIFIES: log
     // EFFECTS: set the user input for the entry in the logbookRecord
     public void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
-                            String aircraftName, String pilotInCommand, Double flightTime,
-                            String dayOrNight, String departureAirport, String arrivalAirport,
-                            String remark, LogbookEntry entry, LogbookRecord log) {
+                           String aircraftName, String pilotInCommand, Double flightTime,
+                           String dayOrNight, String departureAirport, String arrivalAirport,
+                           String remark, LogbookEntry entry, LogbookRecord log) {
 
         entry.setEntryNumber(entryNumber);
         entry.setMonth(month);
-        entry.setDay(day);
-        entry.setAirplaneModel(airplaneModel);
-        entry.setAirplaneName(aircraftName);
-        entry.setPic(pilotInCommand);
-        entry.setFLightTime(flightTime);
-        entry.setDayOrnight(dayOrNight);
-        entry.setDepartureAirport(departureAirport);
-        entry.setArrivalAirport(arrivalAirport);
-        entry.setRemark(remark);
-        log.addAnEntry(entry);
+        try {
+            entry.setDay(day);
+            entry.setAirplaneModel(airplaneModel);
+            entry.setAirplaneName(aircraftName);
+            entry.setPic(pilotInCommand);
+            entry.setFLightTime(flightTime);
+            entry.setDayOrNight(dayOrNight);
+            entry.setDepartureAirport(departureAirport);
+            entry.setArrivalAirport(arrivalAirport);
+            entry.setRemark(remark);
+            log.addAnEntry(entry);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
     }
 }

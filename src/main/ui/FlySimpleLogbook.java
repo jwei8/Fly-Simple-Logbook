@@ -467,7 +467,11 @@ public class FlySimpleLogbook {
             day = input.nextInt();
         }
 
-        newEntry.setDay(day);
+        try {
+            newEntry.setDay(day);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         System.out.println("Date of the flight: " + month + " " + day);
     }
 
@@ -527,11 +531,11 @@ public class FlySimpleLogbook {
             key = input.nextLine();
         }
         if (key.equals("d")) {
-            newEntry.setDayOrnight("Day");
+            newEntry.setDayOrNight("Day");
             System.out.println("This flight was conducted during the day");
 
         } else if (key.equals("n")) {
-            newEntry.setDayOrnight("Night");
+            newEntry.setDayOrNight("Night");
             System.out.println("This flight was conducted during the hour of darkness");
         }
     }
@@ -542,7 +546,11 @@ public class FlySimpleLogbook {
     private void addDepartureAirport() {
         System.out.print("\nEnter departure airport 4 letter identifier, ex CYNJ \n");
         String dep = input.nextLine();
-        newEntry.setDepartureAirport(dep);
+        try {
+            newEntry.setDepartureAirport(dep);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         System.out.println("Departed from: " + dep);
     }
 
@@ -552,7 +560,11 @@ public class FlySimpleLogbook {
     private void addArrivalAirport() {
         System.out.print("\nEnter arrival airport 4 letter identifier, ex CYNJ \n");
         String arrival = input.nextLine();
-        newEntry.setArrivalAirport(arrival);
+        try {
+            newEntry.setArrivalAirport(arrival);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         System.out.println("Arrived at: " + arrival);
     }
 

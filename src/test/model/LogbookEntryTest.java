@@ -12,6 +12,7 @@ class LogbookEntryTest {
 
     @BeforeEach
     public void setUp() {
+        try {
             entry = new LogbookEntry();
             entry.setEntryNumber(1);
             entry.setMonth("June");
@@ -20,11 +21,15 @@ class LogbookEntryTest {
             entry.setAirplaneName("GXWS");
             entry.setPic("JWei");
             entry.setFLightTime(1.4);
-            entry.setDayOrnight("Day");
+            entry.setDayOrNight("Day");
             entry.setDepartureAirport("CYNJ");
             entry.setArrivalAirport("CYVR");
             entry.setRemark("CheckRide");
+        } catch (InvalidInputException e) {
+            fail("no exception should be thrown");
+        }
     }
+
 
     @Test
 
@@ -46,7 +51,6 @@ class LogbookEntryTest {
     public void testThrowInvalidInputExceptionDayTooSmall() {
         try {
             entry.setDay(0);
-            entry.throwExceptionInvalidInput();
             fail("InvalidInpuException should be thrown");
         } catch (InvalidInputException e) {
             //expected
@@ -57,7 +61,6 @@ class LogbookEntryTest {
     public void testThrowInvalidInputExceptionDayTooBig() {
         try {
             entry.setDay(32);
-            entry.throwExceptionInvalidInput();
             fail("InvalidInputException should be thrown");
         } catch (InvalidInputException e) {
             //expected
@@ -68,7 +71,6 @@ class LogbookEntryTest {
     public void testThrowInvalidInputExceptionDay() {
         try {
             entry.setDay(15);
-            entry.throwExceptionInvalidInput();
         } catch (InvalidInputException e) {
             fail("InvalidInputException should not be thrown");
         }
@@ -99,18 +101,24 @@ class LogbookEntryTest {
     public void testThrowInvalidDayOrNightExceptionNotDay() {
 
         try {
-            entry.setDayOrnight("neither");
-            entry.throwExceptionDayOrNight();
-            fail("InvalidDayOrNightException should be thrown");
-        } catch (InvalidDayOrNightException e) {
-            //expected
+            entry.setDayOrNight("neither");
+            entry.setDepartureAirport("ABCDE");
+            fail("InvalidInput should be thrown");
+        } catch (InvalidInputException e) {
+            try {
+                entry.setArrivalAirport("ABCDE");
+                fail("InvalidInput should be thrown");
+
+            } catch (InvalidInputException a) {
+                //expected
+            }
         }
     }
 
     @Test
     public void testThrowInvalidDayOrNightExceptionNight() {
         try {
-            entry.setDayOrnight("night");
+            entry.setDayOrNight("night");
             entry.throwExceptionDayOrNight();
         } catch (InvalidDayOrNightException e) {
             fail("InvalidDayOrNightException should not be thrown");
@@ -122,7 +130,7 @@ class LogbookEntryTest {
     public void testThrowInvalidDayOrNightExceptionNotNight() {
 
         try {
-            entry.setDayOrnight("day");
+            entry.setDayOrNight("day");
             entry.throwExceptionDayOrNight();
         } catch (InvalidDayOrNightException e) {
             fail("InvalidDayOrNightException should not be thrown");
