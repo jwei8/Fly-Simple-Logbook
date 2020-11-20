@@ -174,7 +174,7 @@ public class FlySimpleLogbook {
 
     //modifies: this
     //effect: construct a new entry and add it to the logbook
-    private void addEntry() {
+    private void addEntry() throws InvalidInputException {
 
         newEntry = new LogbookEntry();
         addEntryNumber();
@@ -446,7 +446,7 @@ public class FlySimpleLogbook {
     //require: input for month is non empty String, int for month
     //modifies: this
     //effect add entry number
-    public void addEntryDate() {
+    public void addEntryDate() throws InvalidInputException {
         System.out.println("\nEnter Month");
         String month = input.nextLine();
         while (!month.equals("January") & !month.equals("February") & !month.equals("March")

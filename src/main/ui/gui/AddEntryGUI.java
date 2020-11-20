@@ -1,6 +1,5 @@
 package ui.gui;
 
-import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
 import model.LogbookEntry;
 import model.LogbookRecord;
