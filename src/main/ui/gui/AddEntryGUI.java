@@ -1,6 +1,5 @@
 package ui.gui;
 
-import exceptions.InvalidDayOrNightException;
 import exceptions.InvalidInputException;
 import model.LogbookEntry;
 import model.LogbookRecord;
@@ -347,8 +346,9 @@ public class AddEntryGUI extends JFrame {
             } catch (InvalidInputException e) {
                 JOptionPane.showMessageDialog(null, "You must enter a valid date (ex:January 1)",
                         "Ooops", JOptionPane.ERROR_MESSAGE);
+                inputForRouteInfo();
+
             }
-            inputForRouteInfo();
         }
 
 
@@ -357,7 +357,7 @@ public class AddEntryGUI extends JFrame {
         private void inputForRouteInfo() {
             try {
                 entry.setDayOrNight(checkDayOrNight(dayOrnightText.getText()));
-            } catch (InvalidDayOrNightException e) {
+            } catch (InvalidInputException e) {
                 JOptionPane.showMessageDialog(null, "You need to specify day or night flight",
                         "Ooops", JOptionPane.ERROR_MESSAGE);
                 try {
@@ -427,14 +427,14 @@ public class AddEntryGUI extends JFrame {
         //REQUIRE: string
         //MODIFIES:this
         //EFFECT: check if the string is a valid day or night selection, if it's not throw InvalidInputException
-        private String checkDayOrNight(String dayOrNight) throws InvalidDayOrNightException {
+        private String checkDayOrNight(String dayOrNight) throws InvalidInputException {
             if (dayOrNight.equals("D") | dayOrNight.equals("d") | dayOrNight.equals("day") | dayOrNight.equals("Day")) {
                 return "Day";
             } else if (dayOrNight.equals("Night") | dayOrNight.equals("N") | dayOrNight.equals("night")
                     | dayOrNight.equals("n")) {
                 return "Night";
             }
-            throw new InvalidDayOrNightException();
+            throw new InvalidInputException();
         }
 
 

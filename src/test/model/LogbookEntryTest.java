@@ -77,7 +77,7 @@ class LogbookEntryTest {
 
 
     @Test
-    public void testThrowInvalidDayOrNightExceptionNotDay() {
+    public void testThrowInvalidAirportNameLength() {
 
         try {
             entry.setDayOrNight("neither");
@@ -88,6 +88,23 @@ class LogbookEntryTest {
                 entry.setArrivalAirport("ABCDE");
                 fail("InvalidInput should be thrown");
 
+            } catch (InvalidInputException a) {
+                //expected
+            }
+        }
+    }
+
+    @Test
+    public void testThrowInvalidAirportEmpty() {
+
+        try {
+            entry.setDayOrNight("neither");
+            entry.setDepartureAirport("");
+            fail("InvalidInput should be thrown");
+        } catch (InvalidInputException e) {
+            try {
+                entry.setArrivalAirport("");
+                fail("InvalidInput should be thrown");
             } catch (InvalidInputException a) {
                 //expected
             }
