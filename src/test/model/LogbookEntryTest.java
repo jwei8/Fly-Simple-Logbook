@@ -76,26 +76,6 @@ class LogbookEntryTest {
         }
     }
 
-    @Test
-    public void testThrowInvalidEntryNumberNoException() {
-        try {
-            entry.setEntryNumber(13);
-            entry.throwExceptionInvalidInput();
-        } catch (InvalidInputException e) {
-            fail("InvalidInputException should not be thrown");
-        }
-    }
-
-    @Test
-    public void testThrowInvalidInputExceptionEntryNumber() {
-        try {
-            entry.setEntryNumber(-20);
-            entry.throwExceptionInvalidInput();
-            fail("InvalidInputException should be thrown");
-        } catch (InvalidInputException e) {
-            //expected
-        }
-    }
 
     @Test
     public void testThrowInvalidDayOrNightExceptionNotDay() {
@@ -115,27 +95,6 @@ class LogbookEntryTest {
         }
     }
 
-    @Test
-    public void testThrowInvalidDayOrNightExceptionNight() {
-        try {
-            entry.setDayOrNight("night");
-            entry.throwExceptionDayOrNight();
-        } catch (InvalidDayOrNightException e) {
-            fail("InvalidDayOrNightException should not be thrown");
-
-        }
-    }
-
-    @Test
-    public void testThrowInvalidDayOrNightExceptionNotNight() {
-
-        try {
-            entry.setDayOrNight("day");
-            entry.throwExceptionDayOrNight();
-        } catch (InvalidDayOrNightException e) {
-            fail("InvalidDayOrNightException should not be thrown");
-        }
-    }
 
 
 }
