@@ -49,3 +49,5 @@ A *bulleted* list:
 There are some semantic coupling in my program right now, where the GUI relies on the LogBook Entry class to implement the methods related to create
 a new log entry. Using an Interface can reduce the coupling in my program.
 - I can also extract an abstract Interface from my LogbookRecord class. It can reduce coupling in my program and improve its cohesion. 
+- With the added abstract interface, I can also implement the AircraftRecord and Aircraft classes into my GUI. It would be easier to accomplish with less
+coupling.
