@@ -103,6 +103,19 @@
             "flightTime": 0.5,
             "day": 12,
             "arrivalAirport": "CZBB"
+        },
+        {
+            "aircraftName": "asss",
+            "airplaneModel": "asss",
+            "month": "January",
+            "dayOrNight": "Night",
+            "departureAirport": "asss",
+            "pilotInCommand": "assas",
+            "entryNumber": 9,
+            "remark": "ss",
+            "flightTime": 1,
+            "day": 1,
+            "arrivalAirport": "asss"
         }
     ],
     "name": "record"

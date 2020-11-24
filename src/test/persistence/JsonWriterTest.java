@@ -59,7 +59,7 @@ public class JsonWriterTest extends JsonTest {
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
             entryOne.setPic("Jwei");
-            entryOne.setFLightTime(1.8);
+            entryOne.setFlightTime(1.8);
             entryOne.setDayOrNight("Day");
             entryOne.setDepartureAirport("CYYJ");
             entryOne.setArrivalAirport("CYNJ");
@@ -71,7 +71,7 @@ public class JsonWriterTest extends JsonTest {
             entryTwo.setAirplaneModel("C-172M");
             entryTwo.setAirplaneName("GXWS");
             entryTwo.setPic("Jwei");
-            entryTwo.setFLightTime(1.2);
+            entryTwo.setFlightTime(1.2);
             entryTwo.setDayOrNight("Day");
             entryTwo.setDepartureAirport("CYNJ");
             entryTwo.setArrivalAirport("CYVR");

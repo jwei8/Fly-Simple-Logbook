@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
 
 public class FlySimpleLogbook {
     private static final String JSON_STORE = "./data/logbookRecord.json";//    private LogbookEntry entryOne;
-//    private LogbookEntry entryTwo;
+    //    private LogbookEntry entryTwo;
 //    private LogbookEntry entryThree;
     private LogbookEntry newEntry;
     private Aircraft newAirplane;
@@ -454,7 +454,7 @@ public class FlySimpleLogbook {
                 & !month.equals("August") & !month.equals("September") & !month.equals("October")
                 & !month.equals("November") & !month.equals("December")) {
             System.out.println(addLinebreaks("Please enter a valid month, such as: January, February,"
-                    + " March, April, May, June, July, August, September, October, November, December",70));
+                    + " March, April, May, June, July, August, September, October, November, December", 70));
             month = input.nextLine();
         }
 
@@ -479,7 +479,7 @@ public class FlySimpleLogbook {
     //require: input for aircraft model is non-empty string
     //modifies: this
     //effect add aircraft model
-    private void addAircraftModel() {
+    private void addAircraftModel() throws InvalidInputException {
         System.out.println("\nEnter aircraft model");
         String make = input.next();
         newEntry.setAirplaneModel(make);
@@ -489,7 +489,7 @@ public class FlySimpleLogbook {
     //require: input for aircraft callsign is non-empty string
     //modifies: this
     //effect add callsign
-    private void addCallSign() {
+    private void addCallSign() throws InvalidInputException {
         System.out.println("\nEnter the last four letters of the registration maker, ex:GABC");
         String callSign = input.next();
         newEntry.setAirplaneName(callSign);
@@ -499,7 +499,7 @@ public class FlySimpleLogbook {
     //require: input for pilot name is non empty string
     //modifies: this
     //effect add pilot name
-    private void addPic() {
+    private void addPic() throws InvalidInputException {
         System.out.println("\nEnter Pilot name");
         String pic = input.next();
         newEntry.setPic(pic);
@@ -509,21 +509,21 @@ public class FlySimpleLogbook {
     //require: input for pilot name is a double
     //modifies: this
     //effect add flight time
-    private void addFlightTime() {
+    private void addFlightTime() throws InvalidInputException {
         System.out.println("\nEnter the flight time, ex 1.0");
         double flightTime = input.nextDouble();
         while (flightTime <= 0) {
             System.out.println("flight time must be greater than 0");
             flightTime = input.nextDouble();
         }
-        newEntry.setFLightTime(flightTime);
+        newEntry.setFlightTime(flightTime);
         System.out.println("Total flight time of this flight: " + flightTime);
     }
 
     //require: non empty string
     //modifies: this
     //effect assign day or night flight
-    private void addDayOrNight() {
+    private void addDayOrNight() throws InvalidInputException {
         System.out.print("\nEnter d for day flight or n for night flight");
         String key = input.nextLine();
         while (!key.equals("d") & !key.equals("n")) {

@@ -29,7 +29,6 @@ public class MainMenuGUI {
     private JButton viewFleet;
     private JLabel planePicture;
     private JLabel title;
-    private JLabel planeBackground;
     private JScrollPane panel;
 
     //Constructor for JFrame

@@ -19,7 +19,7 @@ class LogbookEntryTest {
             entry.setAirplaneModel("C-172M");
             entry.setAirplaneName("GXWS");
             entry.setPic("JWei");
-            entry.setFLightTime(1.4);
+            entry.setFlightTime(1.4);
             entry.setDayOrNight("Day");
             entry.setDepartureAirport("CYNJ");
             entry.setArrivalAirport("CYVR");
@@ -68,9 +68,35 @@ class LogbookEntryTest {
     @Test
     public void testThrowInvalidInputExceptionDay() {
         try {
-            entry.setDay(15);
+            entry.setDay(-15);
+            fail("InvalidInputException should be thrown");
         } catch (InvalidInputException e) {
-            fail("InvalidInputException should not be thrown");
+            //expected
+        }
+    }
+
+    @Test
+    public void testEmptyInputLogInfo() {
+        try {
+            entry.setMonth("");
+            fail("InvalidInputException should be thrown");
+        } catch (InvalidInputException e) {
+            try {
+                entry.setAirplaneModel("");
+                fail("InvalidInputException should be thrown");
+            } catch (InvalidInputException a) {
+                try {
+                    entry.setAirplaneName("");
+                    fail("InvalidInputException should be thrown");
+                } catch (InvalidInputException s) {
+                    try {
+                        entry.setPic("");
+                        fail("InvalidInputException should be thrown");
+                    } catch (InvalidInputException d) {
+                        //expected
+                    }
+                }
+            }
         }
     }
 
@@ -95,9 +121,7 @@ class LogbookEntryTest {
 
     @Test
     public void testThrowInvalidAirportEmpty() {
-
         try {
-            entry.setDayOrNight("neither");
             entry.setDepartureAirport("");
             fail("InvalidInput should be thrown");
         } catch (InvalidInputException e) {
@@ -109,6 +133,38 @@ class LogbookEntryTest {
             }
         }
     }
+
+    @Test
+    public void testDayOrNightEmpty() {
+        try {
+            entry.setDayOrNight("");
+            fail("InvalidInput should be thrown");
+        } catch (InvalidInputException e) {
+            try {
+                entry.setDayOrNight("");
+                fail("InvalidInput should be thrown");
+            } catch (InvalidInputException a) {
+                //expected
+            }
+        }
+    }
+
+    @Test
+    public void testFlightTimeException() {
+        try {
+            entry.setFlightTime(0);
+            fail("InvalidInput should be thrown");
+        } catch (InvalidInputException e) {
+            try {
+                entry.setFlightTime(-1);
+                fail("InvalidInput should be thrown");
+            } catch (InvalidInputException a) {
+                //expected
+            }
+        }
+    }
+
+
 
 
 

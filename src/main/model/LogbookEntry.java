@@ -4,6 +4,7 @@ package model;
 
 import exceptions.InvalidInputException;
 import org.json.JSONObject;
+import org.omg.PortableInterceptor.ORBInitInfoPackage.InvalidName;
 import persistence.Writeable;
 
 public class LogbookEntry implements Writeable {
@@ -114,14 +115,17 @@ public class LogbookEntry implements Writeable {
     //requires: valid string for month
     //modifies: this
     //effects: sets entry month
-    public void setMonth(String month) {
+    public void setMonth(String month) throws InvalidInputException {
+        if (month.equals("")) {
+            throw new InvalidInputException();
+        }
         this.month = month;
     }
 
     //modifies: this
     //effects: sets entry date
     public void setDay(int day) throws InvalidInputException {
-        if (!(day < 32) || !(day > 0)) {
+        if ((day > 31) || (day < 1)) {
             throw new InvalidInputException();
         }
         this.day = day;
@@ -130,65 +134,73 @@ public class LogbookEntry implements Writeable {
     //requires: non-empty string
     //modifies: this
     //effect: set airplane model
-    public void setAirplaneModel(String make) {
+    public void setAirplaneModel(String make) throws InvalidInputException {
+        if (make.isEmpty()) {
+            throw new InvalidInputException();
+        }
         this.airplaneModel = make;
     }
 
     //requires: non-empty string
     //modifies: this
     //effects: sets aircraft name
-    public void setAirplaneName(String name) {
+    public void setAirplaneName(String name) throws InvalidInputException {
+        if (name.isEmpty()) {
+            throw new InvalidInputException();
+        }
         this.airplaneName = name;
     }
 
-    //requires: non-empty string
     //modifies: this
     //effects: sets pilot name
-    public void setPic(String pic) {
+    public void setPic(String pic) throws InvalidInputException {
+        if (pic.isEmpty()) {
+            throw new InvalidInputException();
+        }
         this.pilotInCommand = pic;
     }
 
-    //requires: double > 0
     //modifies: this
     //effects: sets flight time
-    public void setFLightTime(double time) {
+    public void setFlightTime(double time) throws InvalidInputException {
+        if (time <= 0 || Double.toString(time).isEmpty()) {
+            throw new InvalidInputException();
+        }
         this.flightTime = time;
     }
 
-    //requires: non-empty string
     //modifies: this
     //effects: sets day or night
-    public void setDayOrNight(String day) {
+    public void setDayOrNight(String day) throws InvalidInputException {
+        if (day.equals("")) {
+            throw new InvalidInputException();
+        }
         this.dayOrNight = day;
     }
 
-    //requires: none empty string
     //modifies: this
     //effects: sets note
     public void setRemark(String note) {
         this.remark = note;
     }
 
-    //requires: none empty string
     //modifies: this
     //effects: sets departure airport
     public void setDepartureAirport(String dep) throws InvalidInputException {
-        if (dep.length() > 4) {
+        if (dep.length() > 4 || dep.equals("")) {
             throw new InvalidInputException();
         }
         this.departureAirport = dep;
     }
 
-    //requires: none empty string
     //modifies: this
     //effects: sets arrival airport
     public void setArrivalAirport(String arrival) throws InvalidInputException {
-        if (arrival.length() > 4) {
+        if (arrival.length() > 4 || arrival.equals("")) {
             throw new InvalidInputException();
         }
         this.arrivalAirport = arrival;
     }
-
 
 
     //effect: throw InvalidDayOrNightException

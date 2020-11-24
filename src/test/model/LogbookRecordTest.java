@@ -25,7 +25,7 @@ class LogbookRecordTest {
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
             entryOne.setPic("JWei");
-            entryOne.setFLightTime(1.0);
+            entryOne.setFlightTime(1.0);
             entryOne.setDayOrNight("Day");
             entryOne.setDepartureAirport("CYNJ");
             entryOne.setArrivalAirport("CYVR");
@@ -40,7 +40,7 @@ class LogbookRecordTest {
             entryTwo.setAirplaneModel("C-172M");
             entryTwo.setAirplaneName("GXWS");
             entryTwo.setPic("JWei");
-            entryTwo.setFLightTime(0.5);
+            entryTwo.setFlightTime(0.5);
             entryTwo.setDayOrNight("Night");
             entryTwo.setDepartureAirport("CYNJ");
             entryTwo.setArrivalAirport("CYVR");
@@ -55,7 +55,7 @@ class LogbookRecordTest {
             entryThree.setAirplaneModel("C-172M");
             entryThree.setAirplaneName("GXWS");
             entryThree.setPic("JWei");
-            entryThree.setFLightTime(0.1);
+            entryThree.setFlightTime(0.1);
             entryThree.setDayOrNight("Night");
             entryThree.setDepartureAirport("CYYJ");
             entryThree.setArrivalAirport("CYCW");
@@ -68,7 +68,7 @@ class LogbookRecordTest {
             entryFour.setAirplaneModel("C-172M");
             entryFour.setAirplaneName("GXWS");
             entryFour.setPic("JWei");
-            entryFour.setFLightTime(1.1);
+            entryFour.setFlightTime(1.1);
             entryFour.setDepartureAirport("CYNJ");
             entryFour.setArrivalAirport("CYXX");
             entryFour.setRemark("Solo");

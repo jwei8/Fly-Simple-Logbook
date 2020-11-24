@@ -37,17 +37,17 @@ public class AddEntryGUI extends JFrame {
     private LogbookEntry entry;
     private LogbookRecord record;
 
-    JTextField entryNumberText;
-    JTextField monthText;
-    JTextField dayText;
-    JTextField airplaneModelText;
-    JTextField airplaneNameText;
-    JTextField picText;
-    JTextField flightTimeText;
-    JTextField dayOrnightText;
-    JTextField departureText;
-    JTextField arrivalText;
-    JTextField noteText;
+    private JTextField entryNumberText;
+    private JComboBox monthText;
+    private JTextField dayText;
+    private JTextField airplaneModelText;
+    private JTextField airplaneNameText;
+    private JTextField picText;
+    private JTextField flightTimeText;
+    private JComboBox dayOrNightText;
+    private JTextField departureText;
+    private JTextField arrivalText;
+    private JTextField noteText;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/logbookRecord.json";
@@ -106,13 +106,16 @@ public class AddEntryGUI extends JFrame {
     //EFFECT: create new JTextFields to take user input
     private void setUpFields() {
         entryNumberText = new JTextField(10);
-        monthText = new JTextField(10);
+        String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
+                "October", "November", "December"};
+        monthText = new JComboBox(month);
         dayText = new JTextField(10);
         airplaneModelText = new JTextField(10);
         airplaneNameText = new JTextField(10);
         picText = new JTextField(10);
         flightTimeText = new JTextField(10);
-        dayOrnightText = new JTextField(10);
+        String[] options = {"Day", "Night"};
+        dayOrNightText = new JComboBox(options);
         departureText = new JTextField(10);
         arrivalText = new JTextField(10);
         noteText = new JTextField(10);
@@ -206,7 +209,7 @@ public class AddEntryGUI extends JFrame {
         add(flightTimeText, gc);
         gc.gridx = 1;
         gc.gridy = 7;
-        add(dayOrnightText, gc);
+        add(dayOrNightText, gc);
         displayTextFieldsForRoute();
     }
 
@@ -269,6 +272,8 @@ public class AddEntryGUI extends JFrame {
 
         addEntry.addActionListener(listener);
         confirmAdd.addActionListener(listener);
+        monthText.addActionListener(listener);
+        dayOrNightText.addActionListener(listener);
         returnToMain.addActionListener(listener);
         entryNumberText.addActionListener(listener);
     }
@@ -279,7 +284,6 @@ public class AddEntryGUI extends JFrame {
 
         try {
             record = jsonReader.read();
-            System.out.println("Loaded " + record.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -289,7 +293,7 @@ public class AddEntryGUI extends JFrame {
     public class ActionHandle implements ActionListener {
 
         //Require: Action Event
-        //EFFECT: respond to different Jbutton pressed
+        //EFFECT: respond to different JButton pressed
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -337,40 +341,24 @@ public class AddEntryGUI extends JFrame {
 
             entry.setEntryNumber(allEntry.size() + 1);
             try {
-                entry.setMonth(checkMonth(monthText.getText()));
-                entry.setDay(checkDay(Integer.valueOf(dayText.getText())));
-                entry.setAirplaneModel(airplaneModelText.getText());
-                entry.setAirplaneName(airplaneNameText.getText());
-                entry.setPic(picText.getText());
-                entry.setFLightTime(Double.valueOf(flightTimeText.getText()));
-            } catch (InvalidInputException e) {
-                JOptionPane.showMessageDialog(null, "You must enter a valid date (ex:January 1)",
-                        "Ooops", JOptionPane.ERROR_MESSAGE);
-                inputForRouteInfo();
-
-            }
-        }
-
-
-        //MODIFIES: this
-        //EFFECT: input information for route and type of flight
-        private void inputForRouteInfo() {
-            try {
-                entry.setDayOrNight(checkDayOrNight(dayOrnightText.getText()));
-            } catch (InvalidInputException e) {
-                JOptionPane.showMessageDialog(null, "You need to specify day or night flight",
-                        "Ooops", JOptionPane.ERROR_MESSAGE);
-                try {
-                    entry.setDepartureAirport(departureText.getText());
-                    entry.setArrivalAirport(arrivalText.getText());
-                    entry.setRemark(noteText.getText());
-                    record.addAnEntry(entry);
-                    saveLogbook();
-                } catch (InvalidInputException a) {
-                    JOptionPane.showMessageDialog(null, "You need to enter 4 digit airport code",
+                createNewEntry();
+                saveLogbook();
+            } catch (InvalidInputException | NumberFormatException e) {
+                if (dayText.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "You must enter a valid date",
                             "Ooops", JOptionPane.ERROR_MESSAGE);
-
+                } else if (Integer.valueOf(dayText.getText()) < 1 || Integer.valueOf(dayText.getText()) > 31) {
+                    JOptionPane.showMessageDialog(null, "You must enter a valid date",
+                            "Ooops", JOptionPane.ERROR_MESSAGE);
+                } else if (departureText.getText().length() > 4 || arrivalText.getText().length() < 4) {
+                    JOptionPane.showMessageDialog(null, "You must enter 4 letters "
+                            + "airport code", "Ooops", JOptionPane.ERROR_MESSAGE);
+                } else if (Double.valueOf(flightTimeText.getText()) < 0) {
+                    JOptionPane.showMessageDialog(null, "You must enter flight time greater than"
+                            + " zero", "Ooops", JOptionPane.ERROR_MESSAGE);
                 }
+                JOptionPane.showMessageDialog(null, "You must fill in all the fields",
+                        "Ooops", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -388,19 +376,6 @@ public class AddEntryGUI extends JFrame {
             dispose();
         }
 
-        //REQUIRE: string
-        //MODIFIES:this
-        //EFFECT: check if the string is a valid month, if it's not throw InvalidInputException
-        private String checkMonth(String month) throws InvalidInputException {
-            if (!month.equals("January") & !month.equals("February") & !month.equals("March")
-                    & !month.equals("April") & !month.equals("May") & !month.equals("June") & !month.equals("July")
-                    & !month.equals("August") & !month.equals("September") & !month.equals("October")
-                    & !month.equals("November") & !month.equals("December")) {
-
-                throw new InvalidInputException();
-            }
-            return month;
-        }
 
         //REQUIRE: int
         //MODIFIES:this
@@ -413,31 +388,22 @@ public class AddEntryGUI extends JFrame {
             return day;
         }
 
-        //REQUIRE: int
-        //MODIFIES:this
-        //EFFECT: check if the int is a valid entry number, if it's not throw InvalidInputException
-        private int checkEntryNumber(int num) throws InvalidInputException {
-            if (num < 0) {
 
-                throw new InvalidInputException();
-            }
-            return num;
-        }
+    }
 
-        //REQUIRE: string
-        //MODIFIES:this
-        //EFFECT: check if the string is a valid day or night selection, if it's not throw InvalidInputException
-        private String checkDayOrNight(String dayOrNight) throws InvalidInputException {
-            if (dayOrNight.equals("D") | dayOrNight.equals("d") | dayOrNight.equals("day") | dayOrNight.equals("Day")) {
-                return "Day";
-            } else if (dayOrNight.equals("Night") | dayOrNight.equals("N") | dayOrNight.equals("night")
-                    | dayOrNight.equals("n")) {
-                return "Night";
-            }
-            throw new InvalidInputException();
-        }
-
-
+    //EFFECT: taking user input and create new user entry
+    private void createNewEntry() throws InvalidInputException {
+        entry.setMonth(String.valueOf(monthText.getSelectedItem()));
+        entry.setDay(Integer.valueOf(dayText.getText()));
+        entry.setAirplaneModel(airplaneModelText.getText());
+        entry.setAirplaneName(airplaneNameText.getText());
+        entry.setPic(picText.getText());
+        entry.setFlightTime(Double.valueOf(flightTimeText.getText()));
+        entry.setDayOrNight(String.valueOf(dayOrNightText.getSelectedItem()));
+        entry.setDepartureAirport(departureText.getText());
+        entry.setArrivalAirport(arrivalText.getText());
+        entry.setRemark(noteText.getText());
+        record.addAnEntry(entry);
     }
 
     //REQUIRE: String

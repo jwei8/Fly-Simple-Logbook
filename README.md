@@ -44,4 +44,8 @@ A *bulleted* list:
 - As a user, I want to be able to save my new entries to the logbook record.
 - As a user, I want to be able to load my saved entries when starting the application.
 
-## User Stories
+## Phase Four Task Three
+- I can improve the design of my program by creating an Interface that specifies the behavior of creating a new log entry.
+There are some semantic coupling in my program right now, where the GUI relies on the LogBook Entry class to implement the methods related to create
+a new log entry. Using an Interface can reduce the coupling in my program.
+- I can also extract an abstract Interface from my LogbookRecord class. It can reduce coupling in my program and improve its cohesion. 

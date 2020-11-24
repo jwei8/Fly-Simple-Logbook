@@ -97,7 +97,7 @@ public class JsonReader {
         entry.setAirplaneModel(airplaneModel);
         entry.setAirplaneName(aircraftName);
         entry.setPic(pilotInCommand);
-        entry.setFLightTime(flightTime);
+        entry.setFlightTime(flightTime);
         entry.setDayOrNight(dayOrNight);
         entry.setDepartureAirport(departureAirport);
         entry.setArrivalAirport(arrivalAirport);
