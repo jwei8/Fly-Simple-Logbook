@@ -344,7 +344,7 @@ public class AddEntryGUI extends JFrame {
                 createNewEntry();
                 saveLogbook();
             } catch (InvalidInputException | NumberFormatException e) {
-                if (dayText.getText().isEmpty()) {
+                if (dayText.getText().isEmpty() || flightTimeText.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "You must enter a valid date",
                             "Ooops", JOptionPane.ERROR_MESSAGE);
                 } else if (Integer.valueOf(dayText.getText()) < 1 || Integer.valueOf(dayText.getText()) > 31) {

@@ -163,7 +163,7 @@ public class LogbookEntry implements Writeable {
     //modifies: this
     //effects: sets flight time
     public void setFlightTime(double time) throws InvalidInputException {
-        if (time <= 0 || Double.toString(time).isEmpty()) {
+        if (time <= 0) {
             throw new InvalidInputException();
         }
         this.flightTime = time;
