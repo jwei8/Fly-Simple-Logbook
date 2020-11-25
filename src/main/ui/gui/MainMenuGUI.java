@@ -30,6 +30,7 @@ public class MainMenuGUI {
     private JLabel planePicture;
     private JLabel title;
     private JScrollPane panel;
+    private AddEntryGUI addEntryGUI;
 
     //Constructor for JFrame
     public MainMenuGUI() {
@@ -168,7 +169,7 @@ public class MainMenuGUI {
 
         //EFFECT: load a new JFrame to perform add entry
         private void openAddEntry() throws InvalidInputException {
-            AddEntryGUI addEntryGUI = new AddEntryGUI();
+            addEntryGUI = new AddEntryGUI();
             addEntryGUI.setVisible(true);
             mainFrame.dispose();
         }

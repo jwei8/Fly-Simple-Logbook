@@ -48,6 +48,6 @@ A *bulleted* list:
 - I can improve the design of my program by creating an Interface that specifies the behavior of creating a new log entry.
 There are some semantic coupling in my program right now, where the GUI relies on the LogBook Entry class to implement the methods related to create
 a new log entry. Using an Interface can reduce the coupling in my program.
-- I can also extract an abstract Interface from my LogbookRecord class. It can reduce coupling in my program and improve its cohesion. 
-- With the added abstract interface, I can also implement the AircraftRecord and Aircraft classes into my GUI. It would be easier to accomplish with less
-coupling.
+- The AddEntryGUI has access to my model package to make use of methods for storing information and display them. It has two responsibilities at the moment.
+This introduces semantic coupling in my program and decreases the cohesiveness of my program. I can create a new class in my GUI package that intakes information and transfer it to another class
+where it is responsible for displaying the panel only. This will make my program more cohesive and reduce coupling. 
