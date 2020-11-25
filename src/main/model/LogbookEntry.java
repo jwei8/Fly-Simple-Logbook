@@ -4,7 +4,6 @@ package model;
 
 import exceptions.InvalidInputException;
 import org.json.JSONObject;
-import org.omg.PortableInterceptor.ORBInitInfoPackage.InvalidName;
 import persistence.Writeable;
 
 public class LogbookEntry implements Writeable {

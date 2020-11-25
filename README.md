@@ -44,6 +44,9 @@ A *bulleted* list:
 - As a user, I want to be able to save my new entries to the logbook record.
 - As a user, I want to be able to load my saved entries when starting the application.
 
+## Phase Four Task Two
+-I chose to make my LogbookEntry class robust. It will throw an exception if one of the required fields is left blank.
+
 ## Phase Four Task Three
 - I can improve the design of my program by creating an Interface that specifies the behavior of creating a new log entry.
 There are some semantic coupling in my program right now, where the GUI relies on the LogBook Entry class to implement the methods related to create
