@@ -111,7 +111,6 @@ public class LogbookEntry implements Writeable {
         this.entryNumber = num;
     }
 
-    //requires: valid string for month
     //modifies: this
     //effects: sets entry month
     public void setMonth(String month) throws InvalidInputException {
@@ -130,7 +129,6 @@ public class LogbookEntry implements Writeable {
         this.day = day;
     }
 
-    //requires: non-empty string
     //modifies: this
     //effect: set airplane model
     public void setAirplaneModel(String make) throws InvalidInputException {
@@ -140,7 +138,6 @@ public class LogbookEntry implements Writeable {
         this.airplaneModel = make;
     }
 
-    //requires: non-empty string
     //modifies: this
     //effects: sets aircraft name
     public void setAirplaneName(String name) throws InvalidInputException {
@@ -202,14 +199,7 @@ public class LogbookEntry implements Writeable {
     }
 
 
-    //effect: throw InvalidDayOrNightException
-//    public void throwExceptionDayOrNight() throws InvalidDayOrNightException {
-//        if (!dayOrnight.equals("night")) {
-//            if (!dayOrnight.equals("day")) {
-//                throw new InvalidDayOrNightException();
-//            }
-//        }
-//    }
+
 
     @Override
     public JSONObject toJson() {
