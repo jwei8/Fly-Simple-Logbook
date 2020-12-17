@@ -14,6 +14,7 @@ class LogbookEntryTest {
         try {
             entry = new LogbookEntry();
             entry.setEntryNumber(1);
+            entry.setYear(2020);
             entry.setMonth("June");
             entry.setDay(8);
             entry.setAirplaneModel("C-172M");
@@ -33,6 +34,7 @@ class LogbookEntryTest {
     @Test
     public void testLogbookEntry() {
         assertEquals(1, entry.getEntryNumber());
+        assertEquals(2020, entry.getYear());
         assertEquals("June", entry.getMonth());
         assertEquals(8, entry.getDay());
         assertEquals("C-172M", entry.getAirplaneModel());

@@ -21,6 +21,7 @@ class LogbookRecordTest {
         entryOne.setEntryNumber(1);
         entryOne.setMonth("June");
         try {
+            entryOne.setYear(2020);
             entryOne.setDay(8);
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
@@ -34,7 +35,7 @@ class LogbookRecordTest {
             entryTwo = new LogbookEntry();
             entryTwo.setEntryNumber(2);
             entryTwo.setMonth("June");
-
+            entryTwo.setYear(2020);
             entryTwo.setDay(8);
 
             entryTwo.setAirplaneModel("C-172M");
@@ -49,7 +50,7 @@ class LogbookRecordTest {
             entryThree = new LogbookEntry();
             entryThree.setEntryNumber(3);
             entryThree.setMonth("June");
-
+            entryThree.setYear(2020);
             entryThree.setDay(10);
 
             entryThree.setAirplaneModel("C-172M");
@@ -64,6 +65,7 @@ class LogbookRecordTest {
             entryFour = new LogbookEntry();
             entryFour.setEntryNumber(3);
             entryFour.setMonth("June");
+            entryFour.setYear(2020);
             entryFour.setDay(10);
             entryFour.setAirplaneModel("C-172M");
             entryFour.setAirplaneName("GXWS");

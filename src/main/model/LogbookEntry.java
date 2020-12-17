@@ -10,6 +10,7 @@ public class LogbookEntry implements Writeable {
 
     public String month;
     public int day;
+    public int year;
     public String pilotInCommand;
     public String airplaneModel;
     public String airplaneName;
@@ -26,6 +27,7 @@ public class LogbookEntry implements Writeable {
 
     public LogbookEntry() {
         this.entryNumber = 0;
+        this.year = 0;
         this.month = "";
         this.day = 0;
         this.airplaneModel = "";
@@ -43,6 +45,12 @@ public class LogbookEntry implements Writeable {
     //effect: return the entry number in int
     public int getEntryNumber() {
         return entryNumber;
+    }
+
+    //getter
+    //effect: return the year in int
+    public int getYear() {
+        return year;
     }
 
     //getter
@@ -118,6 +126,15 @@ public class LogbookEntry implements Writeable {
             throw new InvalidInputException();
         }
         this.month = month;
+    }
+
+    //modifies: this
+    //effects: sets entry year
+    public void setYear(int year) throws InvalidInputException {
+        if (year == 0) {
+            throw new InvalidInputException();
+        }
+        this.year = year;
     }
 
     //modifies: this
@@ -205,6 +222,7 @@ public class LogbookEntry implements Writeable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("entryNumber", entryNumber);
+        json.put("year", year);
         json.put("month", month);
         json.put("day", day);
         json.put("airplaneModel", airplaneModel);

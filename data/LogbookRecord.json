@@ -3,6 +3,7 @@
         {
             "aircraftName": "FVYG",
             "airplaneModel": "C172N",
+            "year": 2020,
             "month": "June",
             "dayOrNight": "Night",
             "departureAirport": "CYCW",
@@ -16,6 +17,7 @@
         {
             "aircraftName": "GQGR",
             "airplaneModel": "C172",
+            "year": 2020,
             "month": "June",
             "dayOrNight": "Day",
             "departureAirport": "CYNJ",
@@ -29,6 +31,7 @@
         {
             "aircraftName": "GXWS",
             "airplaneModel": "C172M",
+            "year": 2020,
             "month": "July",
             "dayOrNight": "Day",
             "departureAirport": "CYYJ",
@@ -42,6 +45,7 @@
         {
             "aircraftName": "GXWS",
             "airplaneModel": "C-172M",
+            "year": 2020,
             "month": "August",
             "dayOrNight": "Day",
             "departureAirport": "CYYJ",
@@ -55,6 +59,7 @@
         {
             "aircraftName": "FVYG",
             "airplaneModel": "C-172N",
+            "year": 2020,
             "month": "September",
             "dayOrNight": "Night",
             "departureAirport": "CYNJ",
@@ -68,6 +73,7 @@
         {
             "aircraftName": "GQGR",
             "airplaneModel": "C172M",
+            "year": 2020,
             "month": "November",
             "dayOrNight": "Day",
             "departureAirport": "CYXX",
@@ -81,6 +87,7 @@
         {
             "aircraftName": "GXWS",
             "airplaneModel": "P42",
+            "year": 2020,
             "month": "November",
             "dayOrNight": "Day",
             "departureAirport": "CYNJ",
@@ -94,6 +101,7 @@
         {
             "aircraftName": "GQGR",
             "airplaneModel": "CJ-6",
+            "year": 2020,
             "month": "November",
             "dayOrNight": "Night",
             "departureAirport": "CYXX",
@@ -103,19 +111,6 @@
             "flightTime": 0.5,
             "day": 12,
             "arrivalAirport": "CZBB"
-        },
-        {
-            "aircraftName": "asss",
-            "airplaneModel": "asss",
-            "month": "January",
-            "dayOrNight": "Night",
-            "departureAirport": "asss",
-            "pilotInCommand": "assas",
-            "entryNumber": 9,
-            "remark": "ss",
-            "flightTime": 1,
-            "day": 1,
-            "arrivalAirport": "asss"
         }
     ],
     "name": "record"

@@ -68,6 +68,7 @@ public class JsonReader {
     // EFFECTS: parses log entries from JSON object and adds it to logbookRecord
     public void addEntry(LogbookRecord log, JSONObject jsonObject) throws InvalidInputException {
         int entryNumber = jsonObject.getInt("entryNumber");
+        int year = jsonObject.getInt("year");
         String month = jsonObject.getString("month");
         int day = jsonObject.getInt("day");
         String airplaneModel = jsonObject.getString("airplaneModel");
@@ -80,18 +81,19 @@ public class JsonReader {
         String remark = jsonObject.getString("remark");
 
         LogbookEntry entry = new LogbookEntry();
-        inputEntry(entryNumber, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
+        inputEntry(entryNumber, year, month, day, airplaneModel, aircraftName, pilotInCommand, flightTime,
                 dayOrNight, departureAirport, arrivalAirport, remark, entry, log);
     }
 
     // MODIFIES: log
     // EFFECTS: set the user input for the entry in the logbookRecord
-    public void inputEntry(int entryNumber, String month, Integer day, String airplaneModel,
+    public void inputEntry(int entryNumber, int year, String month, Integer day, String airplaneModel,
                            String aircraftName, String pilotInCommand, Double flightTime,
                            String dayOrNight, String departureAirport, String arrivalAirport,
                            String remark, LogbookEntry entry, LogbookRecord log) throws InvalidInputException {
 
         entry.setEntryNumber(entryNumber);
+        entry.setYear(year);
         entry.setMonth(month);
         entry.setDay(day);
         entry.setAirplaneModel(airplaneModel);

@@ -16,7 +16,6 @@ public class JsonWriterTest extends JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            LogbookRecord log = new LogbookRecord("my logbook");
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -48,14 +47,12 @@ public class JsonWriterTest extends JsonTest {
         try {
             LogbookEntry entryOne = new LogbookEntry();
             LogbookEntry entryTwo = new LogbookEntry();
-
             entryOne.setEntryNumber(1);
+
+
+            entryOne.setYear(2020);
             entryOne.setMonth("August");
-            try {
-                entryOne.setDay(8);
-            } catch (InvalidInputException e) {
-                e.printStackTrace();
-            }
+            entryOne.setDay(8);
             entryOne.setAirplaneModel("C-172M");
             entryOne.setAirplaneName("GXWS");
             entryOne.setPic("Jwei");
@@ -66,6 +63,7 @@ public class JsonWriterTest extends JsonTest {
             entryOne.setRemark("good flight");
 
             entryTwo.setEntryNumber(2);
+            entryTwo.setYear(2020);
             entryTwo.setMonth("September");
             entryTwo.setDay(9);
             entryTwo.setAirplaneModel("C-172M");
@@ -89,10 +87,10 @@ public class JsonWriterTest extends JsonTest {
             assertEquals("my logbook", log.getName());
             List<LogbookEntry> entries = log.getLogBookEntries();
             assertEquals(2, entries.size());
-            checkEntry(1, "August", 8, "C-172M", "GXWS",
+            checkEntry(1, 2020,"August", 8, "C-172M", "GXWS",
                     "Jwei", 1.8, "Day", "CYYJ", "CYNJ",
                     "good flight", entries.get(0));
-            checkEntry(2, "September", 9, "C-172M", "GXWS",
+            checkEntry(2,2020,"September", 9, "C-172M", "GXWS",
                     "Jwei", 1.2, "Day", "CYNJ", "CYVR",
                     "", entries.get(1));
 

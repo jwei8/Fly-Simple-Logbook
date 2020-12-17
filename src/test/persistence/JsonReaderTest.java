@@ -44,10 +44,10 @@ public class JsonReaderTest extends JsonTest{
             assertEquals("my logbook", log.getName());
             List<LogbookEntry> entries = log.getLogBookEntries();
             assertEquals(2, entries.size());
-            checkEntry(1, "August", 8, "C-172M", "GXWS",
+            checkEntry(1,2020,"August", 8, "C-172M", "GXWS",
                     "Jwei", 1.8, "day", "CYYJ", "CYNJ",
                     "good flight", entries.get(0));
-            checkEntry(2, "September", 9, "C-172N", "GXPH",
+            checkEntry(2,2020, "September", 9, "C-172N", "GXPH",
                     "Wkim", 1.2, "night", "CYNJ", "CYVR",
                     " ", entries.get(1));
         } catch (IOException e) {

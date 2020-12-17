@@ -4,6 +4,7 @@
       "entryNumber": 1,
       "month": "August",
       "day": 8,
+      "year": 2020,
       "airplaneModel": "C-172M",
       "aircraftName": "GXWS",
       "pilotInCommand": "Jwei",
@@ -15,6 +16,7 @@
     },
     {
       "entryNumber": 2,
+      "year": 2020,
       "month": "September",
       "day": 9,
       "airplaneModel": "C-172N",

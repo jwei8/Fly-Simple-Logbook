@@ -5,11 +5,12 @@ import model.LogbookEntry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
-    protected void checkEntry(Integer entryNumber, String month, Integer day, String airplaneModel,
+    protected void checkEntry(Integer entryNumber,Integer year, String month, Integer day, String airplaneModel,
                               String aircraftName, String pilotInCommand, Double flightTime, String dayOrNight,
                               String departureAirport, String arrivalAirport, String remark,
                               LogbookEntry entry) {
         assertEquals(entryNumber, entry.getEntryNumber());
+        assertEquals(year, entry.getYear());
         assertEquals(month, entry.getMonth());
         assertEquals(day, entry.getDay());
         assertEquals(airplaneModel, entry.getAirplaneModel());

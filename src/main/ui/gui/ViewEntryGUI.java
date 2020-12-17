@@ -21,6 +21,7 @@ public class ViewEntryGUI {
     private static final String JSON_STORE = "./data/logbookRecord.json";
     private LogbookRecord record;
     private JLabel entryNumTitle;
+    private JLabel yearTitle;
     private JLabel monthTitle;
     private JLabel dayTitle;
     private JLabel airplaneModelTitle;
@@ -79,6 +80,7 @@ public class ViewEntryGUI {
 
         for (LogbookEntry e : allEntry) {
             JLabel entryNum = new JLabel(Integer.toString(e.getEntryNumber()));
+            JLabel year = new JLabel(Integer.toString(e.getYear()));
             JLabel month = new JLabel(e.getMonth());
             JLabel day = new JLabel(Integer.toString(e.getDay()));
             JLabel airplaneModel = new JLabel(e.getAirplaneModel());
@@ -90,7 +92,7 @@ public class ViewEntryGUI {
             JLabel arrival = new JLabel(e.getArrivalAirport());
             JLabel note = new JLabel(e.getRemark());
             int valueOfy = allEntry.indexOf(e) + 1;
-            entryInformation(gc, entryNum, month, day, airplaneModel, airplaneName, pic,
+            entryInformation(gc, entryNum, year, month, day, airplaneModel, airplaneName, pic,
                     flightTime, dayOrNight, departure, arrival, note, valueOfy);
         }
     }
@@ -110,25 +112,25 @@ public class ViewEntryGUI {
     //          departure, arrival, note int valueOfy;
     //MODIFIES: this
     //EFFECT: position the entry items at the correct x and y coordinates
-    private void entryInformation(GridBagConstraints gc, JLabel entryNum, JLabel month, JLabel day,
+    private void entryInformation(GridBagConstraints gc, JLabel entryNum, JLabel year, JLabel month, JLabel day,
                                   JLabel airplaneModel, JLabel airplaneName, JLabel pic, JLabel flightTime,
                                   JLabel dayOrNight, JLabel departure, JLabel arrival, JLabel note, int valueOfy) {
         gc.gridx = 0;
         gc.gridy = valueOfy;
         displayEntry.add(entryNum, gc);
-        entryDate(gc, month, day, valueOfy, 2, 4);
-        entryAircraftInfo(gc, airplaneModel, airplaneName, valueOfy, 6, 8);
-        gc.gridx = 10;
-        gc.gridy = valueOfy;
-        displayEntry.add(pic, gc);
+        entryDate(gc,year, month, day, valueOfy, 2, 4,6);
+        entryAircraftInfo(gc, airplaneModel, airplaneName, valueOfy, 8, 10);
         gc.gridx = 12;
         gc.gridy = valueOfy;
-        displayEntry.add(flightTime, gc);
+        displayEntry.add(pic, gc);
         gc.gridx = 14;
         gc.gridy = valueOfy;
+        displayEntry.add(flightTime, gc);
+        gc.gridx = 16;
+        gc.gridy = valueOfy;
         displayEntry.add(dayOrNight, gc);
-        entryRouteInfo(gc, departure, arrival, valueOfy, 16, 18);
-        gc.gridx = 20;
+        entryRouteInfo(gc, departure, arrival, valueOfy, 18, 20);
+        gc.gridx = 22;
         gc.gridy = valueOfy;
         gc.weightx = 5;
         displayEntry.add(note, gc);
@@ -162,8 +164,12 @@ public class ViewEntryGUI {
     //REQUIRES: GridBagConstraints, JLabel month, JLabel day, int
     //MODIFIES: this
     //EFFECT: position the date information on the grid
-    private void entryDate(GridBagConstraints gc, JLabel month, JLabel day, int valueOfy, int i, int i2) {
+    private void entryDate(GridBagConstraints gc,JLabel year, JLabel month, JLabel day, int valueOfy, int i, int i1,
+                           int i2) {
         gc.gridx = i;
+        gc.gridy = valueOfy;
+        displayEntry.add(year, gc);
+        gc.gridx = i1;
         gc.gridy = valueOfy;
         displayEntry.add(month, gc);
         gc.gridx = i2;
@@ -177,8 +183,8 @@ public class ViewEntryGUI {
     //        information
     private void titleForFlightInforPartOne() {
         GridBagConstraints gc = new GridBagConstraints();
-        entryDate(gc, monthTitle, dayTitle, 0, 2, 4);
-        entryAircraftInfo(gc, airplaneModelTitle, airplaneNameTitle, 0, 6, 8);
+        entryDate(gc, yearTitle, monthTitle, dayTitle, 0, 2, 4,6);
+        entryAircraftInfo(gc, airplaneModelTitle, airplaneNameTitle, 0, 8, 10);
     }
 
 
@@ -189,21 +195,21 @@ public class ViewEntryGUI {
     private void titleForFlightInfoPartTwo() {
         GridBagConstraints gc = new GridBagConstraints();
 
-        gc.gridx = 10;
+        gc.gridx = 12;
         gc.gridy = 0;
         displayEntry.add(picTitle, gc);
 
-        gc.gridx = 12;
+        gc.gridx = 14;
         gc.gridy = 0;
         displayEntry.add(flightTimeTitle, gc);
 
-        gc.gridx = 14;
+        gc.gridx = 16;
         gc.gridy = 0;
         displayEntry.add(dayOrnightTitle, gc);
 
-        entryRouteInfo(gc, departureTitle, arrivalTitle, 0, 16, 18);
+        entryRouteInfo(gc, departureTitle, arrivalTitle, 0, 18, 20);
 
-        gc.gridx = 20;
+        gc.gridx = 22;
         gc.gridy = 0;
         gc.weightx = 10;
         displayEntry.add(noteTitle, gc);
@@ -218,6 +224,7 @@ public class ViewEntryGUI {
     //EFFECT: construct the JLabels for the column title
     private void createColumnName() {
         entryNumTitle = new JLabel("Entry Number");
+        yearTitle = new JLabel("Year");
         monthTitle = new JLabel("Month");
         dayTitle = new JLabel("Day");
         airplaneModelTitle = new JLabel("Aircraft model");

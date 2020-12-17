@@ -24,6 +24,7 @@ public class AddEntryGUI extends JFrame {
     private JButton confirmAdd;
     private JButton returnToMain;
     private JLabel entryNumber;
+    private JLabel year;
     private JLabel month;
     private JLabel day;
     private JLabel airplaneModel;
@@ -38,6 +39,7 @@ public class AddEntryGUI extends JFrame {
     private LogbookRecord record;
 
     private JTextField entryNumberText;
+    private JTextField yearText;
     private JComboBox monthText;
     private JTextField dayText;
     private JTextField airplaneModelText;
@@ -89,6 +91,7 @@ public class AddEntryGUI extends JFrame {
     //EFFECT: create Labels for the text fields to take user input
     private void setUpFieldLabels() {
         entryNumber = new JLabel("Enter entry number: ");
+        year = new JLabel("Enter year: ");
         month = new JLabel("Enter month: ");
         day = new JLabel("Enter day: ");
         airplaneModel = new JLabel("Aircraft model: ");
@@ -106,6 +109,7 @@ public class AddEntryGUI extends JFrame {
     //EFFECT: create new JTextFields to take user input
     private void setUpFields() {
         entryNumberText = new JTextField(10);
+        yearText = new JTextField(10);
         String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
                 "October", "November", "December"};
         monthText = new JComboBox(month);
@@ -136,16 +140,21 @@ public class AddEntryGUI extends JFrame {
 
         gc.gridx = 0;
         gc.gridy = 1;
-        add(month, gc);
+        add(year, gc);
 
         gc.gridx = 0;
         gc.gridy = 2;
-        add(day, gc);
+        add(month, gc);
+
         gc.gridx = 0;
         gc.gridy = 3;
-        add(airplaneModel, gc);
+        add(day, gc);
+
         gc.gridx = 0;
         gc.gridy = 4;
+        add(airplaneModel, gc);
+        gc.gridx = 0;
+        gc.gridy = 5;
         add(airplaneName, gc);
 
         displayFlightInfoLabels();
@@ -159,27 +168,27 @@ public class AddEntryGUI extends JFrame {
         gc.insets = new Insets(5, 8, 8, 8);
         gc.anchor = GridBagConstraints.LINE_END;
         gc.gridx = 0;
-        gc.gridy = 5;
+        gc.gridy = 6;
         add(pic, gc);
 
         gc.gridx = 0;
-        gc.gridy = 6;
+        gc.gridy = 7;
         add(flightTime, gc);
 
         gc.gridx = 0;
-        gc.gridy = 7;
+        gc.gridy = 8;
         add(dayOrNight, gc);
 
         gc.gridx = 0;
-        gc.gridy = 8;
+        gc.gridy = 9;
         add(departure, gc);
 
         gc.gridx = 0;
-        gc.gridy = 9;
+        gc.gridy = 10;
         add(arrival, gc);
 
         gc.gridx = 0;
-        gc.gridy = 10;
+        gc.gridy = 11;
         add(note, gc);
     }
 
@@ -197,18 +206,21 @@ public class AddEntryGUI extends JFrame {
         add(new JLabel(Integer.toString(allEntry.size() + 1)), gc);
         gc.gridx = 1;
         gc.gridy = 1;
-        add(monthText, gc);
+        add(yearText, gc);
         gc.gridx = 1;
         gc.gridy = 2;
+        add(monthText, gc);
+        gc.gridx = 1;
+        gc.gridy = 3;
         add(dayText, gc);
 
         displayAirplaneInfoFields();
 
         gc.gridx = 1;
-        gc.gridy = 6;
+        gc.gridy = 7;
         add(flightTimeText, gc);
         gc.gridx = 1;
-        gc.gridy = 7;
+        gc.gridy = 8;
         add(dayOrNightText, gc);
         displayTextFieldsForRoute();
     }
@@ -220,13 +232,13 @@ public class AddEntryGUI extends JFrame {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = new Insets(5, 5, 5, 5);
         gc.gridx = 1;
-        gc.gridy = 3;
+        gc.gridy = 4;
         add(airplaneModelText, gc);
         gc.gridx = 1;
-        gc.gridy = 4;
+        gc.gridy = 5;
         add(airplaneNameText, gc);
         gc.gridx = 1;
-        gc.gridy = 5;
+        gc.gridy = 6;
         add(picText, gc);
     }
 
@@ -239,27 +251,27 @@ public class AddEntryGUI extends JFrame {
         gc.insets = new Insets(5, 5, 5, 5);
 
         gc.gridx = 1;
-        gc.gridy = 8;
+        gc.gridy = 9;
         add(departureText, gc);
 
         gc.gridx = 1;
-        gc.gridy = 9;
+        gc.gridy = 10;
         add(arrivalText, gc);
 
         gc.gridx = 1;
-        gc.gridy = 10;
+        gc.gridy = 11;
         add(noteText, gc);
 
         gc.gridx = 1;
-        gc.gridy = 11;
+        gc.gridy = 12;
         add(confirmAdd, gc);
 
         gc.gridx = 1;
-        gc.gridy = 12;
+        gc.gridy = 13;
         add(addEntry, gc);
 
         gc.gridx = 1;
-        gc.gridy = 13;
+        gc.gridy = 14;
         add(returnToMain, gc);
         gc.fill = GridBagConstraints.HORIZONTAL;
     }
@@ -272,6 +284,7 @@ public class AddEntryGUI extends JFrame {
 
         addEntry.addActionListener(listener);
         confirmAdd.addActionListener(listener);
+        yearText.addActionListener(listener);
         monthText.addActionListener(listener);
         dayOrNightText.addActionListener(listener);
         returnToMain.addActionListener(listener);
@@ -375,24 +388,11 @@ public class AddEntryGUI extends JFrame {
             addEntryGUI.setVisible(true);
             dispose();
         }
-
-
-        //REQUIRE: int
-        //MODIFIES:this
-        //EFFECT: check if the int is a valid day, if it's not throw InvalidInputException
-        private int checkDay(int day) throws InvalidInputException {
-            if (day < 1 || day > 31) {
-
-                throw new InvalidInputException();
-            }
-            return day;
-        }
-
-
     }
 
     //EFFECT: taking user input and create new user entry
     private void createNewEntry() throws InvalidInputException {
+        entry.setYear(Integer.valueOf(yearText.getText()));
         entry.setMonth(String.valueOf(monthText.getSelectedItem()));
         entry.setDay(Integer.valueOf(dayText.getText()));
         entry.setAirplaneModel(airplaneModelText.getText());
