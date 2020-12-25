@@ -44,13 +44,3 @@ A *bulleted* list:
 - As a user, I want to be able to save my new entries to the logbook record.
 - As a user, I want to be able to load my saved entries when starting the application.
 
-## Phase Four Task Two
--I chose to make my LogbookEntry class robust. It will throw an exception if one of the required fields is left blank.
-
-## Phase Four Task Three
-- I can improve the design of my program by creating an Interface that specifies the behavior of creating a new log entry.
-There are some semantic coupling in my program right now, where the GUI relies on the LogBook Entry class to implement the methods related to create
-a new log entry. Using an Interface can reduce the coupling in my program.
-- The AddEntryGUI has access to my model package to make use of methods for storing information and display them. It has two responsibilities at the moment.
-This introduces semantic coupling in my program and decreases the cohesiveness of my program. I can create a new class in my GUI package that intakes information and transfer it to another class
-where it is responsible for displaying the panel only. This will make my program more cohesive and reduce coupling. 
